@@ -223,11 +223,21 @@ export default function Terminal() {
             {/* Tour Player - shown when tours selected */}
             {uiState === "tour-player" && selectedTours.length > 0 && (
               <TourPlayer
-                steps={selectedTours.map((tourId) => ({
-                  id: tourId,
-                  label: tourId.charAt(0).toUpperCase() + tourId.slice(1),
-                  cmd: `/${tourId}`,
-                }))}
+                steps={selectedTours.map((tourId) => {
+                  const cmdMap: Record<string, string> = {
+                    about: "sobre",
+                    projects: "proyectos",
+                    timeline: "experiencia",
+                    skills: "habilidades",
+                    services: "servicios",
+                    contact: "contacto",
+                  };
+                  return {
+                    id: tourId,
+                    label: tourId.charAt(0).toUpperCase() + tourId.slice(1),
+                    cmd: cmdMap[tourId] || tourId,
+                  };
+                })}
                 locale={locale}
                 onCommandRun={handleSubmit}
                 onExit={() => {
