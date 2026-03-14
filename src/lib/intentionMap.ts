@@ -38,7 +38,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Hey! Welcome to my portfolio. I'm Claudia, Santiago's virtual assistant. I'm here to help you explore his professional profile. What would you like to know about him?",
-    suggestedOptions: ["about", "projects", "timeline"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   about: {
@@ -68,7 +68,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Great! Let me tell you about Santiago. He's a Data Engineer passionate about AI and Big Data. He has experience building scalable systems and working with modern technologies. Check out his full bio and skills to get a complete picture!",
-    suggestedOptions: ["about", "skills", "timeline"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   projects: {
@@ -88,7 +88,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Santiago has worked on several interesting projects ranging from AI/ML to data engineering and full-stack development. Each project showcases different skills and technologies. I can show you all of them, or filter by technology if you prefer!",
-    suggestedOptions: ["projects", "contact"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   skills: {
@@ -107,7 +107,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Santiago is proficient in multiple programming languages and frameworks. He specializes in Python, TypeScript, React, and Big Data technologies. He also has expertise in cloud architecture and modern DevOps practices. Let me show you the complete skills matrix!",
-    suggestedOptions: ["skills", "projects"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   services: {
@@ -126,7 +126,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Santiago offers services in data engineering, full-stack development, system architecture, and AI/ML consulting. He specializes in building scalable solutions and mentoring teams. Want to see more details about what he can help you with?",
-    suggestedOptions: ["services", "contact"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   timeline: {
@@ -152,7 +152,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Santiago's career journey spans from 2020 to today. He's grown through different roles, learning new technologies and building increasingly complex systems. His timeline shows the evolution from student to professional engineer. Want to see the details?",
-    suggestedOptions: ["timeline", "about"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   contact: {
@@ -172,7 +172,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "You can reach Santiago through multiple channels. He's active on GitHub, LinkedIn, and you can email him directly. All contact information is available in the contact section. Would you like to see it?",
-    suggestedOptions: ["contact", "about"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   help: {
@@ -191,14 +191,14 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
     ],
     response:
       "I'm here to help! You can explore Santiago's portfolio by selecting topics in the options below. Each section provides different information - about his background, projects, skills, and more. Just click what interests you most, and I'll guide you through it!",
-    suggestedOptions: ["about", "projects", "timeline", "services", "contact"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   unknown: {
     keywords: [],
     response:
       "Interesting question! I'm designed to help you explore Santiago's professional portfolio. You can ask about his projects, skills, experience, or how to contact him. What would you like to know?",
-    suggestedOptions: ["about", "projects", "services"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 };
 
@@ -216,7 +216,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "¡Hola! Bienvenido al portafolio de Santiago. Soy Claudia, su asistente virtual. Estoy aquí para ayudarte a explorar su perfil profesional. ¿Qué te gustaría saber sobre él?",
-    suggestedOptions: ["about", "projects", "timeline"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   about: {
@@ -241,7 +241,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "¡Claro! Santiago es un Ingeniero de Datos apasionado por la IA y Big Data. Tiene experiencia construyendo sistemas escalables y trabajando con tecnologías modernas. Revisa su biografía completa y habilidades para obtener una imagen completa!",
-    suggestedOptions: ["about", "skills", "timeline"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   projects: {
@@ -258,7 +258,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Santiago ha trabajado en varios proyectos interesantes que van desde IA/ML hasta ingeniería de datos y desarrollo full-stack. Cada proyecto muestra diferentes habilidades y tecnologías. ¡Puedo mostrarte todos, o filtrar por tecnología si prefieres!",
-    suggestedOptions: ["projects", "contact"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   skills: {
@@ -276,7 +276,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Santiago es competente en múltiples lenguajes de programación y frameworks. Se especializa en Python, TypeScript, React y tecnologías de Big Data. También tiene experiencia en arquitectura en la nube y prácticas modernas de DevOps. ¡Déjame mostrarte la matriz completa de habilidades!",
-    suggestedOptions: ["skills", "projects"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   services: {
@@ -293,7 +293,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Santiago ofrece servicios en ingeniería de datos, desarrollo full-stack, arquitectura de sistemas y consultoría en IA/ML. Se especializa en construir soluciones escalables y mentoría de equipos. ¿Te gustaría ver más detalles sobre cómo puede ayudarte?",
-    suggestedOptions: ["services", "contact"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   timeline: {
@@ -313,7 +313,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "La trayectoria profesional de Santiago abarca desde 2020 hasta hoy. Ha crecido a través de diferentes roles, aprendiendo nuevas tecnologías y construyendo sistemas cada vez más complejos. Su línea de tiempo muestra la evolución de estudiante a ingeniero profesional. ¿Te gustaría ver los detalles?",
-    suggestedOptions: ["timeline", "about"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   contact: {
@@ -332,7 +332,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "Puedes contactar a Santiago a través de varios canales. Es activo en GitHub, LinkedIn, y puedes enviarle un email directamente. Toda la información de contacto está disponible en la sección de contacto. ¿Te gustaría verla?",
-    suggestedOptions: ["contact", "about"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   help: {
@@ -347,14 +347,14 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
     ],
     response:
       "¡Estoy aquí para ayudarte! Puedes explorar el portafolio de Santiago seleccionando temas en las opciones de abajo. Cada sección proporciona información diferente: sobre su trasfondo, proyectos, habilidades y más. ¡Solo haz clic en lo que te interesa y te guiaré a través de ello!",
-    suggestedOptions: ["about", "projects", "timeline", "services", "contact"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   unknown: {
     keywords: [],
     response:
       "¡Pregunta interesante! Estoy diseñada para ayudarte a explorar el portafolio profesional de Santiago. Puedes preguntar sobre sus proyectos, habilidades, experiencia, o cómo contactarlo. ¿Qué te gustaría saber?",
-    suggestedOptions: ["about", "projects", "services"],
+    suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 };
 

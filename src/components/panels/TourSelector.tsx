@@ -13,11 +13,12 @@ interface TourOption {
 }
 
 const DEFAULT_OPTIONS: TourOption[] = [
-  { id: "about", label: "About Me", labelES: "Sobre Mí", cmd: "/about" },
-  { id: "projects", label: "Projects", labelES: "Proyectos", cmd: "/projects" },
-  { id: "timeline", label: "Timeline", labelES: "Línea de Tiempo", cmd: "/timeline" },
-  { id: "services", label: "Services", labelES: "Servicios", cmd: "/services" },
-  { id: "contact", label: "Contact", labelES: "Contacto", cmd: "/contact" },
+  { id: "about", label: "About Me", labelES: "Sobre Mí", cmd: "sobre" },
+  { id: "projects", label: "Projects", labelES: "Proyectos", cmd: "proyectos" },
+  { id: "timeline", label: "Timeline", labelES: "Línea de Tiempo", cmd: "experiencia" },
+  { id: "skills", label: "Skills", labelES: "Habilidades", cmd: "habilidades" },
+  { id: "services", label: "Services", labelES: "Servicios", cmd: "servicios" },
+  { id: "contact", label: "Contact", labelES: "Contacto", cmd: "contacto" },
 ];
 
 interface TourSelectorProps {
