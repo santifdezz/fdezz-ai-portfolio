@@ -57,7 +57,6 @@ export const navigationCommands: CommandKey[] = [
   "/projects",
   "/skills",
   "/contact",
-  "/timeline",
 ];
 
 export function parseCommand(raw: string): CommandKey | "unknown" {

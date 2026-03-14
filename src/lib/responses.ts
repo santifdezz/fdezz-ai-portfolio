@@ -285,3 +285,211 @@ export function getServicesResponse(locale: Locale): string {
 export function getContactResponse(locale: Locale): string {
   return formatContactInfo(locale);
 }
+
+function formatTimelineIntro(locale: Locale): string {
+  const isES = locale === 'es';
+  const lines: string[] = [];
+
+  const title = isES ? '⏳ LÍNEA DE TIEMPO & RECORRIDO PROFESIONAL' : '⏳ TIMELINE & CAREER JOURNEY';
+  lines.push(title);
+  lines.push('─'.repeat(title.length));
+  lines.push('');
+
+  const intro = isES
+    ? 'Déjame contar mi historia...\nDe 2020 a 2025, he crecido en tecnología.\n'
+    : 'Let me tell you my story...\nFrom 2020 to 2025, I\'ve evolved in tech.\n';
+  lines.push(intro);
+
+  // Progress visual
+  const progressTitle = isES ? 'Tu Viaje en el Tiempo' : 'Your Time Journey';
+  lines.push(progressTitle);
+  lines.push('━'.repeat(progressTitle.length));
+  lines.push('2020 ████░░░░░░░░░░░░░░░░░░ 2025');
+  lines.push('');
+
+  // Options
+  const optionsLabel = isES ? 'Elige un período para explorar:' : 'Choose a period to explore:';
+  lines.push(optionsLabel);
+  lines.push('');
+
+  const portfolio = getPortfolioContent(locale);
+  portfolio.about.education.forEach((edu, idx) => {
+    const number = idx + 1;
+    const emoji = edu.icon || '📌';
+    const title = `${number}️⃣  ${edu.year}`;
+    lines.push(`${emoji} ${title}`);
+    lines.push(`   ${edu.title}`);
+  });
+
+  lines.push('');
+  const allLabel = isES ? 'O escribe "all" para ver todo de una vez' : 'Or type "all" to see everything at once';
+  lines.push(allLabel);
+  lines.push('');
+  const example = isES
+    ? 'Ejemplo: /timeline 1 (o /timeline all)'
+    : 'Example: /timeline 1 (or /timeline all)';
+  lines.push(example);
+
+  return lines.join('\n');
+}
+
+function formatTimelinePeriod(locale: Locale, periodIndex: number): string {
+  const portfolio = getPortfolioContent(locale);
+  const education = portfolio.about.education;
+
+  if (periodIndex < 0 || periodIndex >= education.length) {
+    return locale === 'es' ? 'Período no encontrado.' : 'Period not found.';
+  }
+
+  const edu = education[periodIndex];
+  const lines: string[] = [];
+  const isES = locale === 'es';
+
+  // Header with emoji and period number
+  const headerEmoji = edu.icon || '📌';
+  const periodNum = periodIndex + 1;
+  const totalPeriods = education.length;
+  const header = `${headerEmoji} CAPÍTULO ${periodNum}/${totalPeriods}: ${edu.year}`;
+
+  lines.push(header);
+  lines.push('━'.repeat(header.length));
+  lines.push(`📍 ${edu.institution}`);
+  lines.push(`📚 ${edu.title}`);
+  lines.push('');
+
+  // Narrative
+  if (edu.narrative) {
+    lines.push(`"${edu.narrative}"`);
+    lines.push('');
+  }
+
+  // Learnings
+  const learningsLabel = isES ? 'APRENDÍ:' : 'I LEARNED:';
+  lines.push(learningsLabel);
+  if (edu.learnings) {
+    edu.learnings.forEach((learning) => {
+      lines.push(`  ✓ ${learning}`);
+    });
+  } else {
+    lines.push(`  ✓ ${edu.description}`);
+  }
+
+  lines.push('');
+
+  // Progress bar
+  const filled = '█';
+  const empty = '░';
+  const barLength = 20;
+  const filledCount = Math.ceil((periodNum / totalPeriods) * barLength);
+  const progressBar = filled.repeat(filledCount) + empty.repeat(barLength - filledCount);
+  lines.push(`Progreso: [${progressBar}] ${periodNum}/${totalPeriods}`);
+
+  lines.push('');
+
+  // Next/Previous suggestions
+  const hasNext = periodIndex < education.length - 1;
+  const hasPrev = periodIndex > 0;
+
+  if (hasNext || hasPrev) {
+    const suggestions = isES ? '¿Continuar?' : 'Ready for next?';
+    lines.push(suggestions);
+
+    if (hasPrev) {
+      const prevNum = periodIndex;
+      const prevLabel = isES ? `${prevNum} (anterior)` : `${prevNum} (previous)`;
+      lines.push(`  ← ${prevLabel}`);
+    }
+
+    if (hasNext) {
+      const nextNum = periodIndex + 2;
+      const nextLabel = isES ? `${nextNum} (siguiente)` : `${nextNum} (next)`;
+      lines.push(`  → ${nextLabel}`);
+    }
+
+    lines.push(`  ${isES ? 'O escribe "all" para ver todo' : 'Or type "all" to see everything'}`);
+  } else {
+    const endMessage = isES
+      ? '¡Eso es todo mi viaje (por ahora)!'
+      : 'That\'s my whole journey (so far)!';
+    lines.push(endMessage);
+    lines.push(isES ? 'Tipo /about para volver.' : 'Type /about to return.');
+  }
+
+  return lines.join('\n');
+}
+
+function formatTimelineAll(locale: Locale): string {
+  const portfolio = getPortfolioContent(locale);
+  const education = portfolio.about.education;
+  const lines: string[] = [];
+  const isES = locale === 'es';
+
+  const title = isES ? '📖 MI RECORRIDO COMPLETO' : '📖 MY FULL JOURNEY';
+  lines.push(title);
+  lines.push('═'.repeat(title.length));
+  lines.push('');
+
+  education.forEach((edu, idx) => {
+    const periodNum = idx + 1;
+    const emoji = edu.icon || '📌';
+    const header = `${emoji} ${edu.year} • ${edu.title}`;
+
+    lines.push(header);
+    lines.push('─'.repeat(header.length));
+    lines.push(`📍 ${edu.institution}`);
+    lines.push('');
+
+    if (edu.narrative) {
+      lines.push(`  "${edu.narrative}"`);
+    }
+
+    lines.push('');
+
+    if (edu.learnings) {
+      const learningsLabel = isES ? 'Aprendí:' : 'Learned:';
+      lines.push(`  ${learningsLabel}`);
+      edu.learnings.forEach((learning) => {
+        lines.push(`    ✓ ${learning}`);
+      });
+    }
+
+    if (idx < education.length - 1) {
+      lines.push('');
+      lines.push('    ↓');
+      lines.push('');
+    }
+  });
+
+  lines.push('');
+  lines.push('═'.repeat(title.length));
+  const endMsg = isES
+    ? '¡Este es mi viaje hasta ahora! Ahora estoy enfocado en IA & Big Data en Qaleon.'
+    : 'This is my journey so far! Now I\'m focused on AI & Big Data at Qaleon.';
+  lines.push(endMsg);
+
+  return lines.join('\n');
+}
+
+export function getTimelineResponse(locale: Locale, arg?: string): string {
+  if (!arg) {
+    // Show intro
+    return formatTimelineIntro(locale);
+  }
+
+  const argLower = arg.toLowerCase().trim();
+
+  // Check if "all"
+  if (argLower === 'all') {
+    return formatTimelineAll(locale);
+  }
+
+  // Try to parse as number
+  const periodNum = parseInt(argLower, 10);
+  if (!isNaN(periodNum) && periodNum > 0 && periodNum <= 5) {
+    const periodIndex = periodNum - 1;
+    return formatTimelinePeriod(locale, periodIndex);
+  }
+
+  // If argument is invalid, show intro again
+  return formatTimelineIntro(locale);
+}

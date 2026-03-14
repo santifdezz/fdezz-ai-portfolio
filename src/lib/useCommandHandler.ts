@@ -11,6 +11,7 @@ import {
   getProjectDetailsResponse,
   getServicesResponse,
   getContactResponse,
+  getTimelineResponse,
 } from "./responses";
 
 const GITHUB_URL = "https://github.com/fdezz";
@@ -47,6 +48,13 @@ export function useCommandHandler() {
 
     if (cmd === "/contact") {
       return { type: "text", text: getContactResponse(locale) };
+    }
+
+    // Interactive timeline (replaces navigation)
+    if (cmd === "/timeline") {
+      const args = getCommandArgs(input);
+      const periodArg = args[0];
+      return { type: "text", text: getTimelineResponse(locale, periodArg) };
     }
 
     // Navigation commands

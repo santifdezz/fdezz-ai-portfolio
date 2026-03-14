@@ -5,6 +5,9 @@ export interface EducationEntry {
   title: string;
   institution: string;
   description: string;
+  narrative?: string;
+  learnings?: string[];
+  icon?: string;
 }
 
 export interface ProjectData {
@@ -96,30 +99,45 @@ const contentEN: PortfolioContent = {
         title: 'Intermediate Degree in Microcomputer Systems and Networks',
         institution: 'IES Fernando Wirtz',
         description: 'Fundamentals in networks, hardware, and basic software.',
+        icon: '📚',
+        narrative: 'My first step in the tech world was understanding networks. The foundations I learned here became the base for everything that came after.',
+        learnings: ['Networks & Connectivity', 'Hardware & Components', 'Operating Systems', 'Infrastructure Configuration'],
       },
       {
         year: '2021',
         title: 'Internal Technical Support and System Maintenance',
         institution: 'Qindel Group, A Coruña',
-        description: 'Fundamentals in networks, hardware, and basic software.',
+        description: 'Applied technical foundations in a professional environment.',
+        icon: '🔧',
+        narrative: 'This is where theory became practice. I applied everything I learned and discovered the reality of managing systems in production.',
+        learnings: ['Technical Support', 'System Administration', 'Problem Solving', 'Real-world Troubleshooting'],
       },
       {
         year: '2022-2024',
         title: 'Higher Degree in Multiplatform Application Development',
         institution: 'CPR Afundación Abanca',
         description: 'Software development, programming, databases, and interface design.',
+        icon: '🎨',
+        narrative: 'This is where everything connected. I learned to build real systems: not just code, but architecture, databases, APIs, and interfaces.',
+        learnings: ['Software Architecture', 'Database Design', 'API Development', 'User Interface Design', 'Full Stack Development'],
       },
       {
         year: '2024',
         title: 'QA Tester (Internship)',
         institution: 'Merlín Software, A Coruña',
         description: 'Performed automated tests on APIs, mobile apps, and websites.',
+        icon: '🧪',
+        narrative: 'Quality through automation. I learned to think like a tester, breaking things systematically to prevent users from experiencing bugs.',
+        learnings: ['Test Automation', 'E2E Testing', 'API Testing', 'Quality Assurance', 'Automated Testing Frameworks'],
       },
       {
         year: '2024-2025',
         title: 'Specialization in Artificial Intelligence and Big Data',
         institution: 'IES Fernando Wirtz',
         description: 'Specialization in AI techniques, machine learning, and big data analysis.',
+        icon: '🤖',
+        narrative: 'Where my journey converges. Combining all my previous skills into AI and data science. Data pipelines, machine learning models, and modern analysis techniques.',
+        learnings: ['Machine Learning', 'Deep Learning', 'Data Engineering', 'Big Data Processing', 'Predictive Modeling'],
       },
     ],
     cvLink: 'https://drive.google.com/file/d/1dbUMNeNlhRK0g-ME5o7E6tKNkuXnGtzr/view?usp=sharing',
@@ -310,30 +328,45 @@ const contentES: PortfolioContent = {
         title: 'Ciclo Medio de Sistemas MicroInformáticos y Redes',
         institution: 'IES Fernando Wirtz',
         description: 'Fundamentos en redes, hardware y software básico.',
+        icon: '📚',
+        narrative: 'Mi primer paso en el mundo tech fue entender las redes. Los fundamentos que aprendí aquí son la base de todo lo que vino después.',
+        learnings: ['Redes y Conectividad', 'Hardware y Componentes', 'Sistemas Operativos', 'Configuración de Infraestructura'],
       },
       {
         year: '2021',
         title: 'Soporte Técnico Interno y Mantenimiento de Sistemas',
         institution: 'Qindel Group, A Coruña',
-        description: 'Fundamentos en redes, hardware y software básico.',
+        description: 'Aplicación práctica de fundamentos técnicos en ambiente profesional.',
+        icon: '🔧',
+        narrative: 'Aquí la teoría se convirtió en práctica. Apliqué todo lo aprendido y descubrí la realidad de manejar sistemas en producción.',
+        learnings: ['Soporte Técnico', 'Administración de Sistemas', 'Resolución de Problemas', 'Troubleshooting Real'],
       },
       {
         year: '2022-2024',
         title: 'Ciclo Superior de Desarrollo de Aplicaciones Multiplataforma',
         institution: 'CPR Afundación Abanca',
         description: 'Desarrollo de software, programación, bases de datos y diseño de interfaces.',
+        icon: '🎨',
+        narrative: 'Aquí todo conectó. Aprendí a construir sistemas reales: no solo código, sino arquitectura, bases de datos, APIs e interfaces.',
+        learnings: ['Arquitectura de Software', 'Diseño de Bases de Datos', 'Desarrollo de APIs', 'Diseño de UI', 'Desarrollo Full Stack'],
       },
       {
         year: '2024',
         title: 'QA Tester (Prácticas)',
         institution: 'Merlín Software, A Coruña',
         description: 'Realicé pruebas automatizadas a APIs, apps móviles y webs.',
+        icon: '🧪',
+        narrative: 'Calidad a través de automatización. Aprendí a pensar como tester, rompiendo cosas sistemáticamente para prevenir bugs en usuarios.',
+        learnings: ['Automatización de Tests', 'Testing E2E', 'Testing de APIs', 'Aseguramiento de Calidad', 'Frameworks de Testing'],
       },
       {
         year: '2024-2025',
         title: 'Ciclo de Especialización en Inteligencia Artificial y Big Data',
         institution: 'IES Fernando Wirtz',
         description: 'Especialización en técnicas de IA, machine learning y análisis de big data.',
+        icon: '🤖',
+        narrative: 'Donde mi viaje converge. Combinando todas mis habilidades previas en IA y ciencia de datos. Pipelines, modelos ML y análisis moderno.',
+        learnings: ['Machine Learning', 'Deep Learning', 'Data Engineering', 'Big Data Processing', 'Modelado Predictivo'],
       },
     ],
     cvLink: 'https://drive.google.com/file/d/1vHmpMBStHvWnwua-diwFh_GwdIv5NUF7/view?usp=sharing',
