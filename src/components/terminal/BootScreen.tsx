@@ -94,12 +94,12 @@ export function BootScreen({ locale, onComplete }: BootScreenProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.1 }}
             className={`${
-              line.includes("✓")
-                ? "text-[hsl(var(--success))]"
-                : line.includes("$")
-                  ? "text-[hsl(var(--primary))]"
-                  : line === ""
-                    ? "h-1"
+              !line
+                ? "h-1"
+                : line.includes("✓")
+                  ? "text-[hsl(var(--success))]"
+                  : line.includes("$")
+                    ? "text-[hsl(var(--primary))]"
                     : "text-[hsl(var(--muted-foreground))]"
             }`}
           >
