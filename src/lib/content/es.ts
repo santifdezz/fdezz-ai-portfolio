@@ -40,7 +40,7 @@ export const es = {
     "/timeline": "Cargando línea de tiempo...",
     "/github": "Abriendo perfil GitHub...",
     "/cv": "Abriendo CV...",
-    "/lang": "Idioma cambiado a Español.",
+    "/lang": "Idioma cambiado al Español.",
     "/clear": "",
 
     "/system": `ESTADO DEL SISTEMA
