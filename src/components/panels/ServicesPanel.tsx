@@ -31,7 +31,7 @@ export function ServicesPanel({
     <PanelBase
       icon={Briefcase}
       title={isES ? "Servicios" : "Services"}
-      accentColor="blue"
+      accentColor="purple"
     >
       <div className="space-y-4">
         {services.map((service, idx) => (
@@ -40,7 +40,7 @@ export function ServicesPanel({
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 + idx * 0.1 }}
-            className="bg-[hsl(var(--secondary)/0.5)] rounded-lg border border-[hsl(var(--border)/0.5)] hover:border-blue-500/50 transition-all overflow-hidden"
+            className="bg-[hsl(var(--secondary)/0.5)] rounded-lg border border-[hsl(var(--border)/0.5)] hover:border-purple-500/50 transition-all overflow-hidden"
           >
             <motion.div
               whileHover={{ scale: 1.01 }}
@@ -64,7 +64,7 @@ export function ServicesPanel({
                       rotate: expandedId === service.id ? 180 : 0,
                     }}
                     transition={{ duration: 0.2 }}
-                    className="text-blue-400 flex-shrink-0"
+                    className="text-purple-400 flex-shrink-0"
                   >
                     <ChevronDown className="w-4 h-4" />
                   </motion.div>
@@ -87,7 +87,7 @@ export function ServicesPanel({
                   {/* Features */}
                   {service.features && service.features.length > 0 && (
                     <div className="space-y-2">
-                      <p className="text-xs uppercase font-semibold text-blue-400 tracking-wider">
+                      <p className="text-xs uppercase font-semibold text-purple-400 tracking-wider">
                         {isES ? "Características" : "Features"}
                       </p>
                       <div className="space-y-1">
@@ -99,7 +99,7 @@ export function ServicesPanel({
                             transition={{ delay: fidx * 0.05 }}
                             className="flex items-start gap-2 text-xs text-[hsl(var(--muted-foreground))]"
                           >
-                            <CheckCircle2 className="w-3 h-3 text-blue-400 mt-0.5 flex-shrink-0" />
+                            <CheckCircle2 className="w-3 h-3 text-purple-400 mt-0.5 flex-shrink-0" />
                             <span>{feature}</span>
                           </motion.div>
                         ))}
@@ -110,14 +110,14 @@ export function ServicesPanel({
                   {/* Technologies */}
                   {service.technologies && service.technologies.length > 0 && (
                     <div className="space-y-2">
-                      <p className="text-xs uppercase font-semibold text-blue-400 tracking-wider">
+                      <p className="text-xs uppercase font-semibold text-purple-400 tracking-wider">
                         {isES ? "Tecnologías" : "Technologies"}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {service.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-2 py-1 text-xs bg-blue-500/10 text-blue-300 rounded border border-blue-500/30 hover:bg-blue-500/20 transition-colors"
+                            className="px-2 py-1 text-xs bg-purple-500/10 text-purple-300 rounded border border-purple-500/30 hover:bg-purple-500/20 transition-colors"
                           >
                             {tech}
                           </span>
