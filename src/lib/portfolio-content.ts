@@ -82,8 +82,8 @@ const contentEN: PortfolioContent = {
     description:
       'A combination of specialized technical training and passion for data that allows me to transform complex information into useful solutions.',
     bio: {
-      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, specializing in AI and Big Data.\n\nBetween those years, I\'ve learned to build, debug, and transform complex data into useful solutions in production environments.',
-      fullDescription: 'My education combines solid foundations in technology with advanced specialization in data science and artificial intelligence, preparing me to face the challenges of modern data analysis.',
+      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI\'ve built RAG systems with LangChain, designed ETL pipelines orchestrated with Airflow, and trained vision models for real-time detection — all in production, collaborating directly with clients.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
+      fullDescription: 'I combine solid engineering foundations with hands-on specialization in AI and data science. At Qaleon I work across the full data stack: from raw ingestion and ETL orchestration to ML model deployment and RAG systems — always in production, always with real business impact.',
       tagline: 'Passionate about Data',
       skills: {
         'Languages': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
@@ -155,26 +155,26 @@ const contentEN: PortfolioContent = {
   projects: [
     {
       id: 'ufc-data',
-      title: 'UFC Fighters Data',
+      title: 'UFC Data Pipeline',
       description:
-        'Comprehensive analysis of UFC fighters data. Extraction, cleaning, and building predictive model for fight outcomes.',
+        'ETL pipeline extracting 20+ years of UFC data — 3,600+ events, 1,500+ fighters. Cleans, normalises, and feeds an ML classification model targeting 65%+ accuracy for fight outcome prediction using 50+ fighter features.',
       status: 'in-progress',
       statusColor: 'yellow',
-      technologies: ['Python', 'Machine Learning', 'Scikit-learn', 'Data Mining', 'API'],
-      features: ['ML predictive model', 'Performance analysis', 'Advanced visualization', 'Automated data pipeline'],
+      technologies: ['Python', 'BeautifulSoup', 'Scikit-learn', 'Pandas', 'PostgreSQL'],
+      features: ['Full ETL pipeline (extract → transform → load)', 'ML classification model (in progress)', '50+ engineered features per fighter', 'Automated data refresh'],
       links: {
-        github: 'https://github.com/santifdezz/ufc-predictor',
+        github: 'https://github.com/santifdezz/ufc-etl',
       },
     },
     {
       id: 'coruna-tenders',
       title: 'La Coruña Public Tenders',
       description:
-        'Data extraction and analysis project for public tenders in La Coruña. Complete automation from data collection to visualization.',
+        'Automated scraping and analysis pipeline processing 1,200+ public tenders monthly. Reduced manual research from 8 hours to under 15 minutes. PostgreSQL database with live Streamlit dashboard for statistical exploration.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['Python', 'Web Scraping', 'Pandas', 'PostgreSQL', 'Streamlit'],
-      features: ['Automated data extraction', 'Complete statistical analysis', 'Tenders capture in real time', 'Data Cleaning'],
+      technologies: ['Python', 'BeautifulSoup', 'Pandas', 'PostgreSQL', 'Streamlit'],
+      features: ['1,200+ tenders processed monthly', '8h → 15min analysis time', 'Live statistical dashboard', 'Automated data cleaning & deduplication'],
       links: {
         github: 'https://github.com/santifdezz/analisis-licitaciones-coruna',
       },
@@ -183,11 +183,11 @@ const contentEN: PortfolioContent = {
       id: 'forbes-qa',
       title: 'Forbes Website QA',
       description:
-        'End-to-end test automation project using Cypress and Cucumber. It validates key features like menu navigation, article search, dynamic content interaction, and newsletter subscription, simulating real user behavior.',
+        'E2E test suite with 30+ automated scenarios covering critical user flows on Forbes.com. Built with Cypress + Cucumber BDD pattern, achieving 95%+ pass rate. Validates navigation, search, dynamic content, and newsletter flows.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['Gherkin', 'Cypress', 'JavaScript', 'Cucumber'],
-      features: ['Menu navigation', 'Article search', 'Dynamic content interaction', 'Newsletter subscription'],
+      technologies: ['Cypress', 'Cucumber', 'JavaScript', 'Gherkin'],
+      features: ['30+ automated test scenarios', '95%+ pass rate per run', 'BDD with Gherkin syntax', 'Full user journey coverage'],
       links: {
         github: 'https://github.com/santifdezz/forbes-qa-cypress',
       },
@@ -196,11 +196,11 @@ const contentEN: PortfolioContent = {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Complete web platform for electronic music events. Comprehensive management of events, artists, and users with modern interface.',
+        'Full-stack platform for the Spanish electronic music scene. Manages 200+ events with custom admin panel, JWT authentication, RESTful API, and automated E2E test suite. Live at makineo.es.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Cypress', 'Cucumber'],
-      features: ['Event management', 'User system', 'Admin panel', 'RESTful API'],
+      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
+      features: ['200+ events managed', 'Custom admin panel', 'JWT authentication system', 'RESTful API + E2E tests'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
         demo: 'https://www.makineo.es/',
@@ -208,13 +208,13 @@ const contentEN: PortfolioContent = {
     },
     {
       id: 'godot-game',
-      title: 'Game in Godot',
+      title: 'Top-Down Shooter (Godot)',
       description:
-        'Project developed during the DAM course, it is a basic 2D Top-Down Shooter game using Godot Engine, created in 1 month without prior knowledge of the tool.',
+        'Playable 2D shooter built from scratch in Godot Engine in under 4 weeks with zero prior game dev experience. Demonstrates the ability to pick up unfamiliar tooling fast and ship something working — a core engineering skill.',
       status: 'completed',
       statusColor: 'green',
       technologies: ['Godot', 'GDScript', 'C#'],
-      features: ['Top-down shooter', 'Godot Engine', 'Singleplayer'],
+      features: ['Built in <4 weeks from zero', 'Full gameplay loop', 'Enemy AI & collision system', 'Rapid skill acquisition demo'],
       links: {
         github: 'https://github.com/santifdezz/TopDown-Shooter-Game',
       },
@@ -320,8 +320,8 @@ const contentES: PortfolioContent = {
     description:
       'Una combinación de formación técnica especializada y pasión por los datos que me permite transformar información compleja en soluciones útiles.',
     bio: {
-      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, especializándome en IA y Big Data.\n\nEntre esos años, he aprendido a construir, debuggear, y transformar datos complejos en soluciones útiles en entornos de producción.',
-      fullDescription: 'Mi formación combina fundamentos sólidos en tecnología con especialización avanzada en ciencia de datos e inteligencia artificial, preparándome para enfrentar los desafíos del análisis de datos moderno.',
+      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nHe construido sistemas RAG con LangChain, diseñado pipelines ETL orquestados con Airflow, y entrenado modelos de visión para detección en tiempo real — todo en producción, colaborando directamente con clientes.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
+      fullDescription: 'Combino fundamentos sólidos de ingeniería con especialización práctica en IA y ciencia de datos. En Qaleon trabajo en todo el stack de datos: desde ingesta y orquestación ETL hasta despliegue de modelos ML y sistemas RAG — siempre en producción, siempre con impacto real de negocio.',
       tagline: 'Apasionado por los datos',
       skills: {
         'Lenguajes': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
@@ -393,13 +393,13 @@ const contentES: PortfolioContent = {
   projects: [
     {
       id: 'ufc-data',
-      title: 'UFC DATA Pipeline',
+      title: 'UFC Data Pipeline',
       description:
-        'Análisis exhaustivo de datos de luchadores, peleas y eventos de UFC. Extracción, limpieza y construcción de modelo predictivo para resultados de combates (Modelo en progreso).',
+        'Pipeline ETL que extrae más de 20 años de datos de UFC — 3.600+ eventos, 1.500+ luchadores. Limpia, normaliza y alimenta un modelo ML de clasificación con objetivo de >65% de precisión en predicción de resultados usando 50+ características por luchador.',
       status: 'in-progress',
       statusColor: 'yellow',
-      technologies: ['Python', 'BeautifulSoup', 'Machine Learning', 'Scikit-learn', 'Data Mining', 'API'],
-      features: ['ETL', 'Scraping con BeautifulSoup', 'Visualización de datos', 'Limpieza de datos'],
+      technologies: ['Python', 'BeautifulSoup', 'Scikit-learn', 'Pandas', 'PostgreSQL'],
+      features: ['Pipeline ETL completo (extracción → transformación → carga)', 'Modelo ML de clasificación (en progreso)', '50+ características por luchador', 'Actualización automática de datos'],
       links: {
         github: 'https://github.com/santifdezz/ufc-etl',
       },
@@ -408,11 +408,11 @@ const contentES: PortfolioContent = {
       id: 'coruna-tenders',
       title: 'Licitaciones de La Coruña',
       description:
-        'Proyecto de extracción y análisis de datos para licitaciones públicas en La Coruña. Automatización completa del proceso desde la recolección hasta la visualización.',
+        'Pipeline automatizado de scraping y análisis que procesa más de 1.200 licitaciones públicas al mes. Redujo el análisis manual de 8 horas a menos de 15 minutos. Base de datos PostgreSQL con dashboard Streamlit en tiempo real.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['Python', 'Web Scraping', 'Pandas', 'PostgreSQL'],
-      features: ['Extracción automática de datos', 'Análisis estadístico completo', 'Capturas de licitaciones en tiempo real', 'Limpieza de Datos'],
+      technologies: ['Python', 'BeautifulSoup', 'Pandas', 'PostgreSQL', 'Streamlit'],
+      features: ['1.200+ licitaciones procesadas al mes', '8h → 15min de análisis', 'Dashboard estadístico en tiempo real', 'Limpieza y deduplicación automática'],
       links: {
         github: 'https://github.com/santifdezz/analisis-licitaciones-coruna',
       },
@@ -421,11 +421,11 @@ const contentES: PortfolioContent = {
       id: 'forbes-qa',
       title: 'Forbes Website QA',
       description:
-        'Proyecto de automatización de pruebas end-to-end usando Cypress y Cucumber. Valida funcionalidades clave como navegación por el menú, búsqueda de artículos, interacción con contenido dinámico y suscripción a newsletters, simulando el comportamiento real de un usuario.',
+        'Suite de tests E2E con 30+ escenarios automatizados cubriendo flujos críticos de usuario en Forbes.com. Construida con Cypress + patrón BDD Cucumber, logrando 95%+ de tasa de éxito. Valida navegación, búsqueda, contenido dinámico y newsletter.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Cypress', 'Cucumber'],
-      features: ['Gestión de eventos', 'Sistema de usuarios', 'Panel de administración', 'API RESTful'],
+      technologies: ['Cypress', 'Cucumber', 'JavaScript', 'Gherkin'],
+      features: ['30+ escenarios de test automatizados', '95%+ tasa de éxito por ejecución', 'BDD con sintaxis Gherkin', 'Cobertura completa del journey de usuario'],
       links: {
         github: 'https://github.com/santifdezz/forbes-qa-cypress',
       },
@@ -434,11 +434,11 @@ const contentES: PortfolioContent = {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Plataforma web completa para eventos de música electrónica. Gestión integral de eventos, artistas y usuarios con interfaz moderna.',
+        'Plataforma full-stack para la escena de música electrónica española. Gestiona 200+ eventos con panel de administración propio, autenticación JWT, API RESTful y suite de tests E2E automatizados. Live en makineo.es.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT'],
-      features: ['Gestión de eventos', 'Sistema de usuarios', 'Panel de administración', 'API RESTful'],
+      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
+      features: ['200+ eventos gestionados', 'Panel de administración propio', 'Sistema de autenticación JWT', 'API RESTful + tests E2E'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
         demo: 'https://www.makineo.es/',
@@ -446,13 +446,13 @@ const contentES: PortfolioContent = {
     },
     {
       id: 'godot-game',
-      title: 'Juego en Godot',
+      title: 'Top-Down Shooter (Godot)',
       description:
-        'Proyecto desarrollado en el ciclo de DAM, es un juego Top-Down Shooter 2d básico utiliza Godot Engine y fue hecho sin conocimientos de la herramienta en 1 mes.',
+        'Shooter 2D jugable construido desde cero en Godot Engine en menos de 4 semanas sin experiencia previa en desarrollo de juegos. Demuestra la capacidad de aprender herramientas desconocidas rápido y llegar a algo funcional — una habilidad clave de ingeniería.',
       status: 'completed',
       statusColor: 'green',
       technologies: ['Godot', 'GDScript', 'C#'],
-      features: ['Top-down shooter', 'Godot Engine', 'Singleplayer'],
+      features: ['Construido en <4 semanas desde cero', 'Game loop completo', 'IA de enemigos y sistema de colisiones', 'Demo de adquisición rápida de habilidades'],
       links: {
         github: 'https://github.com/santifdezz/TopDown-Shooter-Game',
       },
