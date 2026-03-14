@@ -123,9 +123,11 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
 
       {/* Quick Commands */}
       <div className="px-4 py-3 border-t border-[hsl(var(--border))] space-y-2">
-        <p className="text-[10px] uppercase font-semibold text-[hsl(var(--muted-foreground))] tracking-wider">
-          {isES ? "Comandos Rápidos" : "Quick Commands"}
-        </p>
+        <div className="flex items-center gap-1">
+          <p className="text-[10px] uppercase font-semibold text-purple-400 tracking-wider">
+            {isES ? "👇 Haz Clic Aquí" : "👇 Click Below"}
+          </p>
+        </div>
         <div className="grid grid-cols-2 gap-2">
           {[
             { cmd: "/about", label: isES ? "Sobre" : "About" },

@@ -27,6 +27,7 @@ export type CommandKey =
   | "/system"
   | "/architecture"
   | "/timeline"
+  | "/tutorial"
   | "/lang"
   | "/coffee"
   | "/whoami"

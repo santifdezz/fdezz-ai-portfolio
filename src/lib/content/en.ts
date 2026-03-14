@@ -11,7 +11,11 @@ export const en = {
     "Welcome to sfseoane.es",
     "I'm Claudia, your virtual assistant. I'm here to help you explore Santiago's professional portfolio.",
     "I can't share everything about him, but I know enough to give you a good sense of who he is professionally.",
-    "Type /help to explore, or jump to /about to get started.",
+    "",
+    "👇 Quick Start:",
+    "  • Click any button below (About, Projects, Timeline, Contact)",
+    "  • Or type /help for all commands",
+    "  • Type /tutorial for a guided walkthrough",
   ],
 
   responses: {

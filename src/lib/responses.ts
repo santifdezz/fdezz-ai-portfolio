@@ -728,3 +728,78 @@ export function getHelpPanelResponse(locale: Locale): CommandResponse {
     },
   };
 }
+
+export function getTutorialResponse(locale: Locale): CommandResponse {
+  const isES = locale === "es";
+
+  const tutorialText = isES
+    ? `🎓 GUIDED TOUR - Welcome!
+
+I'll show you around Santiago's portfolio. Here's what you'll learn:
+
+STEP 1: About Santiago
+→ Click the "Sobre" button or type /about
+Learn who Santiago is, his background, and key skills.
+
+STEP 2: See His Work
+→ Then try /projects to see his professional projects
+You can also filter by technology: /projects python
+
+STEP 3: Timeline
+→ Check /timeline to see his career journey
+Each period shows what he learned and accomplished.
+
+STEP 4: Get in Touch
+→ Use /contact to see how to reach him
+LinkedIn, GitHub, email - all there.
+
+STEP 5: More Exploration
+→ /services: What he can help you with
+→ /skills: His technical expertise by category
+→ /github: Direct link to his GitHub profile
+
+You can:
+• Click the purple buttons on the left anytime
+• Type commands starting with /
+• Change language with /lang es or /lang en
+• Type /clear to reset the view
+
+Ready? Start with /about to learn about Santiago!`
+    : `🎓 TOUR GUIADO - ¡Bienvenido!
+
+Te mostraré el portafolio de Santiago. Aquí está lo que aprenderás:
+
+PASO 1: Sobre Santiago
+→ Haz clic en el botón "Sobre" o escribe /about
+Conoce quién es Santiago, su trasfondo y habilidades clave.
+
+PASO 2: Ver Su Trabajo
+→ Luego intenta /projects para ver sus proyectos profesionales
+También puedes filtrar por tecnología: /projects python
+
+PASO 3: Línea de Tiempo
+→ Verifica /timeline para ver su trayectoria profesional
+Cada período muestra lo que aprendió y logró.
+
+PASO 4: Ponerse en Contacto
+→ Usa /contact para ver cómo contactarlo
+LinkedIn, GitHub, email - todo está ahí.
+
+PASO 5: Más Exploración
+→ /services: Cómo puede ayudarte
+→ /skills: Su experiencia técnica por categoría
+→ /github: Enlace directo a su perfil de GitHub
+
+Puedes:
+• Hacer clic en los botones morados a la izquierda en cualquier momento
+• Escribir comandos que comienzan con /
+• Cambiar idioma con /lang es o /lang en
+• Escribe /clear para reiniciar la vista
+
+¿Listo? ¡Comienza con /about para conocer a Santiago!`;
+
+  return {
+    type: "text",
+    text: tutorialText,
+  };
+}

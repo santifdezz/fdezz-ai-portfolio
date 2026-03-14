@@ -19,6 +19,7 @@ import {
   getTimelineResponse,
   getTimelinePanelResponse,
   getHelpPanelResponse,
+  getTutorialResponse,
 } from "./responses";
 import { getPortfolioContent } from "./portfolio-content";
 
@@ -140,6 +141,11 @@ export function useCommandHandler() {
     // Help command with visual panel
     if (cmd === "/help") {
       return getHelpPanelResponse(locale);
+    }
+
+    // Tutorial command
+    if (cmd === "/tutorial") {
+      return getTutorialResponse(locale);
     }
 
     // Text responses (system, architecture, easter eggs, etc.)

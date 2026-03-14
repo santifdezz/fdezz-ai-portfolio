@@ -11,7 +11,11 @@ export const es = {
     "Bienvenido a sfseoane.es",
     "Soy Claudia, tu asistente virtual. Estoy aquí para ayudarte a explorar el portafolio profesional de Santiago.",
     "No puedo compartir todo sobre él, pero sé lo suficiente para darte una buena idea de quién es profesionalmente.",
-    "Escribe /help para explorar, o ve directamente a /about para comenzar.",
+    "",
+    "👇 Inicio Rápido:",
+    "  • Haz clic en cualquier botón abajo (Sobre, Proyectos, Línea, Contacto)",
+    "  • O escribe /help para ver todos los comandos",
+    "  • Escribe /tutorial para una guía interactiva",
   ],
 
   responses: {
