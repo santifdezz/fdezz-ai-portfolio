@@ -109,97 +109,85 @@ export default function Terminal() {
 
   const handleSubmit = useCallback(
     (input: string): void => {
-      // Check if input is a command (starts with "/")
-      const isCommand = input.trim().startsWith("/");
+      // All input is natural language - parse intention
+      addMsg({ ...makeMsg("user", input), type: "user" });
+      setIsProcessing(true);
 
-      if (!isCommand) {
-        // Natural language: parse intention
-        addMsg({ ...makeMsg("user", input), type: "user" });
-        setIsProcessing(true);
+      setTimeout(() => {
+        const intentionResponse = parseIntention(input, locale);
 
-        setTimeout(() => {
-          const intentionResponse = parseIntention(input, locale);
+        // Add AI response message
+        addMsg({
+          id: Math.random().toString(36).slice(2),
+          type: "ai",
+          text: intentionResponse.message,
+          timestamp: Date.now(),
+        });
 
-          // Add AI response message
-          addMsg({
-            id: Math.random().toString(36).slice(2),
-            type: "ai",
-            text: intentionResponse.message,
-            timestamp: Date.now(),
-          });
+        // Map intention to command and execute it
+        const intentionToCommand: Record<string, string> = {
+          about: "/about",
+          projects: "/projects",
+          timeline: "/timeline",
+          services: "/services",
+          contact: "/contact",
+          help: "/help",
+          skills: "/skills",
+        };
 
-          // Add tour selector suggestion if we have options
-          if (intentionResponse.suggestedOptions && intentionResponse.suggestedOptions.length > 0) {
-            addMsg({
-              id: Math.random().toString(36).slice(2),
-              type: "ai",
-              text: locale === "es" ? "¿Qué te gustaría explorar?" : "What would you like to explore?",
-              panelType: "tour-selector-inline",
-              panelData: {
-                options: intentionResponse.suggestedOptions,
-                onSelect: (selected: string[]) => {
-                  // Trigger tour with selected options
-                  setSelectedTours(selected);
-                  setUiState("tour-player");
-                },
-              },
-              timestamp: Date.now(),
-            });
-          }
+        const command = intentionToCommand[intentionResponse.intention];
 
-          setIsProcessing(false);
-        }, TERMINAL_CONFIG.messageDelay);
-      } else {
-        // Command: use existing handler
-        addMsg(makeMsg("user", input));
-        setIsProcessing(true);
+        if (command) {
+          // Execute the command after a brief delay
+          setTimeout(() => {
+            const onTimelineNavigate = (newIndex: number) => {
+              if (newIndex === -1) {
+                handleSubmit("/timeline all");
+              } else {
+                handleSubmit(`/timeline ${newIndex + 1}`);
+              }
+            };
 
-        setTimeout(() => {
-          const onTimelineNavigate = (newIndex: number) => {
-            if (newIndex === -1) {
-              handleSubmit("/timeline all");
-            } else {
-              handleSubmit(`/timeline ${newIndex + 1}`);
+            const response = handleCommand(command, locale, { onTimelineNavigate });
+
+            if (response.type === "clear") {
+              setHistory([]);
+              setIsProcessing(false);
+              return;
             }
-          };
 
-          const response = handleCommand(input, locale, { onTimelineNavigate });
+            if (response.type === "lang" && response.locale) {
+              setLocale(response.locale);
+              setIsProcessing(false);
+              return;
+            }
 
-          if (response.type === "clear") {
-            setHistory([]);
+            if (response.type === "external" && response.url) {
+              window.open(response.url, "_blank", "noopener,noreferrer");
+            }
+
+            if (response.text || response.component || response.panelType) {
+              const msgType = response.type === "error" ? "error" : "ai";
+              addMsg({
+                id: Math.random().toString(36).slice(2),
+                type: msgType,
+                text: response.text,
+                component: response.component,
+                panelType: (response as any).panelType,
+                panelData: {
+                  ...(response as any).panelData,
+                  onCommandRun: handleSubmit,
+                },
+                timestamp: Date.now(),
+              });
+            }
+
             setIsProcessing(false);
-            return;
-          }
-
-          if (response.type === "lang" && response.locale) {
-            setLocale(response.locale);
-            setIsProcessing(false);
-            return;
-          }
-
-          if (response.type === "external" && response.url) {
-            window.open(response.url, "_blank", "noopener,noreferrer");
-          }
-
-          if (response.text || response.component || response.panelType) {
-            const msgType = response.type === "error" ? "error" : "ai";
-            addMsg({
-              id: Math.random().toString(36).slice(2),
-              type: msgType,
-              text: response.text,
-              component: response.component,
-              panelType: (response as any).panelType,
-              panelData: {
-                ...(response as any).panelData,
-                onCommandRun: handleSubmit,
-              },
-              timestamp: Date.now(),
-            });
-          }
-
+          }, 500);
+        } else {
           setIsProcessing(false);
-        }, TERMINAL_CONFIG.messageDelay);
-      }
+        }
+      }, TERMINAL_CONFIG.messageDelay);
     },
     [addMsg, handleCommand, locale]
   );
