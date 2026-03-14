@@ -18,9 +18,10 @@ interface SidebarProps {
   activeId?: string;
   locale?: Locale;
   onCommandRun: (cmd: string) => void;
+  onLocaleChange?: (locale: Locale) => void;
 }
 
-export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: SidebarProps) {
+export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocaleChange }: SidebarProps) {
   const isES = locale === "es";
   return (
     <div className="w-64 h-screen bg-gradient-to-b from-[hsl(var(--card))] to-[hsl(var(--card)/0.5)] border-r border-[hsl(var(--border))] flex flex-col overflow-hidden">
@@ -125,19 +126,19 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
       <div className="px-4 py-3 border-t border-[hsl(var(--border))] space-y-2">
         <div className="flex items-center gap-1">
           <p className="text-[10px] uppercase font-semibold text-purple-400 tracking-wider">
-            {isES ? "👇 Haz Clic Aquí" : "👇 Click Below"}
+            {isES ? "👇 Explora Aquí" : "👇 Explore"}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-2">
           {[
-            { cmd: "/about", label: isES ? "Sobre" : "About" },
-            { cmd: "/projects", label: isES ? "Proyectos" : "Projects" },
-            { cmd: "/timeline", label: isES ? "Línea" : "Timeline" },
-            { cmd: "/contact", label: isES ? "Contacto" : "Contact" },
+            { text: isES ? "sobre" : "about me", label: isES ? "Sobre" : "About" },
+            { text: isES ? "proyectos" : "projects", label: isES ? "Proyectos" : "Projects" },
+            { text: isES ? "experiencia" : "experience", label: isES ? "Experiencia" : "Timeline" },
+            { text: isES ? "contacto" : "contact", label: isES ? "Contacto" : "Contact" },
           ].map((item) => (
             <motion.button
-              key={item.cmd}
-              onClick={() => onCommandRun(item.cmd)}
+              key={item.text}
+              onClick={() => onCommandRun(item.text)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-3 py-1.5 text-xs bg-purple-500/10 border border-purple-500/30 rounded-full hover:bg-purple-500/20 hover:border-purple-500/50 transition-all text-purple-300 font-medium cursor-pointer"
@@ -153,7 +154,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
         {/* Language Switcher */}
         <div className="flex items-center justify-center gap-2">
           <motion.button
-            onClick={() => onCommandRun("/lang en")}
+            onClick={() => onLocaleChange?.("en")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`px-3 py-1.5 text-xs font-semibold rounded transition-all ${
@@ -165,7 +166,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
             EN
           </motion.button>
           <motion.button
-            onClick={() => onCommandRun("/lang es")}
+            onClick={() => onLocaleChange?.("es")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`px-3 py-1.5 text-xs font-semibold rounded transition-all ${

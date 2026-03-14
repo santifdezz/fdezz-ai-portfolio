@@ -177,7 +177,13 @@ export default function Terminal() {
   return (
     <div className="h-screen flex bg-[hsl(var(--background))]">
       {/* Sidebar */}
-      <Sidebar chats={chatHistoryItems} activeId="current" locale={locale} onCommandRun={handleSubmit} />
+      <Sidebar
+        chats={chatHistoryItems}
+        activeId="current"
+        locale={locale}
+        onCommandRun={handleSubmit}
+        onLocaleChange={setLocale}
+      />
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
