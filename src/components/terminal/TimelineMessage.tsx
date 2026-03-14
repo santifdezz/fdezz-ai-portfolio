@@ -22,6 +22,7 @@ const periodIcons: Record<string, React.ComponentType<{ className?: string; stro
   "2022-2024": Code,
   "2024": TestTube,
   "2024-2025": Brain,
+  "2025-2026": Brain, // Qaleon AI/ML role
 };
 
 interface TimelineMessageProps {

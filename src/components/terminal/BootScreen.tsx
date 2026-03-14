@@ -9,31 +9,36 @@ interface BootScreenProps {
   onComplete: () => void;
 }
 
-const DOCKER_LOGS = [
-  "$ docker run --rm -it fdezz/ai-portfolio:latest",
-  "",
-  "[2026-03-14 16:46:13] Starting AI Terminal Portfolio v1.0.0",
-  "[2026-03-14 16:46:13] Environment: production",
-  "[2026-03-14 16:46:14] Loading modules...",
-  "[2026-03-14 16:46:14]   ✓ TypeScript engine",
-  "[2026-03-14 16:46:15]   ✓ React framework",
-  "[2026-03-14 16:46:15]   ✓ Next.js runtime",
-  "[2026-03-14 16:46:16]   ✓ AI command handler",
-  "[2026-03-14 16:46:17] Initializing interfaces...",
-  "[2026-03-14 16:46:17]   ✓ Chat UI",
-  "[2026-03-14 16:46:18]   ✓ Sidebar history",
-  "[2026-03-14 16:46:18]   ✓ Message pipeline",
-  "[2026-03-14 16:46:19] Building portfolio content...",
-  "[2026-03-14 16:46:20]   ✓ Projects (3)",
-  "[2026-03-14 16:46:20]   ✓ Skills matrix",
-  "[2026-03-14 16:46:21]   ✓ Contact data",
-  "[2026-03-14 16:46:21] Establishing i18n layer...",
-  "[2026-03-14 16:46:21]   ✓ English",
-  "[2026-03-14 16:46:21]   ✓ Spanish",
-  "[2026-03-14 16:46:22] Server ready on http://localhost:3000",
-  "",
-  "Welcome to fdezz's AI Terminal",
-];
+function generateBootLogs(): string[] {
+  const now = new Date();
+  const timestamp = now.toISOString().split('T')[0] + ' ' + now.toTimeString().slice(0, 8);
+
+  return [
+    "$ docker run --rm -it fdezz/ai-portfolio:latest",
+    "",
+    `[${timestamp}] Starting AI Terminal Portfolio v1.0.0`,
+    `[${timestamp}] Environment: production`,
+    `[${timestamp}] Loading modules...`,
+    `[${timestamp}]   ✓ TypeScript engine`,
+    `[${timestamp}]   ✓ React framework`,
+    `[${timestamp}]   ✓ Next.js runtime`,
+    `[${timestamp}]   ✓ AI command handler`,
+    `[${timestamp}] Initializing interfaces...`,
+    `[${timestamp}]   ✓ Chat UI`,
+    `[${timestamp}]   ✓ Sidebar history`,
+    `[${timestamp}]   ✓ Message pipeline`,
+    `[${timestamp}] Building portfolio content...`,
+    `[${timestamp}]   ✓ Projects (5)`,
+    `[${timestamp}]   ✓ Skills matrix`,
+    `[${timestamp}]   ✓ Contact data`,
+    `[${timestamp}] Establishing i18n layer...`,
+    `[${timestamp}]   ✓ English`,
+    `[${timestamp}]   ✓ Spanish`,
+    `[${timestamp}] Server ready on http://localhost:3000`,
+    "",
+    "Welcome to fdezz's AI Terminal",
+  ];
+}
 
 export function BootScreen({ locale, onComplete }: BootScreenProps) {
   const [visibleLines, setVisibleLines] = useState<string[]>([]);
@@ -46,6 +51,8 @@ export function BootScreen({ locale, onComplete }: BootScreenProps) {
         return;
       }
     }
+
+    const DOCKER_LOGS = generateBootLogs();
 
     let idx = 0;
     const timer = setInterval(() => {

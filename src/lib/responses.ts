@@ -556,6 +556,7 @@ export function getProjectsPanelResponse(
         id: p.id,
         title: p.title,
         description: p.description,
+        features: p.features || [],
         technologies: p.technologies,
         status: p.status,
         links: p.links,
@@ -586,7 +587,7 @@ export function getServicesPanelResponse(locale: Locale): CommandResponse {
 
 export function getContactPanelResponse(locale: Locale): CommandResponse {
   const portfolio = getPortfolioContent(locale);
-  const contactInfo = portfolio.about.contact;
+  const contactInfo = portfolio.contact;
 
   if (!contactInfo) {
     return {
@@ -606,6 +607,10 @@ export function getContactPanelResponse(locale: Locale): CommandResponse {
     type: "panel",
     panelType: "contact",
     panelData: {
+      subtitle: contactInfo.subtitle,
+      description: contactInfo.description,
+      location: contactInfo.location,
+      availability: contactInfo.availability,
       contacts,
       locale,
     },
