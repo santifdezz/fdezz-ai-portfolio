@@ -8,9 +8,10 @@ export const en = {
   ],
 
   welcomeMessages: [
-    "Welcome.",
-    "You are now connected to fdezz's AI system.",
-    "Type /help to explore.",
+    "Welcome to sfseoane.es",
+    "I'm Claudia, your virtual assistant. I'm here to help you explore Santiago's professional portfolio.",
+    "I can't share everything about him, but I know enough to give you a good sense of who he is professionally.",
+    "Type /help to explore, or jump to /about to get started.",
   ],
 
   responses: {

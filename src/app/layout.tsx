@@ -15,17 +15,17 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "fdezz — AI Terminal Portfolio",
+  title: "sfseoane — AI Terminal Portfolio",
   description: "Interactive AI terminal portfolio. Data Engineer & Full-Stack Developer specializing in AI, Big Data, and Cloud Architecture.",
   keywords: ["Data Engineer", "Full Stack Developer", "AI", "Big Data", "Python", "TypeScript", "React", "Next.js"],
   authors: [
     {
       name: "Santiago Fernández",
-      url: "https://fdezz.ai",
+      url: "https://sfseoane.es",
     },
   ],
   creator: "Santiago Fernández",
-  publisher: "fdezz",
+  publisher: "sfseoane",
   robots: {
     index: true,
     follow: true,
@@ -41,25 +41,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: ["es_ES"],
-    url: "https://fdezz.ai",
-    siteName: "fdezz — AI Terminal",
-    title: "fdezz — AI Terminal Portfolio",
+    url: "https://sfseoane.es",
+    siteName: "sfseoane — AI Terminal",
+    title: "sfseoane — AI Terminal Portfolio",
     description: "Interactive AI terminal portfolio showcasing projects, skills, and experience in Data Engineering and Full-Stack Development.",
     images: [
       {
-        url: "https://fdezz.ai/og-image.png",
+        url: "https://sfseoane.es/og-image.png",
         width: 1200,
         height: 630,
-        alt: "fdezz AI Terminal Portfolio",
+        alt: "sfseoane AI Terminal Portfolio",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "fdezz — AI Terminal Portfolio",
+    title: "sfseoane — AI Terminal Portfolio",
     description: "Interactive portfolio showcasing Data Engineering & Full-Stack Development projects",
-    images: ["https://fdezz.ai/og-image.png"],
+    images: ["https://sfseoane.es/og-image.png"],
     creator: "@sfdezz",
   },
   appleWebApp: {

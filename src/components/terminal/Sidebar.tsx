@@ -27,7 +27,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
       {/* Header */}
       <div className="p-4 border-b border-[hsl(var(--border))]">
         <div className="flex items-center gap-2 mb-1">
-          <Terminal className="w-4 h-4 text-cyan-400" />
+          <Terminal className="w-4 h-4 text-purple-400" />
           <h1 className="text-sm font-semibold text-[hsl(var(--foreground))] truncate">
             FDEZZ.AI
           </h1>
@@ -50,7 +50,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
 
           {/* Role */}
           <div className="flex items-center gap-2">
-            <Briefcase className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+            <Briefcase className="w-5 h-5 text-purple-400 flex-shrink-0" />
             <div>
               <p className="text-[hsl(var(--foreground))] font-medium">
                 {isES ? "Ingeniero de Datos" : "Data Engineer"}
@@ -63,7 +63,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
 
           {/* Location */}
           <div className="flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+            <MapPin className="w-5 h-5 text-purple-400 flex-shrink-0" />
             <div>
               <p className="text-[hsl(var(--foreground))]">
                 {isES ? "Madrid, España" : "Madrid, Spain"}
@@ -76,7 +76,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
 
           {/* Made By */}
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+            <Sparkles className="w-5 h-5 text-purple-400 flex-shrink-0" />
             <div>
               <p className="text-[hsl(var(--foreground))] font-medium">
                 {isES ? "Creado por Santi" : "Made by Santi"}
@@ -138,7 +138,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
               onClick={() => onCommandRun(item.cmd)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-3 py-1.5 text-xs bg-cyan-500/10 border border-cyan-500/30 rounded-full hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all text-cyan-300 font-medium cursor-pointer"
+              className="px-3 py-1.5 text-xs bg-purple-500/10 border border-purple-500/30 rounded-full hover:bg-purple-500/20 hover:border-purple-500/50 transition-all text-purple-300 font-medium cursor-pointer"
             >
               {item.label}
             </motion.button>
@@ -156,7 +156,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
             whileTap={{ scale: 0.95 }}
             className={`px-3 py-1.5 text-xs font-semibold rounded transition-all ${
               locale === "en"
-                ? "bg-cyan-500/20 border border-cyan-500/50 text-cyan-300"
+                ? "bg-purple-500/20 border border-purple-500/50 text-purple-300"
                 : "bg-[hsl(var(--secondary)/0.5)] border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
             }`}
           >
@@ -168,7 +168,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: Sideba
             whileTap={{ scale: 0.95 }}
             className={`px-3 py-1.5 text-xs font-semibold rounded transition-all ${
               locale === "es"
-                ? "bg-cyan-500/20 border border-cyan-500/50 text-cyan-300"
+                ? "bg-purple-500/20 border border-purple-500/50 text-purple-300"
                 : "bg-[hsl(var(--secondary)/0.5)] border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
             }`}
           >

@@ -8,9 +8,10 @@ export const es = {
   ],
 
   welcomeMessages: [
-    "Bienvenido.",
-    "Estás conectado al sistema AI de fdezz.",
-    "Escribe /help para explorar.",
+    "Bienvenido a sfseoane.es",
+    "Soy Claudia, tu asistente virtual. Estoy aquí para ayudarte a explorar el portafolio profesional de Santiago.",
+    "No puedo compartir todo sobre él, pero sé lo suficiente para darte una buena idea de quién es profesionalmente.",
+    "Escribe /help para explorar, o ve directamente a /about para comenzar.",
   ],
 
   responses: {
