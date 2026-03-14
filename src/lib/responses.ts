@@ -729,6 +729,23 @@ export function getHelpPanelResponse(locale: Locale): CommandResponse {
   };
 }
 
+export function getSkillsPanelResponse(locale: Locale): CommandResponse {
+  const portfolio = getPortfolioContent(locale);
+  const { bio } = portfolio.about;
+
+  return {
+    type: "panel",
+    panelType: "skills",
+    panelData: {
+      categories: Object.entries(bio.skills).map(([name, items]) => ({
+        name,
+        items,
+      })),
+      locale,
+    },
+  };
+}
+
 export function getTutorialResponse(locale: Locale): CommandResponse {
   const isES = locale === "es";
 
