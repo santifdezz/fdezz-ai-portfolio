@@ -8,11 +8,16 @@ import {
   getResponse,
   getUnknownResponse,
   getAboutResponse,
+  getAboutPanelResponse,
   getProjectsResponse,
+  getProjectsPanelResponse,
   getProjectDetailsResponse,
   getServicesResponse,
+  getServicesPanelResponse,
   getContactResponse,
+  getContactPanelResponse,
   getTimelineResponse,
+  getHelpPanelResponse,
 } from "./responses";
 import { TimelineMessage } from "@/components/terminal/TimelineMessage";
 import { getPortfolioContent } from "./portfolio-content";
@@ -44,21 +49,21 @@ export function useCommandHandler() {
 
     // Dynamic portfolio content commands
     if (cmd === "/about") {
-      return { type: "text", text: getAboutResponse(locale) };
+      return getAboutPanelResponse(locale);
     }
 
     if (cmd === "/projects") {
       const args = getCommandArgs(input);
       const filter = args[0];
-      return { type: "text", text: getProjectsResponse(locale, filter) };
+      return getProjectsPanelResponse(locale, filter);
     }
 
     if (cmd === "/services") {
-      return { type: "text", text: getServicesResponse(locale) };
+      return getServicesPanelResponse(locale);
     }
 
     if (cmd === "/contact") {
-      return { type: "text", text: getContactResponse(locale) };
+      return getContactPanelResponse(locale);
     }
 
     // Interactive timeline (replaces navigation)
@@ -169,7 +174,12 @@ export function useCommandHandler() {
       return { type: "clear", text: "" };
     }
 
-    // Text responses (system, architecture, help, easter eggs, etc.)
+    // Help command with visual panel
+    if (cmd === "/help") {
+      return getHelpPanelResponse(locale);
+    }
+
+    // Text responses (system, architecture, easter eggs, etc.)
     return {
       type: "text",
       text: getResponse(cmd, locale),

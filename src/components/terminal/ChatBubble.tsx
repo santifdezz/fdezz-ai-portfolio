@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { TerminalMessage } from "@/lib/terminalTypes";
+import { createPanelComponent, shouldUsePanel } from "@/lib/panelFactory";
 
 interface ChatBubbleProps {
   message: TerminalMessage;
@@ -12,7 +13,13 @@ function isPreformatted(text: string): boolean {
 }
 
 export function ChatBubble({ message }: ChatBubbleProps) {
-  const { type, text, component } = message;
+  const { type, text, component, panelType, panelData } = message as any;
+
+  // Create panel component from panelType if available
+  let finalComponent = component;
+  if (panelType && panelData && !finalComponent) {
+    finalComponent = createPanelComponent(panelType, panelData);
+  }
 
   // System messages: subtle centered
   if (type === "system") {
@@ -40,8 +47,8 @@ export function ChatBubble({ message }: ChatBubbleProps) {
         className="flex justify-end mb-3"
       >
         <div className="max-w-[70%] bg-[hsl(var(--primary)/0.1)] border border-[hsl(var(--primary)/0.2)] text-[hsl(var(--foreground))] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
-          {component ? (
-            component
+          {finalComponent ? (
+            finalComponent
           ) : text ? (
             isPreformatted(text) ? (
               <pre className="whitespace-pre-wrap font-mono text-[13px] leading-relaxed text-[hsl(var(--foreground))]">
@@ -68,8 +75,8 @@ export function ChatBubble({ message }: ChatBubbleProps) {
         className="flex justify-start mb-3"
       >
         <div className="max-w-[70%] bg-[hsl(var(--destructive)/0.1)] border border-[hsl(var(--destructive)/0.2)] text-[hsl(var(--destructive-foreground))] rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
-          {component ? (
-            component
+          {finalComponent ? (
+            finalComponent
           ) : text ? (
             isPreformatted(text) ? (
               <pre className="whitespace-pre-wrap font-mono text-[13px] leading-relaxed">
@@ -92,8 +99,8 @@ export function ChatBubble({ message }: ChatBubbleProps) {
       transition={{ duration: 0.3 }}
       className="flex justify-start mb-3"
     >
-      {component ? (
-        <div className="max-w-[85%]">{component}</div>
+      {finalComponent ? (
+        <div className="max-w-[85%]">{finalComponent}</div>
       ) : (
         <div className="max-w-[70%] bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
           {text && (

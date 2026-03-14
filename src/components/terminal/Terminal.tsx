@@ -5,6 +5,7 @@ import type { TerminalMessage, Locale } from "@/lib/terminalTypes";
 import { TERMINAL_CONFIG } from "@/lib/terminalTypes";
 import { getWelcomeMessages } from "@/lib/responses";
 import { useCommandHandler } from "@/lib/useCommandHandler";
+import { initializePanelRegistry } from "@/lib/panelFactory";
 import { TerminalHistory } from "./TerminalHistory";
 import { TerminalInput } from "./TerminalInput";
 import { Sidebar } from "./Sidebar";
@@ -57,6 +58,11 @@ export default function Terminal() {
   const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "en");
   const { handleCommand } = useCommandHandler();
   const time = useNow();
+
+  // Initialize panel registry on mount
+  useEffect(() => {
+    initializePanelRegistry();
+  }, []);
 
   // Welcome messages on mount
   useEffect(() => {
@@ -112,14 +118,16 @@ export default function Terminal() {
           window.open(response.url, "_blank", "noopener,noreferrer");
         }
 
-        // Handle both text and component responses
-        if (response.text || response.component) {
+        // Handle both text and component responses, including panel responses
+        if (response.text || response.component || response.panelType) {
           const msgType = response.type === "error" ? "error" : "ai";
           addMsg({
             id: Math.random().toString(36).slice(2),
             type: msgType,
             text: response.text,
             component: response.component,
+            panelType: (response as any).panelType,
+            panelData: (response as any).panelData,
             timestamp: Date.now(),
           });
         }

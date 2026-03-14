@@ -34,12 +34,14 @@ export type CommandKey =
   | "/clear";
 
 export interface CommandResponse {
-  type: "text" | "nav" | "external" | "error" | "clear" | "lang";
+  type: "text" | "nav" | "external" | "error" | "clear" | "lang" | "panel";
   text?: string;
   component?: React.ReactNode;
   path?: string;
   url?: string;
   locale?: Locale;
+  panelType?: string;
+  panelData?: Record<string, any>;
 }
 
 export interface TerminalConfig {

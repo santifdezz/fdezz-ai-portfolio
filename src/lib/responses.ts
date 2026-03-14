@@ -493,3 +493,188 @@ export function getTimelineResponse(locale: Locale, arg?: string): string {
   // If argument is invalid, show intro again
   return formatTimelineIntro(locale);
 }
+
+// ========================
+// PANEL RESPONSE FUNCTIONS
+// ========================
+
+import type { CommandResponse } from "./terminalTypes";
+
+export function getAboutPanelResponse(locale: Locale): CommandResponse {
+  const portfolio = getPortfolioContent(locale);
+  const { bio } = portfolio.about;
+
+  return {
+    type: "panel",
+    panelType: "bio",
+    panelData: {
+      shortDescription: bio.shortDescription,
+      fullDescription: bio.fullDescription,
+      tagline: bio.tagline,
+      skills: Object.entries(bio.skills).map(([name, items]) => ({
+        name,
+        items,
+      })),
+      locale,
+    },
+  };
+}
+
+export function getProjectsPanelResponse(
+  locale: Locale,
+  filter?: string
+): CommandResponse {
+  const portfolio = getPortfolioContent(locale);
+  let projects = portfolio.projects;
+
+  if (filter) {
+    const filterLower = filter.toLowerCase();
+    if (filterLower === "completed" || filterLower === "done") {
+      projects = getProjectsByStatus(locale, "completed");
+    } else if (filterLower === "in-progress" || filterLower === "progress") {
+      projects = getProjectsByStatus(locale, "in-progress");
+    } else {
+      projects = getProjectsByTechnology(locale, filter);
+    }
+  }
+
+  if (projects.length === 0) {
+    return {
+      type: "error",
+      text:
+        locale === "es"
+          ? "No se encontraron proyectos con ese filtro."
+          : "No projects found with that filter.",
+    };
+  }
+
+  return {
+    type: "panel",
+    panelType: "projects",
+    panelData: {
+      projects: projects.map((p) => ({
+        id: p.id,
+        title: p.title,
+        description: p.description,
+        technologies: p.technologies,
+        status: p.status,
+        links: p.links,
+      })),
+      locale,
+    },
+  };
+}
+
+export function getServicesPanelResponse(locale: Locale): CommandResponse {
+  const portfolio = getPortfolioContent(locale);
+  const services = portfolio.services || [];
+
+  return {
+    type: "panel",
+    panelType: "services",
+    panelData: {
+      services: services.map((s) => ({
+        id: s.id,
+        title: s.title,
+        description: s.description,
+        icon: s.icon,
+      })),
+      locale,
+    },
+  };
+}
+
+export function getContactPanelResponse(locale: Locale): CommandResponse {
+  const portfolio = getPortfolioContent(locale);
+  const contactInfo = portfolio.about.contact;
+
+  if (!contactInfo) {
+    return {
+      type: "error",
+      text: locale === "es" ? "Información de contacto no disponible." : "Contact information not available.",
+    };
+  }
+
+  // Transform channels to ContactLink format
+  const contacts = (contactInfo.channels || []).map((channel: any) => ({
+    label: channel.label,
+    value: channel.value,
+    type: channel.type,
+  }));
+
+  return {
+    type: "panel",
+    panelType: "contact",
+    panelData: {
+      contacts,
+      locale,
+    },
+  };
+}
+
+export function getHelpPanelResponse(locale: Locale): CommandResponse {
+  const content = getContent(locale);
+  const isES = locale === "es";
+
+  const commands = [
+    {
+      command: "/about",
+      description: isES ? "Ver mi biografía y habilidades" : "View my biography and skills",
+      category: isES ? "Información" : "Information",
+    },
+    {
+      command: "/timeline",
+      description: isES ? "Ver mi recorrido profesional" : "View my professional journey",
+      category: isES ? "Información" : "Information",
+    },
+    {
+      command: "/projects",
+      description: isES ? "Ver mis proyectos" : "View my projects",
+      category: isES ? "Portafolio" : "Portfolio",
+    },
+    {
+      command: "/services",
+      description: isES ? "Ver mis servicios" : "View my services",
+      category: isES ? "Portafolio" : "Portfolio",
+    },
+    {
+      command: "/contact",
+      description: isES ? "Información de contacto" : "Contact information",
+      category: isES ? "Contacto" : "Contact",
+    },
+    {
+      command: "/github",
+      description: isES ? "Visitar mi GitHub" : "Visit my GitHub",
+      category: isES ? "Enlaces" : "Links",
+    },
+    {
+      command: "/cv",
+      description: isES ? "Descargar mi CV" : "Download my CV",
+      category: isES ? "Documentos" : "Documents",
+    },
+    {
+      command: "/lang",
+      description: isES ? "Cambiar idioma (en/es)" : "Change language (en/es)",
+      category: isES ? "Sistema" : "System",
+    },
+    {
+      command: "/clear",
+      description: isES ? "Limpiar el terminal" : "Clear the terminal",
+      category: isES ? "Sistema" : "System",
+    },
+    {
+      command: "/help",
+      description: isES ? "Ver este mensaje de ayuda" : "View this help message",
+      category: isES ? "Sistema" : "System",
+    },
+  ];
+
+  return {
+    type: "panel",
+    panelType: "help",
+    panelData: {
+      commands,
+      locale,
+    },
+  };
+}
