@@ -108,7 +108,7 @@ export default function Terminal() {
   const handleSubmit = useCallback(
     (input: string): void => {
       // All input is natural language - parse intention
-      addMsg({ ...makeMsg("user", input), type: "user" });
+      addMsg(makeMsg("user", input));
       setIsProcessing(true);
 
       setTimeout(() => {
