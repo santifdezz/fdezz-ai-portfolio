@@ -1,14 +1,17 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { TerminalMessage, Locale } from "@/lib/terminalTypes";
 import { TERMINAL_CONFIG } from "@/lib/terminalTypes";
 import { getWelcomeMessages } from "@/lib/responses";
 import { useCommandHandler } from "@/lib/useCommandHandler";
 import { initializePanelRegistry } from "@/lib/panelFactory";
-import { TerminalHistory } from "./TerminalHistory";
-import { TerminalInput } from "./TerminalInput";
+import { parseIntention } from "@/lib/intentionMap";
+import { ChatBubble } from "./ChatBubble";
+import { ChatInput } from "./ChatInput";
 import { Sidebar } from "./Sidebar";
+import { TourSelector } from "@/components/panels/TourSelector";
+import { TourPlayer } from "@/components/panels/TourPlayer";
 
 function makeMsg(type: TerminalMessage["type"], text: string): TerminalMessage {
   return { id: Math.random().toString(36).slice(2), type, text, timestamp: Date.now() };
@@ -52,12 +55,22 @@ function useLocalStorage(key: string, defaultValue: Locale): [Locale, (value: Lo
   return [isHydrated ? value : defaultValue, setValueWithStorage];
 }
 
+type UIState = "welcome" | "chat" | "tour-selector" | "tour-player";
+
 export default function Terminal() {
   const [history, setHistory] = useState<TerminalMessage[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "es");
+  const [uiState, setUiState] = useState<UIState>("welcome");
+  const [selectedTours, setSelectedTours] = useState<string[]>([]);
   const { handleCommand } = useCommandHandler();
   const time = useNow();
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom on new messages
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history]);
 
   // Initialize panel registry on mount
   useEffect(() => {
@@ -66,8 +79,14 @@ export default function Terminal() {
 
   // Welcome messages on mount and when locale changes
   useEffect(() => {
+    setHistory([]);
+    setUiState("welcome");
+
     const welcomeMsgs = getWelcomeMessages(locale);
-    const all: TerminalMessage[] = welcomeMsgs.map((line) => makeMsg("ai", line));
+    // Filter out empty messages for chat display
+    const all: TerminalMessage[] = welcomeMsgs
+      .filter((line) => line.trim().length > 0)
+      .map((line) => makeMsg("ai", line));
 
     let i = 0;
     const show = () => {
@@ -75,6 +94,9 @@ export default function Terminal() {
         const msg = all[i++];
         setHistory((prev) => [...prev, msg]);
         setTimeout(show, 300);
+      } else {
+        // After welcome completes, show tour selector
+        setTimeout(() => setUiState("tour-selector"), 500);
       }
     };
     const timer = setTimeout(show, 200);
@@ -87,60 +109,97 @@ export default function Terminal() {
 
   const handleSubmit = useCallback(
     (input: string): void => {
-      addMsg(makeMsg("user", input));
-      setIsProcessing(true);
+      // Check if input is a command (starts with "/")
+      const isCommand = input.trim().startsWith("/");
 
-      setTimeout(() => {
-        // Create callback for timeline navigation
-        const onTimelineNavigate = (newIndex: number) => {
-          if (newIndex === -1) {
-            // "View All" was clicked
-            handleSubmit("/timeline all");
-          } else {
-            // Navigate to specific period (1-based)
-            handleSubmit(`/timeline ${newIndex + 1}`);
-          }
-        };
+      if (!isCommand) {
+        // Natural language: parse intention
+        addMsg({ ...makeMsg("user", input), type: "user" });
+        setIsProcessing(true);
 
-        const response = handleCommand(input, locale, { onTimelineNavigate });
+        setTimeout(() => {
+          const intentionResponse = parseIntention(input, locale);
 
-        if (response.type === "clear") {
-          setHistory([]);
-          setIsProcessing(false);
-          return;
-        }
-
-        if (response.type === "lang" && response.locale) {
-          setLocale(response.locale);
-          // Clear history when changing language for clean slate
-          setHistory([]);
-          setIsProcessing(false);
-          return;
-        }
-
-        if (response.type === "external" && response.url) {
-          window.open(response.url, "_blank", "noopener,noreferrer");
-        }
-
-        // Handle both text and component responses, including panel responses
-        if (response.text || response.component || response.panelType) {
-          const msgType = response.type === "error" ? "error" : "ai";
+          // Add AI response message
           addMsg({
             id: Math.random().toString(36).slice(2),
-            type: msgType,
-            text: response.text,
-            component: response.component,
-            panelType: (response as any).panelType,
-            panelData: {
-              ...(response as any).panelData,
-              onCommandRun: handleSubmit, // Inject callback for interactive panels
-            },
+            type: "ai",
+            text: intentionResponse.message,
             timestamp: Date.now(),
           });
-        }
 
-        setIsProcessing(false);
-      }, TERMINAL_CONFIG.messageDelay);
+          // Add tour selector suggestion if we have options
+          if (intentionResponse.suggestedOptions && intentionResponse.suggestedOptions.length > 0) {
+            addMsg({
+              id: Math.random().toString(36).slice(2),
+              type: "ai",
+              text: locale === "es" ? "¿Qué te gustaría explorar?" : "What would you like to explore?",
+              panelType: "tour-selector-inline",
+              panelData: {
+                options: intentionResponse.suggestedOptions,
+                onSelect: (selected: string[]) => {
+                  // Trigger tour with selected options
+                  setSelectedTours(selected);
+                  setUiState("tour-player");
+                },
+              },
+              timestamp: Date.now(),
+            });
+          }
+
+          setIsProcessing(false);
+        }, TERMINAL_CONFIG.messageDelay);
+      } else {
+        // Command: use existing handler
+        addMsg(makeMsg("user", input));
+        setIsProcessing(true);
+
+        setTimeout(() => {
+          const onTimelineNavigate = (newIndex: number) => {
+            if (newIndex === -1) {
+              handleSubmit("/timeline all");
+            } else {
+              handleSubmit(`/timeline ${newIndex + 1}`);
+            }
+          };
+
+          const response = handleCommand(input, locale, { onTimelineNavigate });
+
+          if (response.type === "clear") {
+            setHistory([]);
+            setIsProcessing(false);
+            return;
+          }
+
+          if (response.type === "lang" && response.locale) {
+            setLocale(response.locale);
+            setIsProcessing(false);
+            return;
+          }
+
+          if (response.type === "external" && response.url) {
+            window.open(response.url, "_blank", "noopener,noreferrer");
+          }
+
+          if (response.text || response.component || response.panelType) {
+            const msgType = response.type === "error" ? "error" : "ai";
+            addMsg({
+              id: Math.random().toString(36).slice(2),
+              type: msgType,
+              text: response.text,
+              component: response.component,
+              panelType: (response as any).panelType,
+              panelData: {
+                ...(response as any).panelData,
+                onCommandRun: handleSubmit,
+              },
+              timestamp: Date.now(),
+            });
+          }
+
+          setIsProcessing(false);
+        }, TERMINAL_CONFIG.messageDelay);
+      }
     },
     [addMsg, handleCommand, locale]
   );
@@ -165,7 +224,7 @@ export default function Terminal() {
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[hsl(var(--primary))] animate-pulse" />
             <h1 className="text-sm font-semibold text-[hsl(var(--foreground))]">
-              AI Terminal
+              AI Portfolio
             </h1>
           </div>
           <div className="flex items-center gap-4 text-xs text-[hsl(var(--muted-foreground))] font-mono">
@@ -177,12 +236,47 @@ export default function Terminal() {
         {/* Chat Area */}
         <div className="flex-1 overflow-y-auto px-6 md:px-8 py-6">
           <div className="max-w-4xl mx-auto space-y-2">
-            <TerminalHistory messages={history} />
+            {/* Chat Messages */}
+            {history.map((msg) => (
+              <ChatBubble key={msg.id} message={msg} />
+            ))}
+
+            {/* Tour Selector - shown after welcome */}
+            {uiState === "tour-selector" && history.length > 0 && (
+              <TourSelector
+                onStartTour={(selectedOptions) => {
+                  setSelectedTours(selectedOptions.map((opt) => opt.id));
+                  setUiState("tour-player");
+                }}
+                locale={locale}
+              />
+            )}
+
+            {/* Tour Player - shown when tours selected */}
+            {uiState === "tour-player" && selectedTours.length > 0 && (
+              <TourPlayer
+                steps={selectedTours.map((tourId) => ({
+                  id: tourId,
+                  label: tourId.charAt(0).toUpperCase() + tourId.slice(1),
+                  cmd: `/${tourId}`,
+                }))}
+                locale={locale}
+                onCommandRun={handleSubmit}
+                onExit={() => {
+                  setUiState("chat");
+                  setSelectedTours([]);
+                }}
+              />
+            )}
+
+            <div ref={bottomRef} />
           </div>
         </div>
 
-        {/* Input Area */}
-        <TerminalInput onSubmit={handleSubmit} isProcessing={isProcessing} />
+        {/* Input Area - only show after welcome and tour selection complete */}
+        {(uiState === "chat" || uiState === "welcome") && (
+          <ChatInput onSubmit={handleSubmit} isProcessing={isProcessing} />
+        )}
       </div>
     </div>
   );
