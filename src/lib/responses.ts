@@ -511,6 +511,7 @@ export function getAboutPanelResponse(locale: Locale): CommandResponse {
       shortDescription: bio.shortDescription,
       fullDescription: bio.fullDescription,
       tagline: bio.tagline,
+      cvLink: portfolio.about.cvLink,
       skills: Object.entries(bio.skills).map(([name, items]) => ({
         name,
         items,
@@ -579,6 +580,8 @@ export function getServicesPanelResponse(locale: Locale): CommandResponse {
         title: s.title,
         description: s.description,
         icon: s.icon,
+        features: s.features || [],
+        technologies: s.technologies || [],
       })),
       locale,
     },
