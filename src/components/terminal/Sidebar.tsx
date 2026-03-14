@@ -30,11 +30,11 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
         <div className="flex items-center gap-2 mb-1">
           <Terminal className="w-4 h-4 text-purple-400" />
           <h1 className="text-sm font-semibold text-[hsl(var(--foreground))] truncate">
-            FDEZZ.AI
+            SFSEOANE.ES
           </h1>
         </div>
         <p className="text-xs text-[hsl(var(--muted-foreground))] mt-1">
-          {isES ? "Portafolio Terminal IA" : "AI Terminal Portfolio"}
+          {isES ? "Portafolio IA" : "AI Portfolio"}
         </p>
       </div>
 
