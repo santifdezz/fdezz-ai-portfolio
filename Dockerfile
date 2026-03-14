@@ -1,9 +1,11 @@
 # Build stage
-FROM node:25.8.1-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat python3 make g++
+# Upgrade Alpine packages to patch CVE-2026-22184 (zlib) and others
+RUN apk update && apk upgrade --no-cache && \
+    apk add --no-cache libc6-compat python3 make g++
 
 COPY package*.json ./
 RUN npm ci
@@ -12,16 +14,18 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:25.8.1-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat
+# Upgrade Alpine packages to patch CVE-2026-22184 (zlib) and others
+RUN apk update && apk upgrade --no-cache && \
+    apk add --no-cache libc6-compat
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
