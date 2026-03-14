@@ -1,7 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import type { TerminalMessage } from "@/lib/terminalTypes";
+import { useCommandHandler } from "@/lib/useCommandHandler";
+import { motion, AnimatePresence } from "framer-motion";
+import BootScreen from "@/components/BootScreen";
+import SystemPanel from "@/components/SystemPanel";
+import TerminalHistory from "./TerminalHistory";
+import TerminalInput from "./TerminalInput";
 
 const initialBootMessages: TerminalMessage[] = [
   { id: "1", type: "system", text: "██╗  ██╗ █████╗ ██╗    ██╗██╗███╗   ██╗███████╗" },
@@ -19,112 +25,172 @@ const initialBootMessages: TerminalMessage[] = [
 ];
 
 export default function Terminal() {
+  const [bootComplete, setBootComplete] = useState(false);
   const [history, setHistory] = useState<TerminalMessage[]>([]);
   const [input, setInput] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const historyRef = useRef<HTMLDivElement>(null);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [idleTimer, setIdleTimer] = useState<NodeJS.Timeout | null>(null);
+  const [showIdleMessage, setShowIdleMessage] = useState(false);
+  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { handleCommand } = useCommandHandler();
 
+  // Boot sequence
   useEffect(() => {
-    const timer = setTimeout(() => setHistory(initialBootMessages), 1500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (bootComplete) {
+      const timer = setTimeout(() => setHistory(initialBootMessages), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [bootComplete]);
 
+  // Idle mode - show message after 30 seconds of inactivity
   useEffect(() => {
-    historyRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [history]);
+    const resetIdleTimer = () => {
+      if (idleTimeoutRef.current) {
+        clearTimeout(idleTimeoutRef.current);
+      }
+      setShowIdleMessage(false);
 
-  const addMessage = (type: TerminalMessage["type"], text: string) => {
-    const msg: TerminalMessage = {
-      id: Math.random().toString(36).substr(2, 9),
-      type,
-      text,
+      idleTimeoutRef.current = setTimeout(() => {
+        if (!isProcessing && input === "") {
+          setShowIdleMessage(true);
+        }
+      }, 30000); // 30 seconds
     };
-    setHistory(prev => [...prev, msg]);
-  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isProcessing) return;
+    resetIdleTimer();
 
-    const userMsg = input.trim();
-    const userLine = `santi@ai-terminal:~$ ${userMsg}`;
-    addMessage("user", userLine);
-    setInput("");
-    setIsProcessing(true);
+    return () => {
+      if (idleTimeoutRef.current) {
+        clearTimeout(idleTimeoutRef.current);
+      }
+    };
+  }, [isProcessing, input]);
 
-    setTimeout(() => {
-      addMessage("ai", `santi@ai-terminal:~$ Command: ${userMsg}`);
-      addMessage("ai", "santi@ai-terminal:~$ Type /help for commands");
-      setIsProcessing(false);
-    }, 1200);
-  };
+  const addMessage = useCallback(
+    (type: TerminalMessage["type"], text: string) => {
+      const msg: TerminalMessage = {
+        id: Math.random().toString(36).substr(2, 9),
+        type,
+        text,
+      };
+      setHistory((prev) => [...prev, msg]);
+    },
+    []
+  );
+
+  const handleSubmit = useCallback(
+    (inputText: string) => {
+      if (!inputText.trim() || isProcessing) return;
+
+      // Reset idle state
+      setShowIdleMessage(false);
+
+      // Add user message
+      addMessage("user", `santi@ai-terminal:~$ ${inputText}`);
+
+      // Add to command history
+      setCommandHistory((prev) => [...prev, inputText]);
+
+      setInput("");
+      setIsProcessing(true);
+
+      // Simulate processing delay
+      setTimeout(() => {
+        const result = handleCommand(inputText);
+
+        // Add response
+        if (result.type === "text") {
+          const lines = result.text.split("\n");
+          lines.forEach((line) => {
+            addMessage("ai", line);
+          });
+        } else if (result.type === "external") {
+          addMessage("ai", result.text);
+          // In real app, would open external link
+          if (result.url) window.open(result.url, "_blank");
+        }
+
+        setIsProcessing(false);
+      }, 800);
+    },
+    [isProcessing, addMessage, handleCommand]
+  );
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-mono select-none">
-      {/* Container responsive */}
-      <div className="max-w-4xl mx-auto h-screen flex flex-col p-4 md:p-8">
-        
-        {/* Status bar minimal */}
-        <div className="flex justify-between items-center mb-2 text-xs text-green-400/70 border-b border-green-900/50 pb-2">
-          <span>santi@ai-terminal</span>
-          <span>12:34:56 | v2.1</span>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black text-cyan-50 font-mono select-none">
+      {/* Boot Screen */}
+      <AnimatePresence>
+        {!bootComplete && (
+          <BootScreen onBootComplete={() => setBootComplete(true)} />
+        )}
+      </AnimatePresence>
 
-        {/* Terminal content */}
-        <div className="flex-1 overflow-y-auto scrollbar-hide space-y-1 text-sm leading-relaxed">
-          {history.map((msg) => (
-            <div key={msg.id} className="break-words">
-              {msg.type === "user" ? (
-                <span className="text-green-400">{msg.text}</span>
-              ) : (
-                <span className="text-lime-400">{msg.text}</span>
-              )}
-            </div>
-          ))}
-          
-          <div ref={historyRef} />
-          
-          {isProcessing && (
-            <div>
-              <span className="text-lime-400">santi@ai-terminal:~$ </span>
-              <span className="animate-pulse">█</span>
-            </div>
-          )}
-        </div>
+      {/* Main container */}
+      {bootComplete && (
+        <div className="max-w-4xl mx-auto h-screen flex flex-col p-3 md:p-6 overflow-hidden">
+          {/* System Panel */}
+          <SystemPanel />
 
-        {/* Input */}
-        <form onSubmit={handleSubmit} className="mt-4 pt-4 border-t border-green-900/30">
-          <div className="flex items-center">
-            <span className="text-lime-400 mr-2 flex-shrink-0 text-sm">santi@ai-terminal:~$ </span>
-            <input
-              className="flex-1 bg-black text-green-400 outline-none border-none placeholder-green-600/50 font-mono text-sm"
+          {/* Terminal box with border glow */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex-1 flex flex-col border border-cyan-500/40 rounded-lg overflow-hidden shadow-[0_0_30px_rgba(0,242,255,0.15)] bg-black/60 backdrop-blur-sm"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-3 md:px-4 py-2 border-b border-cyan-500/30 text-xs tracking-widest uppercase text-cyan-300 bg-black/40">
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                AI SYSTEM — SANTI.DEV
+              </span>
+              <span className="text-emerald-400 text-xs">● ONLINE</span>
+            </div>
+
+            {/* History with idle message */}
+            <div className="flex-1 flex flex-col">
+              <TerminalHistory messages={history} isProcessing={isProcessing} />
+
+              {/* Idle message */}
+              <AnimatePresence>
+                {showIdleMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.3 }}
+                    className="px-3 md:px-4 py-2 text-xs md:text-sm"
+                  >
+                    <span className="text-cyan-400">
+                      SYSTEM IDLE. Type /help if you need guidance.
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Input */}
+            <TerminalInput
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type /help"
-              disabled={isProcessing}
-              autoFocus
+              onChange={setInput}
+              onSubmit={handleSubmit}
+              isProcessing={isProcessing}
+              commandHistory={commandHistory}
             />
-            {isProcessing && <span className="ml-1 animate-pulse">█</span>}
-          </div>
-        </form>
-      </div>
+          </motion.div>
 
-      <style jsx>{`
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-        .animate-pulse {
-          animation: blink 1s infinite;
-        }
-      `}</style>
+          {/* Footer info */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="text-center text-xs text-cyan-600/50 mt-3 md:mt-4"
+          >
+            Type /help for commands • AI Terminal v2.1
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
