@@ -1,130 +1,155 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import type { TerminalMessage } from "@/lib/terminalTypes";
+import { useState, useEffect, useCallback } from "react";
+import type { TerminalMessage, Locale } from "@/lib/terminalTypes";
+import { TERMINAL_CONFIG } from "@/lib/terminalTypes";
+import { getWelcomeMessages } from "@/lib/responses";
+import { useCommandHandler } from "@/lib/useCommandHandler";
+import { TerminalHistory } from "./TerminalHistory";
+import { TerminalInput } from "./TerminalInput";
+import { Sidebar } from "./Sidebar";
 
-const initialBootMessages: TerminalMessage[] = [
-  { id: "1", type: "system", text: "██╗  ██╗ █████╗ ██╗    ██╗██╗███╗   ██╗███████╗" },
-  { id: "2", type: "system", text: "██║  ██║██╔══██╗██║    ██║██║████╗  ██║██╔════╝" },
-  { id: "3", type: "system", text: "███████║███████║██║ █╗ ██║██║██╔██╗ ██║█████╗  " },
-  { id: "4", type: "system", text: "██╔══██║██╔══██║██║███╗██║██║██║╚██╗██║██╔══╝  " },
-  { id: "5", type: "system", text: "██║  ██║██║  ██║╚███╔███╔╝██║██║ ╚████║███████╗" },
-  { id: "6", type: "system", text: "╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝" },
-  { id: "7", type: "system", text: "" },
-  { id: "8", type: "system", text: "[ 0.123s] Booting AI Terminal v2.1..." },
-  { id: "9", type: "system", text: "[ 0.456s] Loading developer profile..." },
-  { id: "10", type: "system", text: "[ 0.789s] Indexing projects... [OK]" },
-  { id: "11", type: "system", text: "[ 1.234s] System ready" },
-  { id: "12", type: "ai", text: "santi@ai-terminal:~$ Welcome. Type /help" },
-];
+function makeMsg(type: TerminalMessage["type"], text: string): TerminalMessage {
+  return { id: Math.random().toString(36).slice(2), type, text, timestamp: Date.now() };
+}
+
+function useNow() {
+  const [time, setTime] = useState("");
+  useEffect(() => {
+    const update = () => setTime(new Date().toLocaleTimeString("en-GB"));
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
+
+function useLocalStorage(key: string, defaultValue: Locale): [Locale, (value: Locale) => void] {
+  const [value, setValue] = useState<Locale>(defaultValue);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(key) as Locale | null;
+      if (stored && (stored === "en" || stored === "es")) {
+        setValue(stored);
+      }
+      setIsHydrated(true);
+    }
+  }, [key]);
+
+  const setValueWithStorage = useCallback(
+    (newValue: Locale) => {
+      setValue(newValue);
+      if (typeof window !== "undefined") {
+        localStorage.setItem(key, newValue);
+      }
+    },
+    [key]
+  );
+
+  return [isHydrated ? value : defaultValue, setValueWithStorage];
+}
 
 export default function Terminal() {
   const [history, setHistory] = useState<TerminalMessage[]>([]);
-  const [input, setInput] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const historyRef = useRef<HTMLDivElement>(null);
+  const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "en");
+  const { handleCommand } = useCommandHandler();
+  const time = useNow();
 
+  // Welcome messages on mount
   useEffect(() => {
-    const timer = setTimeout(() => setHistory(initialBootMessages), 1500);
+    const welcomeMsgs = getWelcomeMessages(locale);
+    const all: TerminalMessage[] = welcomeMsgs.map((line) => makeMsg("ai", line));
+
+    let i = 0;
+    const show = () => {
+      if (i < all.length) {
+        const msg = all[i++];
+        setHistory((prev) => [...prev, msg]);
+        setTimeout(show, 300);
+      }
+    };
+    const timer = setTimeout(show, 200);
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    historyRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [history]);
+  const addMsg = useCallback((msg: TerminalMessage): void => {
+    setHistory((prev) => [...prev, msg]);
+  }, []);
 
-  const addMessage = (type: TerminalMessage["type"], text: string) => {
-    const msg: TerminalMessage = {
-      id: Math.random().toString(36).substr(2, 9),
-      type,
-      text,
-    };
-    setHistory(prev => [...prev, msg]);
-  };
+  const handleSubmit = useCallback(
+    (input: string): void => {
+      addMsg(makeMsg("user", input));
+      setIsProcessing(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isProcessing) return;
+      setTimeout(() => {
+        const response = handleCommand(input, locale);
 
-    const userMsg = input.trim();
-    const userLine = `santi@ai-terminal:~$ ${userMsg}`;
-    addMessage("user", userLine);
-    setInput("");
-    setIsProcessing(true);
+        if (response.type === "clear") {
+          setHistory([]);
+          setIsProcessing(false);
+          return;
+        }
 
-    setTimeout(() => {
-      addMessage("ai", `santi@ai-terminal:~$ Command: ${userMsg}`);
-      addMessage("ai", "santi@ai-terminal:~$ Type /help for commands");
-      setIsProcessing(false);
-    }, 1200);
-  };
+        if (response.type === "lang" && response.locale) {
+          setLocale(response.locale);
+        }
+
+        if (response.type === "external" && response.url) {
+          window.open(response.url, "_blank", "noopener,noreferrer");
+        }
+
+        if (response.text) {
+          addMsg(makeMsg(response.type === "error" ? "error" : "ai", response.text));
+        }
+
+        setIsProcessing(false);
+      }, TERMINAL_CONFIG.messageDelay);
+    },
+    [addMsg, handleCommand, locale]
+  );
+
+  const chatHistoryItems = [
+    {
+      id: "current",
+      title: "Current Conversation",
+      isActive: true,
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-mono select-none">
-      {/* Container responsive */}
-      <div className="max-w-4xl mx-auto h-screen flex flex-col p-4 md:p-8">
-        
-        {/* Status bar minimal */}
-        <div className="flex justify-between items-center mb-2 text-xs text-green-400/70 border-b border-green-900/50 pb-2">
-          <span>santi@ai-terminal</span>
-          <span>12:34:56 | v2.1</span>
-        </div>
+    <div className="h-screen flex bg-[hsl(var(--background))]">
+      {/* Sidebar */}
+      <Sidebar chats={chatHistoryItems} activeId="current" />
 
-        {/* Terminal content */}
-        <div className="flex-1 overflow-y-auto scrollbar-hide space-y-1 text-sm leading-relaxed">
-          {history.map((msg) => (
-            <div key={msg.id} className="break-words">
-              {msg.type === "user" ? (
-                <span className="text-green-400">{msg.text}</span>
-              ) : (
-                <span className="text-lime-400">{msg.text}</span>
-              )}
-            </div>
-          ))}
-          
-          <div ref={historyRef} />
-          
-          {isProcessing && (
-            <div>
-              <span className="text-lime-400">santi@ai-terminal:~$ </span>
-              <span className="animate-pulse">█</span>
-            </div>
-          )}
-        </div>
-
-        {/* Input */}
-        <form onSubmit={handleSubmit} className="mt-4 pt-4 border-t border-green-900/30">
-          <div className="flex items-center">
-            <span className="text-lime-400 mr-2 flex-shrink-0 text-sm">santi@ai-terminal:~$ </span>
-            <input
-              className="flex-1 bg-black text-green-400 outline-none border-none placeholder-green-600/50 font-mono text-sm"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type /help"
-              disabled={isProcessing}
-              autoFocus
-            />
-            {isProcessing && <span className="ml-1 animate-pulse">█</span>}
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <div className="flex justify-between items-center px-6 md:px-8 py-4 border-b border-[hsl(var(--border))] bg-gradient-to-r from-[hsl(var(--card))] to-transparent">
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--primary))] animate-pulse" />
+            <h1 className="text-sm font-semibold text-[hsl(var(--foreground))]">
+              AI Terminal
+            </h1>
           </div>
-        </form>
-      </div>
+          <div className="flex items-center gap-4 text-xs text-[hsl(var(--muted-foreground))] font-mono">
+            <span className="uppercase">{locale}</span>
+            <span>{time}</span>
+          </div>
+        </div>
 
-      <style jsx>{`
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-        .animate-pulse {
-          animation: blink 1s infinite;
-        }
-      `}</style>
+        {/* Chat Area */}
+        <div className="flex-1 overflow-y-auto px-6 md:px-8 py-6">
+          <div className="max-w-4xl mx-auto space-y-2">
+            <TerminalHistory messages={history} />
+          </div>
+        </div>
+
+        {/* Input Area */}
+        <TerminalInput onSubmit={handleSubmit} isProcessing={isProcessing} />
+      </div>
     </div>
   );
 }
