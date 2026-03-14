@@ -8,14 +8,9 @@ export const es = {
   ],
 
   welcomeMessages: [
-    "Bienvenido a sfseoane.es",
-    "Soy Claudia, tu asistente virtual. Estoy aquí para ayudarte a explorar el portafolio profesional de Santiago.",
-    "No puedo compartir todo sobre él, pero sé lo suficiente para darte una buena idea de quién es profesionalmente.",
-    "",
-    "👇 Inicio Rápido:",
-    "  • Haz clic en cualquier botón abajo (Sobre, Proyectos, Línea, Contacto)",
-    "  • O escribe /help para ver todos los comandos",
-    "  • Escribe /tutorial para una guía interactiva",
+    "Hola — soy Claudia, asistente de Santiago Fernández Seoane.",
+    "Santiago es Data & AI Engineer con 3+ años construyendo sistemas de IA en producción: RAG, visión por computador, ETL a escala de millones de registros.",
+    "Cuéntame qué buscas y te muestro lo relevante.",
   ],
 
   responses: {

@@ -43,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}?cmd=/skills`,
       lastModified: new Date(),
-      changeFrequency: 'quarterly',
+      changeFrequency: 'monthly',
       priority: 0.6,
     },
   ]

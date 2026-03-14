@@ -43,6 +43,7 @@ export const commandDescriptions: Record<CommandKey, string> = {
   "/system":       "System status report",
   "/architecture": "Tech architecture overview",
   "/timeline":     "Career timeline",
+  "/tutorial":     "Interactive guided tour",
   "/lang":         "Switch language: /lang en|es",
   "/clear":        "Clear terminal history",
   "/coffee":       "☕ Need a break?",

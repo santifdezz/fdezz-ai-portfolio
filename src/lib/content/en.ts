@@ -8,14 +8,9 @@ export const en = {
   ],
 
   welcomeMessages: [
-    "Welcome to sfseoane.es",
-    "I'm Claudia, your virtual assistant. I'm here to help you explore Santiago's professional portfolio.",
-    "I can't share everything about him, but I know enough to give you a good sense of who he is professionally.",
-    "",
-    "👇 Quick Start:",
-    "  • Click any button below (About, Projects, Timeline, Contact)",
-    "  • Or type /help for all commands",
-    "  • Type /tutorial for a guided walkthrough",
+    "Hi — I'm Claudia, Santiago Fernández Seoane's assistant.",
+    "Santiago is a Data & AI Engineer with 3+ years building production AI systems: RAG pipelines, computer vision, ETL at millions of records scale.",
+    "Tell me what you're looking for and I'll show you the relevant work.",
   ],
 
   responses: {

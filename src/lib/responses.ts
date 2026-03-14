@@ -579,7 +579,6 @@ export function getServicesPanelResponse(locale: Locale): CommandResponse {
         id: s.id,
         title: s.title,
         description: s.description,
-        icon: s.icon,
         features: s.features || [],
         technologies: s.technologies || [],
       })),

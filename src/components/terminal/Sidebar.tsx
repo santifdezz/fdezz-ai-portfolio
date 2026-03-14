@@ -90,6 +90,26 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
         </div>
       </div>
 
+      {/* Quick Stats */}
+      <div className="px-4 py-3 border-b border-[hsl(var(--border))]">
+        <p className="text-[10px] uppercase font-semibold text-purple-400 tracking-wider mb-2">
+          {isES ? "En Números" : "By the Numbers"}
+        </p>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { value: "3+", label: isES ? "años exp." : "yrs exp." },
+            { value: "5+", label: isES ? "proyectos" : "projects" },
+            { value: "M+", label: isES ? "registros/mes" : "records/mo" },
+            { value: "AI", label: isES ? "producción" : "production" },
+          ].map((stat) => (
+            <div key={stat.label} className="bg-[hsl(var(--secondary)/0.4)] rounded-lg p-2 text-center">
+              <p className="text-sm font-bold text-purple-300">{stat.value}</p>
+              <p className="text-[10px] text-[hsl(var(--muted-foreground))] leading-tight">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Chat List */}
       <div className="flex-1 overflow-y-auto space-y-1 p-2">
         {chats.length === 0 ? (
@@ -126,7 +146,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
       <div className="px-4 py-3 border-t border-[hsl(var(--border))] space-y-2">
         <div className="flex items-center gap-1">
           <p className="text-[10px] uppercase font-semibold text-purple-400 tracking-wider">
-            {isES ? "👇 Explora Aquí" : "👇 Explore"}
+            {isES ? "Explora" : "Explore"}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-2">
@@ -179,14 +199,10 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
           </motion.button>
         </div>
 
-        {/* Help Hint */}
-        <div className="text-[11px] text-[hsl(var(--muted-foreground))] text-center space-y-1">
-          <p>{isES ? "Chat Activo • Solo Lectura" : "Read-only • Active chat only"}</p>
-          <div className="flex items-center justify-center gap-1 pt-2 border-t border-[hsl(var(--border))] pt-3">
-            <span className="text-xs text-[hsl(var(--primary))]">/help</span>
-            <span className="text-[hsl(var(--muted-foreground))]">{isES ? "para explorar" : "to explore"}</span>
-          </div>
-        </div>
+        {/* Tip */}
+        <p className="text-[11px] text-[hsl(var(--muted-foreground))] text-center">
+          {isES ? "Escribe o usa los botones" : "Type freely or use the buttons"}
+        </p>
       </div>
     </div>
   );

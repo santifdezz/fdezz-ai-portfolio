@@ -7,6 +7,8 @@ WORKDIR /app
 RUN apk update && apk upgrade --no-cache && \
     apk add --no-cache libc6-compat python3 make g++
 
+ENV NODE_ENV=production
+
 COPY package*.json ./
 RUN npm ci
 
