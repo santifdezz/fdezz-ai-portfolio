@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp, ChevronDown, Play } from "lucide-react";
-import type { Locale } from "@/lib/portfolio-content";
+import type { Locale } from "@/lib/terminalTypes";
 
 interface TourOption {
   id: string;
