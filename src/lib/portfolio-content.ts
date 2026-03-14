@@ -82,15 +82,15 @@ const contentEN: PortfolioContent = {
     description:
       'A combination of specialized technical training and passion for data that allows me to transform complex information into useful solutions.',
     bio: {
-      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2025, I work with Artificial Intelligence and Big Data.\n\nBetween those years, I\'ve learned to build, debug, and transform complex data into useful solutions.',
+      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, specializing in AI and Big Data.\n\nBetween those years, I\'ve learned to build, debug, and transform complex data into useful solutions in production environments.',
       fullDescription: 'My education combines solid foundations in technology with advanced specialization in data science and artificial intelligence, preparing me to face the challenges of modern data analysis.',
       tagline: 'Passionate about Data',
       skills: {
         'Languages': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
         'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
-        'Libraries': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy'],
-        'Tools & Databases': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow'],
-        'Specializations': ['Machine Learning', 'ETL Pipelines', 'Web Development', 'QA Automation', 'Data Analysis'],
+        'Libraries': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow'],
+        'Tools & Databases': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS'],
+        'Specializations': ['Machine Learning', 'ETL Pipelines', 'Web Development', 'QA Automation', 'Data Analysis', 'RAG Systems', 'Vision Models', 'Sentiment Analysis', 'AI Agents'],
       },
     },
     education: [
@@ -138,6 +138,15 @@ const contentEN: PortfolioContent = {
         icon: '🤖',
         narrative: 'Where my journey converges. Combining all my previous skills into AI and data science. Data pipelines, machine learning models, and modern analysis techniques.',
         learnings: ['Machine Learning', 'Deep Learning', 'Data Engineering', 'Big Data Processing', 'Predictive Modeling'],
+      },
+      {
+        year: '2025-2026',
+        title: 'Data Engineer at Qaleon Solutions',
+        institution: 'Qaleon Solutions - AI Consulting, Madrid',
+        description: 'Professional role managing two concurrent projects with focus on AI/ML implementation, RAG systems, and production optimization.',
+        icon: '🚀',
+        narrative: 'From education to production. Applying advanced AI concepts in real-world scenarios. Leading the charge on RAG implementation, optimizing database queries for performance, building vision models for detection and classification, orchestrating complex ETL workflows with Airflow, and collaborating closely with clients to deliver cutting-edge AI solutions.',
+        learnings: ['RAG System Development', 'Database Query Optimization', 'Vision Models for Detection & Classification', 'Sentiment Analysis', 'ETL Orchestration with Airflow', 'Docker Containerization', 'Production Environments', 'Client Collaboration', 'AI Agent Development', 'Task Management at Scale'],
       },
     ],
     cvLink: 'https://drive.google.com/file/d/1dbUMNeNlhRK0g-ME5o7E6tKNkuXnGtzr/view?usp=sharing',
@@ -311,15 +320,15 @@ const contentES: PortfolioContent = {
     description:
       'Una combinación de formación técnica especializada y pasión por los datos que me permite transformar información compleja en soluciones útiles.',
     bio: {
-      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2025, trabajo con Inteligencia Artificial y Big Data.\n\nEntre esos años, he aprendido a construir, debuggear, y transformar datos complejos en soluciones útiles.',
+      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, especializándome en IA y Big Data.\n\nEntre esos años, he aprendido a construir, debuggear, y transformar datos complejos en soluciones útiles en entornos de producción.',
       fullDescription: 'Mi formación combina fundamentos sólidos en tecnología con especialización avanzada en ciencia de datos e inteligencia artificial, preparándome para enfrentar los desafíos del análisis de datos moderno.',
       tagline: 'Apasionado por los datos',
       skills: {
         'Lenguajes': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
         'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
-        'Librerías': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy'],
-        'Herramientas y BD': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow'],
-        'Especializaciones': ['Machine Learning', 'Pipelines ETL', 'Desarrollo Web', 'Automatización QA', 'Análisis de Datos'],
+        'Librerías': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow'],
+        'Herramientas y BD': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS'],
+        'Especializaciones': ['Machine Learning', 'Pipelines ETL', 'Desarrollo Web', 'Automatización QA', 'Análisis de Datos', 'Sistemas RAG', 'Modelos de Visión', 'Análisis de Sentimiento', 'Agentes IA'],
       },
     },
     education: [
@@ -367,6 +376,15 @@ const contentES: PortfolioContent = {
         icon: '🤖',
         narrative: 'Donde mi viaje converge. Combinando todas mis habilidades previas en IA y ciencia de datos. Pipelines, modelos ML y análisis moderno.',
         learnings: ['Machine Learning', 'Deep Learning', 'Data Engineering', 'Big Data Processing', 'Modelado Predictivo'],
+      },
+      {
+        year: '2025-2026',
+        title: 'Data Engineer en Qaleon Solutions',
+        institution: 'Qaleon Solutions - Consultoría de IA, Madrid',
+        description: 'Rol profesional liderando dos proyectos simultáneos con énfasis en implementación de IA/ML, sistemas RAG y optimización en producción.',
+        icon: '🚀',
+        narrative: 'De la educación a producción. Aplicando conceptos avanzados de IA en escenarios reales. Liderando la implementación de RAG, optimizando queries de bases de datos para performance, construyendo modelos de visión para detección y clasificación, orquestando flujos ETL complejos con Airflow, y colaborando estrechamente con clientes para entregar soluciones de IA de punta.',
+        learnings: ['Desarrollo de Sistemas RAG', 'Optimización de Queries de BD', 'Modelos de Visión para Detección & Clasificación', 'Análisis de Sentimiento', 'Orquestación ETL con Airflow', 'Containerización Docker', 'Entornos de Producción', 'Colaboración con Cliente', 'Desarrollo de Agentes IA', 'Gestión de Tareas a Escala'],
       },
     ],
     cvLink: 'https://drive.google.com/file/d/1vHmpMBStHvWnwua-diwFh_GwdIv5NUF7/view?usp=sharing',

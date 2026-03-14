@@ -1,18 +1,31 @@
+# Build stage
+FROM node:25.8.1-alpine AS builder
+
+WORKDIR /app
+
+RUN apk add --no-cache libc6-compat python3 make g++
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# Production stage
 FROM node:25.8.1-alpine
 
 WORKDIR /app
 
-# Dependencias sistema para Next.js
 RUN apk add --no-cache libc6-compat
 
-# Copiamos package.json y lock (YA EXISTEN)
+ENV NODE_ENV=development
+
 COPY package*.json ./
+RUN npm ci --only=production
 
-# Instalamos dependencias
-RUN npm ci
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
 
-# Puerto Next.js
 EXPOSE 3000
 
-# Dev mode
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]

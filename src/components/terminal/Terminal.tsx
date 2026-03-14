@@ -85,7 +85,18 @@ export default function Terminal() {
       setIsProcessing(true);
 
       setTimeout(() => {
-        const response = handleCommand(input, locale);
+        // Create callback for timeline navigation
+        const onTimelineNavigate = (newIndex: number) => {
+          if (newIndex === -1) {
+            // "View All" was clicked
+            handleSubmit("/timeline all");
+          } else {
+            // Navigate to specific period (1-based)
+            handleSubmit(`/timeline ${newIndex + 1}`);
+          }
+        };
+
+        const response = handleCommand(input, locale, { onTimelineNavigate });
 
         if (response.type === "clear") {
           setHistory([]);
@@ -101,8 +112,16 @@ export default function Terminal() {
           window.open(response.url, "_blank", "noopener,noreferrer");
         }
 
-        if (response.text) {
-          addMsg(makeMsg(response.type === "error" ? "error" : "ai", response.text));
+        // Handle both text and component responses
+        if (response.text || response.component) {
+          const msgType = response.type === "error" ? "error" : "ai";
+          addMsg({
+            id: Math.random().toString(36).slice(2),
+            type: msgType,
+            text: response.text,
+            component: response.component,
+            timestamp: Date.now(),
+          });
         }
 
         setIsProcessing(false);

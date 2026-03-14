@@ -1,11 +1,14 @@
 export type Locale = "en" | "es";
 
+import type React from "react";
+
 export type MessageType = "system" | "ai" | "user" | "error";
 
 export interface TerminalMessage {
   id: string;
   type: MessageType;
-  text: string;
+  text?: string;
+  component?: React.ReactNode;
   timestamp?: number;
 }
 
@@ -32,7 +35,8 @@ export type CommandKey =
 
 export interface CommandResponse {
   type: "text" | "nav" | "external" | "error" | "clear" | "lang";
-  text: string;
+  text?: string;
+  component?: React.ReactNode;
   path?: string;
   url?: string;
   locale?: Locale;
