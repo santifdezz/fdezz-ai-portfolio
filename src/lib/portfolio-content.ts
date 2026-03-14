@@ -42,11 +42,19 @@ export interface ContactMethod {
   url: string;
 }
 
+export interface BioData {
+  shortDescription: string;
+  fullDescription: string;
+  skills: Record<string, string[]>;
+  tagline: string;
+}
+
 export interface PortfolioContent {
   about: {
     title: string;
     subtitle: string;
     description: string;
+    bio: BioData;
     education: EducationEntry[];
     cvLink: string;
   };
@@ -70,6 +78,18 @@ const contentEN: PortfolioContent = {
     subtitle: 'My educational and professional journey',
     description:
       'A combination of specialized technical training and passion for data that allows me to transform complex information into useful solutions.',
+    bio: {
+      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2025, I work with Artificial Intelligence and Big Data.\n\nBetween those years, I\'ve learned to build, debug, and transform complex data into useful solutions.',
+      fullDescription: 'My education combines solid foundations in technology with advanced specialization in data science and artificial intelligence, preparing me to face the challenges of modern data analysis.',
+      tagline: 'Passionate about Data',
+      skills: {
+        'Languages': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
+        'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
+        'Libraries': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy'],
+        'Tools & Databases': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow'],
+        'Specializations': ['Machine Learning', 'ETL Pipelines', 'Web Development', 'QA Automation', 'Data Analysis'],
+      },
+    },
     education: [
       {
         year: '2020-2021',
@@ -272,6 +292,18 @@ const contentES: PortfolioContent = {
     subtitle: 'Mi trayectoria educativa y profesional',
     description:
       'Una combinación de formación técnica especializada y pasión por los datos que me permite transformar información compleja en soluciones útiles.',
+    bio: {
+      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2025, trabajo con Inteligencia Artificial y Big Data.\n\nEntre esos años, he aprendido a construir, debuggear, y transformar datos complejos en soluciones útiles.',
+      fullDescription: 'Mi formación combina fundamentos sólidos en tecnología con especialización avanzada en ciencia de datos e inteligencia artificial, preparándome para enfrentar los desafíos del análisis de datos moderno.',
+      tagline: 'Apasionado por los datos',
+      skills: {
+        'Lenguajes': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
+        'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
+        'Librerías': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy'],
+        'Herramientas y BD': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow'],
+        'Especializaciones': ['Machine Learning', 'Pipelines ETL', 'Desarrollo Web', 'Automatización QA', 'Análisis de Datos'],
+      },
+    },
     education: [
       {
         year: '2020-2021',

@@ -149,8 +149,65 @@ function formatContactInfo(locale: Locale): string {
   return lines.join("\n");
 }
 
+function formatAboutNarrative(locale: Locale): string {
+  const portfolio = getPortfolioContent(locale);
+  const { bio } = portfolio.about;
+  const lines: string[] = [];
+
+  // Header
+  const isES = locale === 'es';
+  const header = isES ? '🎬 BIENVENIDO A MI HISTORIA' : '🎬 WELCOME TO MY STORY';
+  lines.push(header);
+  lines.push('─'.repeat(header.length));
+  lines.push('');
+
+  // Short description
+  lines.push(bio.shortDescription);
+  lines.push('');
+
+  // Skills Matrix with visual bars
+  const skillsLabel = isES ? '┌─ HERRAMIENTAS QUE DOMINO' : '┌─ TOOLS I MASTER';
+  lines.push(skillsLabel);
+  lines.push('├' + '─'.repeat(skillsLabel.length - 2));
+  lines.push('│');
+
+  Object.entries(bio.skills).forEach((entry, idx) => {
+    const [category, items] = entry;
+    lines.push(`│ ${category.toUpperCase()}`);
+
+    // Split items into rows of 3
+    for (let i = 0; i < items.length; i += 3) {
+      const row = items.slice(i, i + 3);
+      const rowStr = row.map(item => {
+        const bars = '███';
+        return `${item} ${bars}`;
+      }).join('  ');
+      lines.push(`│ ${rowStr}`);
+    }
+
+    if (idx < Object.entries(bio.skills).length - 1) {
+      lines.push('│');
+    }
+  });
+
+  lines.push('│');
+  lines.push('└' + '─'.repeat(skillsLabel.length - 2));
+  lines.push('');
+
+  // Call to action
+  const timelineLabel = isES ? '📖 Para ver mi recorrido completo: /timeline' : '📖 To see my full journey: /timeline';
+  const servicesLabel = isES ? '🛠️  Para ver qué puedo hacer: /services' : '🛠️  To see what I can do: /services';
+  const projectsLabel = isES ? '📂 Para ver mis proyectos: /projects' : '📂 To see my projects: /projects';
+
+  lines.push(timelineLabel);
+  lines.push(servicesLabel);
+  lines.push(projectsLabel);
+
+  return lines.join('\n');
+}
+
 export function getAboutResponse(locale: Locale): string {
-  return formatEducationTimeline(locale);
+  return formatAboutNarrative(locale);
 }
 
 export function getProjectsResponse(locale: Locale, filter?: string): string {
