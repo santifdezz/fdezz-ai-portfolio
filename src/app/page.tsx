@@ -1,4 +1,4 @@
-import Terminal from "@/components/terminal/Terminal";
+import MainLayout from "@/components/MainLayout";
 
 export const metadata = {
   title: "Home | AI Terminal Portfolio",
@@ -6,5 +6,5 @@ export const metadata = {
 };
 
 export default function Home() {
-  return <Terminal />;
+  return <MainLayout />;
 }
