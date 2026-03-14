@@ -112,7 +112,7 @@ export default function Terminal() {
 
         if (response.type === "lang" && response.locale) {
           setLocale(response.locale);
-          // Clear history when changing language
+          // Clear history when changing language for clean slate
           setHistory([]);
           setIsProcessing(false);
           return;
