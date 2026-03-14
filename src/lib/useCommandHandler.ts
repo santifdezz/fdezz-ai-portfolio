@@ -17,9 +17,9 @@ import {
   getContactResponse,
   getContactPanelResponse,
   getTimelineResponse,
+  getTimelinePanelResponse,
   getHelpPanelResponse,
 } from "./responses";
-import { TimelineMessage } from "@/components/terminal/TimelineMessage";
 import { getPortfolioContent } from "./portfolio-content";
 
 const GITHUB_URL = "https://github.com/fdezz";
@@ -66,46 +66,9 @@ export function useCommandHandler() {
       return getContactPanelResponse(locale);
     }
 
-    // Interactive timeline (replaces navigation)
+    // Interactive timeline panel
     if (cmd === "/timeline") {
-      const args = getCommandArgs(input);
-      const periodArg = args[0];
-
-      // If "all" argument or no argument, show text overview
-      if (periodArg === "all" || !periodArg) {
-        return { type: "text", text: getTimelineResponse(locale, periodArg) };
-      }
-
-      // Show visual timeline component for specific period
-      const portfolioContent = getPortfolioContent(locale);
-      const periodIndex = parseInt(periodArg) - 1; // Convert 1-based to 0-based
-      const educationList = portfolioContent.about.education;
-
-      if (periodIndex < 0 || periodIndex >= educationList.length) {
-        return {
-          type: "error",
-          text: locale === "es"
-            ? "Período inválido. Usa /timeline para ver el recorrido."
-            : "Invalid period. Use /timeline to see your journey.",
-        };
-      }
-
-      const education = educationList[periodIndex];
-
-      // Create component with onNavigate callback using React.createElement
-      const component = React.createElement(TimelineMessage, {
-        periodIndex,
-        totalPeriods: educationList.length,
-        education,
-        onNavigate: (newIndex: number) => {
-          if (options?.onTimelineNavigate) {
-            options.onTimelineNavigate(newIndex);
-          }
-        },
-        locale,
-      });
-
-      return { type: "text", component };
+      return getTimelinePanelResponse(locale);
     }
 
     // Navigation commands

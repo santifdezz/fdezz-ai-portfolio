@@ -1,6 +1,6 @@
 import React from "react";
 import { registerPanel, getPanelComponent, type PanelType } from "./panelRegistry";
-import { TimelineMessage } from "@/components/terminal/TimelineMessage";
+import { TimelinePanel } from "@/components/panels/TimelinePanel";
 import { ProjectsPanel } from "@/components/panels/ProjectsPanel";
 import { BioPanel } from "@/components/panels/BioPanel";
 import { SkillsPanel } from "@/components/panels/SkillsPanel";
@@ -15,8 +15,8 @@ import { HelpPanel } from "@/components/panels/HelpPanel";
 export function initializePanelRegistry() {
   registerPanel(
     "timeline",
-    TimelineMessage,
-    "Interactive timeline of professional journey"
+    TimelinePanel,
+    "Interactive visual timeline of professional journey"
   );
   registerPanel(
     "projects",

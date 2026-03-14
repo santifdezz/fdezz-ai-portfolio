@@ -620,6 +620,20 @@ export function getContactPanelResponse(locale: Locale): CommandResponse {
   };
 }
 
+export function getTimelinePanelResponse(locale: Locale): CommandResponse {
+  const portfolio = getPortfolioContent(locale);
+  const periods = portfolio.about.education;
+
+  return {
+    type: "panel",
+    panelType: "timeline",
+    panelData: {
+      periods,
+      locale,
+    },
+  };
+}
+
 export function getHelpPanelResponse(locale: Locale): CommandResponse {
   const content = getContent(locale);
   const isES = locale === "es";

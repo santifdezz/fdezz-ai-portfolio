@@ -112,6 +112,10 @@ export default function Terminal() {
 
         if (response.type === "lang" && response.locale) {
           setLocale(response.locale);
+          // Clear history when changing language
+          setHistory([]);
+          setIsProcessing(false);
+          return;
         }
 
         if (response.type === "external" && response.url) {
