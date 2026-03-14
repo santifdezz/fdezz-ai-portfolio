@@ -9,6 +9,8 @@ export interface TerminalMessage {
   type: MessageType;
   text?: string;
   component?: React.ReactNode;
+  panelType?: string;
+  panelData?: Record<string, any>;
   timestamp?: number;
 }
 

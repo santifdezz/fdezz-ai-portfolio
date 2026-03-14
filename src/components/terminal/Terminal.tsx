@@ -55,7 +55,7 @@ function useLocalStorage(key: string, defaultValue: Locale): [Locale, (value: Lo
 export default function Terminal() {
   const [history, setHistory] = useState<TerminalMessage[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "en");
+  const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "es");
   const { handleCommand } = useCommandHandler();
   const time = useNow();
 
@@ -64,7 +64,7 @@ export default function Terminal() {
     initializePanelRegistry();
   }, []);
 
-  // Welcome messages on mount
+  // Welcome messages on mount and when locale changes
   useEffect(() => {
     const welcomeMsgs = getWelcomeMessages(locale);
     const all: TerminalMessage[] = welcomeMsgs.map((line) => makeMsg("ai", line));
@@ -79,7 +79,7 @@ export default function Terminal() {
     };
     const timer = setTimeout(show, 200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [locale]);
 
   const addMsg = useCallback((msg: TerminalMessage): void => {
     setHistory((prev) => [...prev, msg]);
@@ -127,7 +127,10 @@ export default function Terminal() {
             text: response.text,
             component: response.component,
             panelType: (response as any).panelType,
-            panelData: (response as any).panelData,
+            panelData: {
+              ...(response as any).panelData,
+              onCommandRun: handleSubmit, // Inject callback for interactive panels
+            },
             timestamp: Date.now(),
           });
         }
@@ -149,7 +152,7 @@ export default function Terminal() {
   return (
     <div className="h-screen flex bg-[hsl(var(--background))]">
       {/* Sidebar */}
-      <Sidebar chats={chatHistoryItems} activeId="current" />
+      <Sidebar chats={chatHistoryItems} activeId="current" locale={locale} onCommandRun={handleSubmit} />
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">

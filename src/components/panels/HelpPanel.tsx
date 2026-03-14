@@ -16,11 +16,13 @@ interface HelpCommand {
 interface HelpPanelProps {
   commands: HelpCommand[];
   locale?: Locale;
+  onCommandRun?: (cmd: string) => void;
 }
 
 export function HelpPanel({
   commands,
   locale = "en",
+  onCommandRun,
 }: HelpPanelProps) {
   const isES = locale === "es";
 
@@ -62,9 +64,16 @@ export function HelpPanel({
                   transition={{ delay: 0.3 + idx * 0.05 }}
                   className="space-y-1"
                 >
-                  <code className="text-sm font-mono text-cyan-300 bg-[hsl(var(--secondary)/0.7)] px-2 py-1 rounded">
+                  <motion.button
+                    onClick={() => onCommandRun?.(cmd.command)}
+                    whileHover={onCommandRun ? { scale: 1.05 } : {}}
+                    whileTap={onCommandRun ? { scale: 0.95 } : {}}
+                    className={`text-sm font-mono text-cyan-300 bg-[hsl(var(--secondary)/0.7)] px-2 py-1 rounded ${
+                      onCommandRun ? "cursor-pointer hover:bg-cyan-500/20 hover:text-white transition-colors" : ""
+                    }`}
+                  >
                     {cmd.command}
-                  </code>
+                  </motion.button>
                   <p className="text-xs text-[hsl(var(--muted-foreground))]">
                     {cmd.description}
                   </p>

@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Terminal, Briefcase, MapPin, Sparkles } from "lucide-react";
+import type { Locale } from "@/lib/terminalTypes";
 import { StatusDot } from "./StatusDot";
 
 interface ChatItem {
@@ -14,18 +16,24 @@ interface ChatItem {
 interface SidebarProps {
   chats: ChatItem[];
   activeId?: string;
+  locale?: Locale;
+  onCommandRun: (cmd: string) => void;
 }
 
-export function Sidebar({ chats, activeId }: SidebarProps) {
+export function Sidebar({ chats, activeId, locale = "es", onCommandRun }: SidebarProps) {
+  const isES = locale === "es";
   return (
     <div className="w-64 h-screen bg-gradient-to-b from-[hsl(var(--card))] to-[hsl(var(--card)/0.5)] border-r border-[hsl(var(--border))] flex flex-col overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-[hsl(var(--border))]">
-        <h1 className="text-sm font-semibold text-[hsl(var(--foreground))] truncate">
-          ✨ FDEZZ.AI
-        </h1>
+        <div className="flex items-center gap-2 mb-1">
+          <Terminal className="w-4 h-4 text-cyan-400" />
+          <h1 className="text-sm font-semibold text-[hsl(var(--foreground))] truncate">
+            FDEZZ.AI
+          </h1>
+        </div>
         <p className="text-xs text-[hsl(var(--muted-foreground))] mt-1">
-          AI Terminal Portfolio
+          {isES ? "Portafolio Terminal IA" : "AI Terminal Portfolio"}
         </p>
       </div>
 
@@ -36,16 +44,16 @@ export function Sidebar({ chats, activeId }: SidebarProps) {
           <div className="flex items-center gap-2">
             <StatusDot status="online" size="sm" />
             <span className="text-[hsl(var(--foreground))]">
-              Online & Coding
+              {isES ? "En línea & Codificando" : "Online & Coding"}
             </span>
           </div>
 
           {/* Role */}
           <div className="flex items-center gap-2">
-            <span className="text-lg">💼</span>
+            <Briefcase className="w-5 h-5 text-cyan-400 flex-shrink-0" />
             <div>
               <p className="text-[hsl(var(--foreground))] font-medium">
-                Data Engineer
+                {isES ? "Ingeniero de Datos" : "Data Engineer"}
               </p>
               <p className="text-[hsl(var(--muted-foreground))]">
                 @ Qaleon
@@ -55,26 +63,26 @@ export function Sidebar({ chats, activeId }: SidebarProps) {
 
           {/* Location */}
           <div className="flex items-center gap-2">
-            <span className="text-lg">📍</span>
+            <MapPin className="w-5 h-5 text-cyan-400 flex-shrink-0" />
             <div>
               <p className="text-[hsl(var(--foreground))]">
-                Madrid, Spain
+                {isES ? "Madrid, España" : "Madrid, Spain"}
               </p>
               <p className="text-[hsl(var(--muted-foreground))]">
-                Currently: AI & Big Data
+                {isES ? "Actualmente: IA y Big Data" : "Currently: AI & Big Data"}
               </p>
             </div>
           </div>
 
           {/* Made By */}
           <div className="flex items-center gap-2">
-            <span className="text-lg">🚀</span>
+            <Sparkles className="w-5 h-5 text-cyan-400 flex-shrink-0" />
             <div>
               <p className="text-[hsl(var(--foreground))] font-medium">
-                Made by Santi
+                {isES ? "Creado por Santi" : "Made by Santi"}
               </p>
               <p className="text-[hsl(var(--muted-foreground))]">
-                Passionate about Data
+                {isES ? "Apasionado por Datos" : "Passionate about Data"}
               </p>
             </div>
           </div>
@@ -113,13 +121,67 @@ export function Sidebar({ chats, activeId }: SidebarProps) {
         )}
       </div>
 
+      {/* Quick Commands */}
+      <div className="px-4 py-3 border-t border-[hsl(var(--border))] space-y-2">
+        <p className="text-[10px] uppercase font-semibold text-[hsl(var(--muted-foreground))] tracking-wider">
+          {isES ? "Comandos Rápidos" : "Quick Commands"}
+        </p>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { cmd: "/about", label: isES ? "Sobre" : "About" },
+            { cmd: "/projects", label: isES ? "Proyectos" : "Projects" },
+            { cmd: "/timeline", label: isES ? "Línea" : "Timeline" },
+            { cmd: "/contact", label: isES ? "Contacto" : "Contact" },
+          ].map((item) => (
+            <motion.button
+              key={item.cmd}
+              onClick={() => onCommandRun(item.cmd)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-3 py-1.5 text-xs bg-cyan-500/10 border border-cyan-500/30 rounded-full hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all text-cyan-300 font-medium cursor-pointer"
+            >
+              {item.label}
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
       {/* Footer */}
-      <div className="p-4 border-t border-[hsl(var(--border))] space-y-3">
+      <div className="px-4 py-3 border-t border-[hsl(var(--border))] space-y-3">
+        {/* Language Switcher */}
+        <div className="flex items-center justify-center gap-2">
+          <motion.button
+            onClick={() => onCommandRun("/lang en")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-3 py-1.5 text-xs font-semibold rounded transition-all ${
+              locale === "en"
+                ? "bg-cyan-500/20 border border-cyan-500/50 text-cyan-300"
+                : "bg-[hsl(var(--secondary)/0.5)] border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+            }`}
+          >
+            EN
+          </motion.button>
+          <motion.button
+            onClick={() => onCommandRun("/lang es")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-3 py-1.5 text-xs font-semibold rounded transition-all ${
+              locale === "es"
+                ? "bg-cyan-500/20 border border-cyan-500/50 text-cyan-300"
+                : "bg-[hsl(var(--secondary)/0.5)] border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]"
+            }`}
+          >
+            ES
+          </motion.button>
+        </div>
+
+        {/* Help Hint */}
         <div className="text-[11px] text-[hsl(var(--muted-foreground))] text-center space-y-1">
-          <p>Read-only • Active chat only</p>
+          <p>{isES ? "Chat Activo • Solo Lectura" : "Read-only • Active chat only"}</p>
           <div className="flex items-center justify-center gap-1 pt-2 border-t border-[hsl(var(--border))] pt-3">
             <span className="text-xs text-[hsl(var(--primary))]">/help</span>
-            <span className="text-[hsl(var(--muted-foreground))]">to explore</span>
+            <span className="text-[hsl(var(--muted-foreground))]">{isES ? "para explorar" : "to explore"}</span>
           </div>
         </div>
       </div>

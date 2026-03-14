@@ -14,11 +14,13 @@ interface SkillCategory {
 interface SkillsPanelProps {
   categories: SkillCategory[];
   locale?: Locale;
+  onCommandRun?: (cmd: string) => void;
 }
 
 export function SkillsPanel({
   categories,
   locale = "en",
+  onCommandRun,
 }: SkillsPanelProps) {
   const isES = locale === "es";
 
@@ -41,14 +43,18 @@ export function SkillsPanel({
             </h4>
             <div className="flex flex-wrap gap-2">
               {category.items.map((skill) => (
-                <motion.span
+                <motion.button
                   key={skill}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-3 py-1.5 text-xs bg-green-500/10 text-green-300 rounded-full border border-green-500/30 cursor-pointer hover:border-green-500/50 transition-colors"
+                  onClick={() => onCommandRun?.(`/projects ${skill}`)}
+                  title={isES ? `Filtrar proyectos por ${skill}` : `Filter projects by ${skill}`}
+                  whileHover={onCommandRun ? { scale: 1.05 } : {}}
+                  whileTap={onCommandRun ? { scale: 0.95 } : {}}
+                  className={`px-3 py-1.5 text-xs bg-green-500/10 text-green-300 rounded-full border border-green-500/30 transition-colors ${
+                    onCommandRun ? "cursor-pointer hover:border-green-500/50 hover:bg-green-500/20" : "cursor-default"
+                  }`}
                 >
                   {skill}
-                </motion.span>
+                </motion.button>
               ))}
             </div>
           </motion.div>
