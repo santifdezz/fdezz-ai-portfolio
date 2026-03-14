@@ -3,8 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import type { TerminalMessage, Locale } from "@/lib/terminalTypes";
 import { TERMINAL_CONFIG } from "@/lib/terminalTypes";
-import { getWelcomeMessages } from "@/lib/responses";
-import { useCommandHandler } from "@/lib/useCommandHandler";
+import { getWelcomeMessages, getAboutPanelResponse, getProjectsPanelResponse, getTimelinePanelResponse, getServicesPanelResponse, getContactPanelResponse, getHelpPanelResponse, getSkillsPanelResponse } from "@/lib/responses";
 import { initializePanelRegistry } from "@/lib/panelFactory";
 import { parseIntention } from "@/lib/intentionMap";
 import { ChatBubble } from "./ChatBubble";
@@ -63,7 +62,6 @@ export default function Terminal() {
   const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "es");
   const [uiState, setUiState] = useState<UIState>("welcome");
   const [selectedTours, setSelectedTours] = useState<string[]>([]);
-  const { handleCommand } = useCommandHandler();
   const time = useNow();
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -124,47 +122,23 @@ export default function Terminal() {
           timestamp: Date.now(),
         });
 
-        // Map intention to command and execute it
-        const intentionToCommand: Record<string, string> = {
-          about: "/about",
-          projects: "/projects",
-          timeline: "/timeline",
-          services: "/services",
-          contact: "/contact",
-          help: "/help",
-          skills: "/skills",
+        // Map intention to panel response function
+        const intentionToPanel: Record<string, () => any> = {
+          about: () => getAboutPanelResponse(locale),
+          projects: () => getProjectsPanelResponse(locale),
+          timeline: () => getTimelinePanelResponse(locale),
+          services: () => getServicesPanelResponse(locale),
+          contact: () => getContactPanelResponse(locale),
+          help: () => getHelpPanelResponse(locale),
+          skills: () => getSkillsPanelResponse(locale),
         };
 
-        const command = intentionToCommand[intentionResponse.intention];
+        const getPanelResponse = intentionToPanel[intentionResponse.intention];
 
-        if (command) {
-          // Execute the command after a brief delay
+        if (getPanelResponse) {
+          // Execute the panel response after a brief delay
           setTimeout(() => {
-            const onTimelineNavigate = (newIndex: number) => {
-              if (newIndex === -1) {
-                handleSubmit("/timeline all");
-              } else {
-                handleSubmit(`/timeline ${newIndex + 1}`);
-              }
-            };
-
-            const response = handleCommand(command, locale, { onTimelineNavigate });
-
-            if (response.type === "clear") {
-              setHistory([]);
-              setIsProcessing(false);
-              return;
-            }
-
-            if (response.type === "lang" && response.locale) {
-              setLocale(response.locale);
-              setIsProcessing(false);
-              return;
-            }
-
-            if (response.type === "external" && response.url) {
-              window.open(response.url, "_blank", "noopener,noreferrer");
-            }
+            const response = getPanelResponse();
 
             if (response.text || response.component || response.panelType) {
               const msgType = response.type === "error" ? "error" : "ai";
@@ -189,7 +163,7 @@ export default function Terminal() {
         }
       }, TERMINAL_CONFIG.messageDelay);
     },
-    [addMsg, handleCommand, locale]
+    [addMsg, locale]
   );
 
   const chatHistoryItems = [
