@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Terminal, Briefcase, MapPin, Sparkles } from "lucide-react";
 import type { Locale } from "@/lib/terminalTypes";
-import { getExperienceDisplay } from "@/lib/dateUtils";
+import { getExperienceDisplay, calculateMonthsYears } from "@/lib/dateUtils";
 import { StatusDot } from "./StatusDot";
 
 interface ChatItem {
@@ -28,7 +28,11 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
 
   // Calculate experience from Qaleon start date (Oct 14, 2025)
   const qaleonStart = new Date(2025, 9, 14); // months are 0-indexed, so 9 = October
+  const { years } = calculateMonthsYears(qaleonStart);
   const experienceDisplay = getExperienceDisplay(qaleonStart, locale);
+  const experienceLabel = years >= 1
+    ? (isES ? "años exp." : "yrs exp.")
+    : (isES ? "meses exp." : "months exp.");
 
   return (
     <div className="w-64 h-screen bg-gradient-to-b from-[hsl(var(--card))] to-[hsl(var(--card)/0.5)] border-r border-[hsl(var(--border))] flex flex-col overflow-hidden">
@@ -128,7 +132,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
         </p>
         <div className="grid grid-cols-2 gap-2">
           {[
-            { value: experienceDisplay, label: isES ? "años exp." : "yrs exp." },
+            { value: experienceDisplay, label: experienceLabel },
             { value: "5+", label: isES ? "proyectos" : "projects" },
             { value: "+1M", label: isES ? "registros/mes" : "records/mo" },
             { value: "AI", label: isES ? "producción" : "production" },
