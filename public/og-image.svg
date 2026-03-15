@@ -80,9 +80,9 @@
 
   <!-- Stat 1: 3+ Years -->
   <rect x="60" y="315" width="240" height="108" rx="10" fill="url(#cardBg)" stroke="#c084fc" stroke-width="1.5" stroke-opacity="0.35"/>
-  <text x="88" y="358" font-family="monospace" font-size="44" font-weight="bold" fill="#c084fc">3+</text>
-  <text x="88" y="382" font-family="monospace" font-size="13" fill="#9fa3ac">Years Experience</text>
-  <text x="88" y="400" font-family="monospace" font-size="11" fill="#c084fc" opacity="0.5">2022 → 2026</text>
+  <text x="88" y="358" font-family="monospace" font-size="44" font-weight="bold" fill="#c084fc">5m</text>
+  <text x="88" y="382" font-family="monospace" font-size="13" fill="#9fa3ac">@ Qaleon</text>
+  <text x="88" y="400" font-family="monospace" font-size="11" fill="#c084fc" opacity="0.5">Oct 2025 →</text>
 
   <!-- Stat 2: 5+ Projects -->
   <rect x="320" y="315" width="240" height="108" rx="10" fill="url(#cardBg)" stroke="#c084fc" stroke-width="1.5" stroke-opacity="0.35"/>

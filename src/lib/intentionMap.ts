@@ -15,6 +15,7 @@ export interface IntentionResponse {
   intention: Intention;
   message: string;
   suggestedOptions: string[]; // IDs de opciones sugeridas
+  filter?: string; // For project filtering by skill/tech
 }
 
 interface IntentionConfig {
@@ -358,6 +359,15 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
   },
 };
 
+// List of known technologies for filtering
+const KNOWN_SKILLS = [
+  "Python", "JavaScript", "TypeScript", "SQL", "GDScript",
+  "Django", "FastAPI", "Flask", "React", "Next.js", "Express",
+  "Pandas", "Scikit-learn", "Matplotlib", "Streamlit", "NumPy", "LangChain", "TensorFlow", "OpenCV",
+  "PostgreSQL", "MongoDB", "Docker", "Git", "Jupyter", "Apache Airflow", "LLaMA", "FAISS", "Ollama", "Claude Code",
+  "Machine Learning", "ETL", "Web Development", "QA", "Data Analysis", "RAG", "Vision", "Sentiment", "AI Agents"
+];
+
 export function parseIntention(input: string, locale: Locale): IntentionResponse {
   const intentions = locale === "es" ? INTENTIONS_ES : INTENTIONS_EN;
   const lowerInput = input.toLowerCase().trim();
@@ -378,11 +388,23 @@ export function parseIntention(input: string, locale: Locale): IntentionResponse
 
     for (const keyword of config.keywords) {
       if (lowerInput.includes(keyword.toLowerCase())) {
-        return {
+        const response: IntentionResponse = {
           intention: intention as Intention,
           message: config.response,
           suggestedOptions: config.suggestedOptions,
         };
+
+        // Extract skill filter if it's a projects query
+        if (intention === "projects") {
+          const foundSkill = KNOWN_SKILLS.find(skill =>
+            lowerInput.toLowerCase().includes(skill.toLowerCase())
+          );
+          if (foundSkill) {
+            response.filter = foundSkill;
+          }
+        }
+
+        return response;
       }
     }
   }

@@ -173,7 +173,7 @@ export default function Terminal() {
         // Map intention to panel response function
         const intentionToPanel: Record<string, () => any> = {
           about: () => getAboutPanelResponse(locale),
-          projects: () => getProjectsPanelResponse(locale),
+          projects: () => getProjectsPanelResponse(locale, intentionResponse.filter),
           timeline: () => getTimelinePanelResponse(locale),
           services: () => getServicesPanelResponse(locale),
           contact: () => getContactPanelResponse(locale),

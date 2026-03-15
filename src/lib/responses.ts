@@ -549,8 +549,19 @@ export function getProjectsPanelResponse(
     };
   }
 
+  // Generate personalized message based on filter
+  let customMessage = "";
+  if (filter) {
+    if (locale === "es") {
+      customMessage = `Pues.. estos son los proyectos que he hecho usando ${filter}:`;
+    } else {
+      customMessage = `Well.. here are the projects I've built using ${filter}:`;
+    }
+  }
+
   return {
     type: "panel",
+    text: customMessage,
     panelType: "projects",
     panelData: {
       projects: projects.map((p) => ({
