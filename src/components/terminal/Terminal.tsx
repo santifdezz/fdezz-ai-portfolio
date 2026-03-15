@@ -62,6 +62,7 @@ export default function Terminal() {
   const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "es");
   const [uiState, setUiState] = useState<UIState>("welcome");
   const [selectedTours, setSelectedTours] = useState<string[]>([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const time = useNow();
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -176,20 +177,42 @@ export default function Terminal() {
 
   return (
     <div className="h-screen flex bg-[hsl(var(--background))]">
-      {/* Sidebar */}
-      <Sidebar
-        chats={chatHistoryItems}
-        activeId="current"
-        locale={locale}
-        onCommandRun={handleSubmit}
-        onLocaleChange={setLocale}
-      />
+      {/* Sidebar — always visible on md+, drawer on mobile */}
+      <div className={`${sidebarOpen ? "block" : "hidden"} md:block fixed md:static inset-0 z-40`}>
+        {/* Mobile backdrop */}
+        {sidebarOpen && (
+          <div
+            className="absolute inset-0 bg-black/60 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+        <div className="relative z-10 h-full">
+          <Sidebar
+            chats={chatHistoryItems}
+            activeId="current"
+            locale={locale}
+            onCommandRun={handleSubmit}
+            onLocaleChange={setLocale}
+            onClose={() => setSidebarOpen(false)}
+          />
+        </div>
+      </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <div className="flex justify-between items-center px-6 md:px-8 py-4 border-b border-[hsl(var(--border))] bg-gradient-to-r from-[hsl(var(--card))] to-transparent">
+        <div className="flex justify-between items-center px-4 md:px-8 py-4 border-b border-[hsl(var(--border))] bg-gradient-to-r from-[hsl(var(--card))] to-transparent">
           <div className="flex items-center gap-3">
+            {/* Hamburger — mobile only */}
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="md:hidden p-1.5 rounded text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--secondary))] transition-colors"
+              aria-label="Open menu"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
             <div className="w-2 h-2 rounded-full bg-[hsl(var(--primary))] animate-pulse" />
             <h1 className="text-sm font-semibold text-[hsl(var(--foreground))]">
               AI Portfolio
@@ -253,7 +276,7 @@ export default function Terminal() {
 
         {/* Input Area - only show after welcome and tour selection complete */}
         {(uiState === "chat" || uiState === "welcome") && (
-          <ChatInput onSubmit={handleSubmit} isProcessing={isProcessing} />
+          <ChatInput onSubmit={handleSubmit} isProcessing={isProcessing} locale={locale} />
         )}
       </div>
     </div>

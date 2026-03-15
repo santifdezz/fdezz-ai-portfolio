@@ -728,6 +728,16 @@ export function getHelpPanelResponse(locale: Locale): CommandResponse {
   };
 }
 
+// Proficiency levels (0–100) for key skills — language-agnostic
+const SKILL_LEVELS: Record<string, number> = {
+  Python: 90, SQL: 83, TypeScript: 78, JavaScript: 75, GDScript: 42,
+  Django: 70, FastAPI: 82, Flask: 65, React: 76, "Next.js": 73, Express: 60,
+  Pandas: 87, "Scikit-learn": 76, NumPy: 82, LangChain: 80, TensorFlow: 60,
+  Matplotlib: 70, Streamlit: 68,
+  PostgreSQL: 83, MongoDB: 72, Docker: 80, Git: 88, "Apache Airflow": 77,
+  Jupyter: 82, FAISS: 65, LLaMA: 62,
+};
+
 export function getSkillsPanelResponse(locale: Locale): CommandResponse {
   const portfolio = getPortfolioContent(locale);
   const { bio } = portfolio.about;
@@ -740,6 +750,7 @@ export function getSkillsPanelResponse(locale: Locale): CommandResponse {
         name,
         items,
       })),
+      skillLevels: SKILL_LEVELS,
       locale,
     },
   };

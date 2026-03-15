@@ -19,19 +19,33 @@ interface SidebarProps {
   locale?: Locale;
   onCommandRun: (cmd: string) => void;
   onLocaleChange?: (locale: Locale) => void;
+  onClose?: () => void;
 }
 
-export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocaleChange }: SidebarProps) {
+export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocaleChange, onClose }: SidebarProps) {
   const isES = locale === "es";
   return (
     <div className="w-64 h-screen bg-gradient-to-b from-[hsl(var(--card))] to-[hsl(var(--card)/0.5)] border-r border-[hsl(var(--border))] flex flex-col overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-[hsl(var(--border))]">
-        <div className="flex items-center gap-2 mb-1">
-          <Terminal className="w-4 h-4 text-purple-400" />
-          <h1 className="text-sm font-semibold text-[hsl(var(--foreground))] truncate">
-            SFSEOANE.ES
-          </h1>
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2">
+            <Terminal className="w-4 h-4 text-purple-400" />
+            <h1 className="text-sm font-semibold text-[hsl(var(--foreground))] truncate">
+              SFSEOANE.ES
+            </h1>
+          </div>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="md:hidden p-1 rounded text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--secondary))] transition-colors"
+              aria-label="Close menu"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
         </div>
         <p className="text-xs text-[hsl(var(--muted-foreground))] mt-1">
           {isES ? "Portafolio IA" : "AI Portfolio"}
@@ -48,6 +62,17 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
               {isES ? "En línea & Codificando" : "Online & Coding"}
             </span>
           </div>
+
+          {/* Open to work badge */}
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              {isES ? "Abierto a proyectos" : "Open to work"}
+            </span>
+          </div>
+          <p className="text-[10px] text-[hsl(var(--muted-foreground))]">
+            {isES ? "Responde en <24h" : "Replies within 24h"}
+          </p>
 
           {/* Role */}
           <div className="flex items-center gap-2">
