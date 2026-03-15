@@ -63,16 +63,16 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
             </span>
           </div>
 
-          {/* Open to work badge */}
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+          {/* Open source badge */}
+          <div className="flex flex-col gap-1">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 w-fit">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              {isES ? "Abierto a proyectos" : "Open to work"}
+              {isES ? "Abierto a proyectos OS" : "Open to OSS projects"}
             </span>
+            <p className="text-[10px] text-[hsl(var(--muted-foreground))] pl-0.5">
+              {isES ? "Actualmente contratado @ Qaleon" : "Currently employed @ Qaleon"}
+            </p>
           </div>
-          <p className="text-[10px] text-[hsl(var(--muted-foreground))]">
-            {isES ? "Responde en <24h" : "Replies within 24h"}
-          </p>
 
           {/* Role */}
           <div className="flex items-center gap-2">
