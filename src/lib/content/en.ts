@@ -9,7 +9,7 @@ export const en = {
 
   welcomeMessages: [
     "Hi — I'm Claudia, Santiago Fernández Seoane's assistant.",
-    "Santiago is a Data & AI Engineer with 3+ years building production AI systems: RAG pipelines, computer vision, ETL at millions of records scale.",
+    "Santiago is a Data & AI Engineer building production AI systems: RAG pipelines, computer vision, ETL at millions of records scale. Currently at Qaleon.",
     "Tell me what you're looking for and I'll show you the relevant work.",
   ],
 

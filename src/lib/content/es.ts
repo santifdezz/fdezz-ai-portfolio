@@ -9,7 +9,7 @@ export const es = {
 
   welcomeMessages: [
     "Hola — soy Claudia, asistente de Santiago Fernández Seoane.",
-    "Santiago es Data & AI Engineer con 3+ años construyendo sistemas de IA en producción: RAG, visión por computador, ETL a escala de millones de registros.",
+    "Santiago es Data & AI Engineer construyendo sistemas de IA en producción: RAG, visión por computador, ETL a escala de millones de registros. Actualmente en Qaleon.",
     "Cuéntame qué buscas y te muestro lo relevante.",
   ],
 
