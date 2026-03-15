@@ -10,7 +10,8 @@ import {
   Brain,
   MapPin,
   CheckCircle2,
-  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { PanelBase } from "./PanelBase";
 import type { Locale } from "@/lib/portfolio-content";
@@ -229,12 +230,42 @@ export function TimelinePanel({
           </motion.div>
         </div>
 
-        {/* Help Text */}
-        <p className="text-xs text-[hsl(var(--muted-foreground))] text-center">
-          {isES
-            ? "Haz clic en cada período para ver más detalles"
-            : "Click each period to view more details"}
-        </p>
+        {/* Prev / Next navigation */}
+        {expandedIndex !== null && (
+          <div className="flex items-center justify-between gap-2">
+            <motion.button
+              onClick={() => setExpandedIndex(Math.max(0, expandedIndex - 1))}
+              disabled={expandedIndex === 0}
+              whileHover={expandedIndex > 0 ? { x: -2 } : {}}
+              whileTap={expandedIndex > 0 ? { scale: 0.95 } : {}}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] disabled:opacity-30 hover:enabled:border-purple-500/50 hover:enabled:text-purple-300 transition-all"
+            >
+              <ChevronLeft className="w-3 h-3" />
+              {isES ? "Anterior" : "Previous"}
+            </motion.button>
+
+            <span className="text-[10px] text-[hsl(var(--muted-foreground))]">
+              {expandedIndex + 1} / {periods.length}
+            </span>
+
+            <motion.button
+              onClick={() => setExpandedIndex(Math.min(periods.length - 1, expandedIndex + 1))}
+              disabled={expandedIndex === periods.length - 1}
+              whileHover={expandedIndex < periods.length - 1 ? { x: 2 } : {}}
+              whileTap={expandedIndex < periods.length - 1 ? { scale: 0.95 } : {}}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] disabled:opacity-30 hover:enabled:border-purple-500/50 hover:enabled:text-purple-300 transition-all"
+            >
+              {isES ? "Siguiente" : "Next"}
+              <ChevronRight className="w-3 h-3" />
+            </motion.button>
+          </div>
+        )}
+
+        {expandedIndex === null && (
+          <p className="text-xs text-[hsl(var(--muted-foreground))] text-center">
+            {isES ? "Haz clic en cada período para ver más detalles" : "Click each period to view more details"}
+          </p>
+        )}
       </div>
     </PanelBase>
   );

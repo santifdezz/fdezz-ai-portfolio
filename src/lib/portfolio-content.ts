@@ -266,7 +266,7 @@ const contentEN: PortfolioContent = {
     description: "I'm always open to new opportunities and interesting projects. Don't hesitate to contact me.",
     email: 'santifdezseo@gmail.com',
     location: 'Madrid, Spain',
-    availability: 'Available for projects',
+    availability: 'Open to OSS · Employed @ Qaleon',
     channels: [
       {
         type: 'email',
@@ -500,7 +500,7 @@ const contentES: PortfolioContent = {
     description: 'Estoy siempre abierto a nuevas oportunidades y proyectos interesantes. No dudes en contactarme.',
     email: 'santifdezseo@gmail.com',
     location: 'Madrid, España',
-    availability: 'Disponible para proyectos',
+    availability: 'Abierto a OSS · Contratado @ Qaleon',
     channels: [
       {
         type: 'email',

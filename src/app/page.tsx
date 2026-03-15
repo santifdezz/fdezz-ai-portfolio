@@ -4,12 +4,14 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BootScreen } from "@/components/terminal/BootScreen";
 import Terminal from "@/components/terminal/Terminal";
+import { NeuralBackground } from "@/components/background/NeuralBackground";
 
 export default function Home() {
   const [booted, setBooted] = useState(false);
 
   return (
-    <main className="w-full h-screen bg-[#050505] overflow-hidden">
+    <main className="relative w-full h-screen bg-[#050505] overflow-hidden">
+      <NeuralBackground />
       <AnimatePresence mode="wait">
         {!booted ? (
           <motion.div

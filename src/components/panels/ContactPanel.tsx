@@ -39,12 +39,13 @@ export function ContactPanel({
   locale = "en",
 }: ContactPanelProps) {
   const isES = locale === "es";
-  const [copied, setCopied] = React.useState(false);
+  const [copiedLabel, setCopiedLabel] = React.useState<string | null>(null);
 
-  const handleCopyEmail = (email: string) => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = (value: string, label: string) => {
+    const text = value.startsWith("http") ? value : value;
+    navigator.clipboard.writeText(text);
+    setCopiedLabel(label);
+    setTimeout(() => setCopiedLabel(null), 2000);
   };
 
   const getContactUrl = (contact: ContactLink): string | null => {
@@ -144,22 +145,20 @@ export function ContactPanel({
                         </p>
                       </div>
                     </div>
-                    {contact.type === "email" && (
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleCopyEmail(contact.value);
-                        }}
-                        className="p-1.5 hover:bg-purple-500/20 rounded transition-colors"
-                        title={isES ? "Copiar email" : "Copy email"}
-                      >
-                        {copied ? (
-                          <Check className="w-4 h-4 text-green-400" />
-                        ) : (
-                          <Copy className="w-4 h-4 text-[hsl(var(--muted-foreground))]" />
-                        )}
-                      </button>
-                    )}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCopy(contact.value, contact.label);
+                      }}
+                      className="p-1.5 hover:bg-purple-500/20 rounded transition-colors shrink-0"
+                      title={isES ? "Copiar" : "Copy"}
+                    >
+                      {copiedLabel === contact.label ? (
+                        <Check className="w-4 h-4 text-green-400" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-[hsl(var(--muted-foreground))]" />
+                      )}
+                    </button>
                   </a>
                 ) : (
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-[hsl(var(--secondary)/0.5)] border border-[hsl(var(--border)/0.5)]">
@@ -178,6 +177,26 @@ export function ContactPanel({
             );
           })}
         </div>
+
+        {/* Quick message CTA */}
+        <motion.a
+          href="mailto:santifdezseo@gmail.com?subject=Hi%20Santiago%20%E2%80%94%20saw%20your%20portfolio"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-gradient-to-r from-purple-600/80 to-purple-500/80 hover:from-purple-500 hover:to-purple-400 text-white text-sm font-semibold transition-all border border-purple-500/40"
+        >
+          <Mail className="w-4 h-4" />
+          {isES ? "Enviar mensaje rápido" : "Send a quick message"}
+        </motion.a>
+
+        <p className="text-[10px] text-center text-[hsl(var(--muted-foreground))]">
+          {isES ? "Respondo en menos de 24h" : "I reply within 24h"}
+        </p>
       </div>
     </PanelBase>
   );

@@ -11,6 +11,7 @@ import { ChatInput } from "./ChatInput";
 import { Sidebar } from "./Sidebar";
 import { TourSelector } from "@/components/panels/TourSelector";
 import { TourPlayer } from "@/components/panels/TourPlayer";
+import { LiveCodePanel } from "./LiveCodePanel";
 
 function makeMsg(type: TerminalMessage["type"], text: string): TerminalMessage {
   return { id: Math.random().toString(36).slice(2), type, text, timestamp: Date.now() };
@@ -231,6 +232,11 @@ export default function Terminal() {
             {history.map((msg) => (
               <ChatBubble key={msg.id} message={msg} />
             ))}
+
+            {/* Live code showcase - shown once welcome is done */}
+            {(uiState === "tour-selector" || uiState === "tour-player" || uiState === "chat") && (
+              <LiveCodePanel locale={locale} />
+            )}
 
             {/* Tour Selector - shown after welcome */}
             {uiState === "tour-selector" && history.length > 0 && (
