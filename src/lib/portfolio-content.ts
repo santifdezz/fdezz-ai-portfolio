@@ -196,14 +196,13 @@ const contentEN: PortfolioContent = {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Full-stack platform for the Spanish electronic music scene. Manages 200+ events with custom admin panel, JWT authentication, RESTful API, and automated E2E test suite. Live at makineo.es.',
+        'Full-stack platform for the Spanish electronic music scene. Manages 200+ events with custom admin panel, JWT authentication, RESTful API, and automated E2E test suite. [Demo currently disabled — hosting offline]',
       status: 'completed',
       statusColor: 'green',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
       features: ['200+ events managed', 'Custom admin panel', 'JWT authentication system', 'RESTful API + E2E tests'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
-        demo: 'https://www.makineo.es/',
       },
     },
     {
@@ -434,14 +433,13 @@ const contentES: PortfolioContent = {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Plataforma full-stack para la escena de música electrónica española. Gestiona 200+ eventos con panel de administración propio, autenticación JWT, API RESTful y suite de tests E2E automatizados. Live en makineo.es.',
+        'Plataforma full-stack para la escena de música electrónica española. Gestiona 200+ eventos con panel de administración propio, autenticación JWT, API RESTful y suite de tests E2E automatizados. [Demo actualmente desactivada — hosting offline]',
       status: 'completed',
       statusColor: 'green',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
       features: ['200+ eventos gestionados', 'Panel de administración propio', 'Sistema de autenticación JWT', 'API RESTful + tests E2E'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
-        demo: 'https://www.makineo.es/',
       },
     },
     {
