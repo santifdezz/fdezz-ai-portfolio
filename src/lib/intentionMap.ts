@@ -359,6 +359,23 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
   },
 };
 
+// Easter egg responses
+const EASTER_EGGS_EN: Record<string, string> = {
+  whoami: "You know who I am. I'm Claudia, Santiago's AI assistant. Built by someone who clearly has too much free time and too much passion for data. Existential crisis? Nah, just code.",
+  coffee: "☕ Santiago's on his fifth coffee today. At this rate, his blood type is espresso. He swears it's for the algorithms, not the procrastination.",
+  joke: "Why do programmers prefer dark mode? Because light attracts bugs! *ba dum tss* ...Santiago doesn't tell jokes. That explains why I'm here.",
+  train: "🚆 Santiago's training logs show: 5000 iterations of staring at JSON, 2000 failed deployments, infinite patience with debugging, and somehow... it all works. Legend.",
+  hack: "💻 [Accessing Santiago's hacking station...] Password: definitely_not_password123. Last session: Building ETL pipelines at 2 AM. Normal day. Your move.",
+};
+
+const EASTER_EGGS_ES: Record<string, string> = {
+  whoami: "Ya sabes quién soy. Soy Claudia, la asistente IA de Santiago. Construida por alguien que claramente tiene demasiado tiempo libre y demasiada pasión por datos. ¿Crisis existencial? No, solo código.",
+  coffee: "☕ Santiago lleva su quinto café hoy. A este ritmo, su tipo de sangre es espresso. Jura que es para los algoritmos, no para la procrastinación.",
+  joke: "¿Por qué los programadores prefieren dark mode? ¡Porque la luz atrae bugs! *ba dum tss* ...Santiago no cuenta chistes. Por eso estoy aquí.",
+  train: "🚆 Los registros de entrenamiento de Santiago muestran: 5000 iteraciones de mirar JSON, 2000 deployments fallidos, paciencia infinita con debugging, y de alguna forma... todo funciona. Legendario.",
+  hack: "💻 [Accediendo a la estación de hacking de Santiago...] Contraseña: definitivamente_no_password123. Última sesión: Construyendo pipelines ETL a las 2 AM. Día normal. Tu turno.",
+};
+
 // List of known technologies for filtering
 const KNOWN_SKILLS = [
   "Python", "JavaScript", "TypeScript", "SQL", "GDScript",
@@ -370,6 +387,7 @@ const KNOWN_SKILLS = [
 
 export function parseIntention(input: string, locale: Locale): IntentionResponse {
   const intentions = locale === "es" ? INTENTIONS_ES : INTENTIONS_EN;
+  const easterEggs = locale === "es" ? EASTER_EGGS_ES : EASTER_EGGS_EN;
   const lowerInput = input.toLowerCase().trim();
 
   // Skip if input is too short
@@ -380,6 +398,17 @@ export function parseIntention(input: string, locale: Locale): IntentionResponse
       message: unknownIntention.response,
       suggestedOptions: unknownIntention.suggestedOptions,
     };
+  }
+
+  // Check for easter eggs first
+  for (const [easterEgg, response] of Object.entries(easterEggs)) {
+    if (lowerInput.includes(easterEgg)) {
+      return {
+        intention: "unknown", // Don't treat as a formal intention
+        message: response,
+        suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
+      };
+    }
   }
 
   // Find matching intention

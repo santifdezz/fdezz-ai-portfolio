@@ -698,6 +698,30 @@ export function getHelpPanelResponse(locale: Locale): CommandResponse {
       category: isES ? "Diversión" : "Fun",
     },
     {
+      command: "/coffee",
+      description: isES ? "Tomar un café ☕ (Easter egg)" : "Grab a coffee ☕ (Easter egg)",
+      example: "/coffee",
+      category: isES ? "Diversión" : "Fun",
+    },
+    {
+      command: "/joke",
+      description: isES ? "Un chiste sobre programación (Easter egg)" : "A programming joke (Easter egg)",
+      example: "/joke",
+      category: isES ? "Diversión" : "Fun",
+    },
+    {
+      command: "/train",
+      description: isES ? "Ver mis logros en entrenamiento (Easter egg)" : "View my training achievements (Easter egg)",
+      example: "/train",
+      category: isES ? "Diversión" : "Fun",
+    },
+    {
+      command: "/hack",
+      description: isES ? "Mi estación de hacking (Easter egg)" : "My hacking station (Easter egg)",
+      example: "/hack",
+      category: isES ? "Diversión" : "Fun",
+    },
+    {
       command: "/github",
       description: isES ? "Visitar mi GitHub" : "Visit my GitHub",
       example: "/github",
