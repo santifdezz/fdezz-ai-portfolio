@@ -36,7 +36,7 @@ def ingest_pipeline():
 
     @task
     def extract() -> list[dict]:
-        return fetch_source_records()   # 1M+ rows/month
+        return fetch_source_records()   # +1M rows/month
 
     @task
     def transform(records):

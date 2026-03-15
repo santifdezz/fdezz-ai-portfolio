@@ -47,11 +47,11 @@ export const metadata: Metadata = {
     description: "Interactive AI terminal portfolio showcasing projects, skills, and experience in Data Engineering and Full-Stack Development.",
     images: [
       {
-        url: "https://sfseoane.es/og-image.png",
+        url: "https://sfseoane.es/og-image.svg",
         width: 1200,
         height: 630,
         alt: "sfseoane AI Terminal Portfolio",
-        type: "image/png",
+        type: "image/svg+xml",
       },
     ],
   },
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "sfseoane — AI Terminal Portfolio",
     description: "Interactive portfolio showcasing Data Engineering & Full-Stack Development projects",
-    images: ["https://sfseoane.es/og-image.png"],
+    images: ["https://sfseoane.es/og-image.svg"],
     creator: "@sfdezz",
   },
   appleWebApp: {
@@ -82,6 +82,7 @@ export default function RootLayout({
     <html lang="en" className="bg-[#0a0a0a]">
       <head>
         <JsonSchema />
+        <script defer data-domain="sfseoane.es" src="https://plausible.io/js/script.js" />
       </head>
       <body className={`${jetbrainsMono.variable} font-mono antialiased bg-[#0a0a0a] text-[#e6f7ff] overflow-hidden`}>
         {children}

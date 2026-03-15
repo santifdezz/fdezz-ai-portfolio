@@ -88,8 +88,8 @@ const contentEN: PortfolioContent = {
       skills: {
         'Languages': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
         'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
-        'Libraries': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow'],
-        'Tools & Databases': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS'],
+        'Libraries': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow', 'OpenCV'],
+        'Tools & Databases': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS', 'Ollama', 'Claude Code'],
         'Specializations': ['Machine Learning', 'ETL Pipelines', 'Web Development', 'QA Automation', 'Data Analysis', 'RAG Systems', 'Vision Models', 'Sentiment Analysis', 'AI Agents'],
       },
     },
@@ -326,8 +326,8 @@ const contentES: PortfolioContent = {
       skills: {
         'Lenguajes': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
         'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
-        'Librerías': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow'],
-        'Herramientas y BD': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS'],
+        'Librerías': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow', 'OpenCV'],
+        'Herramientas y BD': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS', 'Ollama', 'Claude Code'],
         'Especializaciones': ['Machine Learning', 'Pipelines ETL', 'Desarrollo Web', 'Automatización QA', 'Análisis de Datos', 'Sistemas RAG', 'Modelos de Visión', 'Análisis de Sentimiento', 'Agentes IA'],
       },
     },

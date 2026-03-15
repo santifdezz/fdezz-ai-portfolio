@@ -733,23 +733,39 @@ const SKILL_LEVELS: Record<string, number> = {
   Python: 90, SQL: 83, TypeScript: 78, JavaScript: 75, GDScript: 42,
   Django: 70, FastAPI: 82, Flask: 65, React: 76, "Next.js": 73, Express: 60,
   Pandas: 87, "Scikit-learn": 76, NumPy: 82, LangChain: 80, TensorFlow: 60,
-  Matplotlib: 70, Streamlit: 68,
+  Matplotlib: 70, Streamlit: 68, OpenCV: 72,
   PostgreSQL: 83, MongoDB: 72, Docker: 80, Git: 88, "Apache Airflow": 77,
-  Jupyter: 82, FAISS: 65, LLaMA: 62,
+  Jupyter: 82, FAISS: 65, LLaMA: 62, Ollama: 78, "Claude Code": 86,
 };
 
 export function getSkillsPanelResponse(locale: Locale): CommandResponse {
-  const portfolio = getPortfolioContent(locale);
-  const { bio } = portfolio.about;
+  const isES = locale === "es";
+  const message = isES
+    ? "Aquí están las habilidades de Santiago. Los tags más grandes representan mayor experiencia. ¡Haz clic en cualquiera para ver proyectos relacionados!"
+    : "Here are Santiago's skills. Larger tags show deeper expertise. Click any skill to see related projects!";
 
   return {
     type: "panel",
-    panelType: "skills",
+    text: message,
+    panelType: "skillcloud",
     panelData: {
-      categories: Object.entries(bio.skills).map(([name, items]) => ({
-        name,
-        items,
-      })),
+      skillLevels: SKILL_LEVELS,
+      locale,
+    },
+  };
+}
+
+export function getSkillTagCloudResponse(locale: Locale): CommandResponse {
+  const isES = locale === "es";
+  const message = isES
+    ? "Aquí está la nube de habilidades de Santiago. Los skills más grandes representan mayor experiencia. ¡Haz clic en cualquiera para ver proyectos relacionados!"
+    : "Here's Santiago's skill cloud. Larger tags show deeper expertise. Click any skill to see related projects!";
+
+  return {
+    type: "panel",
+    text: message,
+    panelType: "skillcloud",
+    panelData: {
       skillLevels: SKILL_LEVELS,
       locale,
     },

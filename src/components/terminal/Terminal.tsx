@@ -11,7 +11,6 @@ import { ChatInput } from "./ChatInput";
 import { Sidebar } from "./Sidebar";
 import { TourSelector } from "@/components/panels/TourSelector";
 import { TourPlayer } from "@/components/panels/TourPlayer";
-import { LiveCodePanel } from "./LiveCodePanel";
 
 function makeMsg(type: TerminalMessage["type"], text: string): TerminalMessage {
   return { id: Math.random().toString(36).slice(2), type, text, timestamp: Date.now() };
@@ -57,6 +56,29 @@ function useLocalStorage(key: string, defaultValue: Locale): [Locale, (value: Lo
 
 type UIState = "welcome" | "chat" | "tour-selector" | "tour-player";
 
+const TOUR_CMDS: Record<string, Record<string, string>> = {
+  es: {
+    about:     "Cuéntame sobre Santiago, ¿quién es?",
+    projects:  "¿Qué proyectos ha construido?",
+    timeline:  "¿Cuál es su trayectoria profesional?",
+    skills:    "¿Qué habilidades técnicas tiene?",
+    services:  "¿Qué servicios ofrece?",
+    contact:   "¿Cómo puedo contactarle?",
+  },
+  en: {
+    about:     "Tell me about Santiago, who is he?",
+    projects:  "What projects has he built?",
+    timeline:  "What is his career journey?",
+    skills:    "What technical skills does he have?",
+    services:  "What services does he offer?",
+    contact:   "How can I get in touch with him?",
+  },
+};
+
+function getTourCmd(tourId: string, locale: string): string {
+  return TOUR_CMDS[locale]?.[tourId] ?? TOUR_CMDS["en"][tourId] ?? tourId;
+}
+
 export default function Terminal() {
   const [history, setHistory] = useState<TerminalMessage[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -66,10 +88,34 @@ export default function Terminal() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const time = useNow();
   const bottomRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const wasAtBottomRef = useRef(true);
 
-  // Auto-scroll to bottom on new messages
+  // Track if user is scrolled to bottom
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = chatContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const isAtBottom =
+        container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+      wasAtBottomRef.current = isAtBottom;
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Smart auto-scroll: only scroll if already at bottom or first message
+  useEffect(() => {
+    if (!wasAtBottomRef.current && history.length > 1) return;
+
+    // Delay scroll slightly so message appears first
+    const timer = setTimeout(() => {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [history]);
 
   // Initialize panel registry on mount
@@ -226,24 +272,25 @@ export default function Terminal() {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 overflow-y-auto px-6 md:px-8 py-6">
+        <div ref={chatContainerRef} className="flex-1 overflow-y-auto px-6 md:px-8 py-6">
           <div className="max-w-4xl mx-auto space-y-2">
             {/* Chat Messages */}
             {history.map((msg) => (
               <ChatBubble key={msg.id} message={msg} />
             ))}
 
-            {/* Live code showcase - shown once welcome is done */}
-            {(uiState === "tour-selector" || uiState === "tour-player" || uiState === "chat") && (
-              <LiveCodePanel locale={locale} />
-            )}
-
             {/* Tour Selector - shown after welcome */}
             {uiState === "tour-selector" && history.length > 0 && (
               <TourSelector
                 onStartTour={(selectedOptions) => {
-                  setSelectedTours(selectedOptions.map((opt) => opt.id));
+                  const ids = selectedOptions.map((opt) => opt.id);
+                  setSelectedTours(ids);
                   setUiState("tour-player");
+                  // Fire first step immediately — avoids React StrictMode double-fire
+                  if (selectedOptions.length > 0) {
+                    const firstCmd = getTourCmd(selectedOptions[0].id, locale);
+                    handleSubmit(firstCmd);
+                  }
                 }}
                 locale={locale}
               />
@@ -252,21 +299,11 @@ export default function Terminal() {
             {/* Tour Player - shown when tours selected */}
             {uiState === "tour-player" && selectedTours.length > 0 && (
               <TourPlayer
-                steps={selectedTours.map((tourId) => {
-                  const cmdMap: Record<string, string> = {
-                    about: "sobre",
-                    projects: "proyectos",
-                    timeline: "experiencia",
-                    skills: "habilidades",
-                    services: "servicios",
-                    contact: "contacto",
-                  };
-                  return {
-                    id: tourId,
-                    label: tourId.charAt(0).toUpperCase() + tourId.slice(1),
-                    cmd: cmdMap[tourId] || tourId,
-                  };
-                })}
+                steps={selectedTours.map((tourId) => ({
+                  id: tourId,
+                  label: tourId.charAt(0).toUpperCase() + tourId.slice(1),
+                  cmd: getTourCmd(tourId, locale),
+                }))}
                 locale={locale}
                 onCommandRun={handleSubmit}
                 onExit={() => {

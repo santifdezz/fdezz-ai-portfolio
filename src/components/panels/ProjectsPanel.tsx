@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { GitBranch, ExternalLink, Github, ChevronDown, CheckCircle2 } from "lucide-react";
 import { PanelBase } from "./PanelBase";
+import { ProjectCodeDisplay } from "./ProjectCodeDisplay";
 import type { Locale } from "@/lib/portfolio-content";
 
 interface ProjectItem {
@@ -69,6 +70,9 @@ export function ProjectsPanel({
             <motion.div
               whileHover={{ scale: 1.01 }}
               className="p-4 cursor-pointer"
+              onClick={() =>
+                setExpandedId(expandedId === project.id ? null : project.id)
+              }
             >
               <div className="space-y-3">
                 {/* Header */}
@@ -154,9 +158,10 @@ export function ProjectsPanel({
                   {/* Features Expand Button */}
                   {project.features && project.features.length > 0 && (
                     <button
-                      onClick={() =>
-                        setExpandedId(expandedId === project.id ? null : project.id)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setExpandedId(expandedId === project.id ? null : project.id);
+                      }}
                       className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 transition-colors"
                     >
                       <span>{isES ? "Características" : "Features"}</span>
@@ -200,6 +205,17 @@ export function ProjectsPanel({
                   ))}
                 </div>
               </motion.div>
+            )}
+
+            {/* Code Display - shown when project is expanded */}
+            {expandedId === project.id && project.technologies && (
+              <div className="px-4 pb-4">
+                <ProjectCodeDisplay
+                  projectTitle={project.title}
+                  technologies={project.technologies}
+                  description={project.description}
+                />
+              </div>
             )}
           </motion.div>
         ))}

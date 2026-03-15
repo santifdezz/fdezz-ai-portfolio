@@ -11,6 +11,7 @@ export type PanelType =
   | "projects"
   | "bio"
   | "skills"
+  | "skillcloud"
   | "services"
   | "contact"
   | "help";

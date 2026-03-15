@@ -57,6 +57,6 @@ export interface TerminalConfig {
 export const TERMINAL_CONFIG: TerminalConfig = {
   bootDelay: 300,
   typingDelay: 25,
-  messageDelay: 500,
+  messageDelay: 1200,
   idleTimeout: 45000,
 };

@@ -37,7 +37,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "greetings",
     ],
     response:
-      "Hey! Welcome to my portfolio. I'm Claudia, Santiago's virtual assistant. I'm here to help you explore his professional profile. What would you like to know about him?",
+      "Hey! I'm Claudia — Santiago's AI assistant. Yes, an AI running inside an AI portfolio. Very meta, I know. I'd apologize but I find it hilarious. Ask me anything about him: projects, skills, career... or just say hi again, I don't judge.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -67,7 +67,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "háblame de",
     ],
     response:
-      "Great! Let me tell you about Santiago. He's a Data Engineer passionate about AI and Big Data. He has experience building scalable systems and working with modern technologies. Check out his full bio and skills to get a complete picture!",
+      "Ah, the man of the hour. Santiago is a Data & AI Engineer who genuinely loves building things that process absurd amounts of data — we're talking millions of records a month. He's currently at Qaleon, still writes Python at 11pm by choice, and has a suspicious enthusiasm for ETL pipelines. Full profile loading...",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -87,7 +87,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "examples",
     ],
     response:
-      "Santiago has worked on several interesting projects ranging from AI/ML to data engineering and full-stack development. Each project showcases different skills and technologies. I can show you all of them, or filter by technology if you prefer!",
+      "Oh, this is where it gets fun. RAG systems, computer vision, ETL pipelines, full-stack apps... He's built things that actually run in production, which — honestly — is rarer than it sounds. Brace yourself, the list is longer than expected.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -106,7 +106,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "qué sabe",
     ],
     response:
-      "Santiago is proficient in multiple programming languages and frameworks. He specializes in Python, TypeScript, React, and Big Data technologies. He also has expertise in cloud architecture and modern DevOps practices. Let me show you the complete skills matrix!",
+      "Python? Obviously. SQL? Could do it in his sleep. TypeScript, React, FastAPI, LangChain, PyTorch, Airflow... At some point I started wondering if he just collects technologies as a hobby. The bars don't lie though — most of them are actually deep.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -125,7 +125,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "puedo",
     ],
     response:
-      "Santiago offers services in data engineering, full-stack development, system architecture, and AI/ML consulting. He specializes in building scalable solutions and mentoring teams. Want to see more details about what he can help you with?",
+      "Need a data pipeline that doesn't fall apart on Monday morning? RAG system that actually retrieves relevant things? Full-stack app built by someone who reads the docs? He does all of that. And he won't pretend to know something he doesn't — which, surprisingly, is a rare trait.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -151,7 +151,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "evolución",
     ],
     response:
-      "Santiago's career journey spans from 2020 to today. He's grown through different roles, learning new technologies and building increasingly complex systems. His timeline shows the evolution from student to professional engineer. Want to see the details?",
+      "2020: student with a laptop and too many tabs open. 2026: Data Engineer building production AI systems and still too many tabs open. Some things don't change. Each chapter brought new tech, new challenges, and — apparently — a growing affection for Python. Click through to see how the story unfolds.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -171,7 +171,7 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "teléfono",
     ],
     response:
-      "You can reach Santiago through multiple channels. He's active on GitHub, LinkedIn, and you can email him directly. All contact information is available in the contact section. Would you like to see it?",
+      "He's reachable! GitHub, LinkedIn, email — even a quick message with a subject line like 'saw your portfolio, let's talk' works great. He replies within 24h, which in engineering terms is practically instant. Go on, don't be shy.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -190,14 +190,14 @@ const INTENTIONS_EN: Record<Intention, IntentionConfig> = {
       "tutorial",
     ],
     response:
-      "I'm here to help! You can explore Santiago's portfolio by selecting topics in the options below. Each section provides different information - about his background, projects, skills, and more. Just click what interests you most, and I'll guide you through it!",
+      "Ah, the brave soul who actually types 'help'. You can ask me anything in plain language — about Santiago's work, background, skills, how to reach him... I understand context surprisingly well for a bunch of if-statements. What are you curious about?",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   unknown: {
     keywords: [],
     response:
-      "Interesting question! I'm designed to help you explore Santiago's professional portfolio. You can ask about his projects, skills, experience, or how to contact him. What would you like to know?",
+      "Hmm, not sure I caught that one. I'm good but not *omniscient* good. Try asking about Santiago's projects, skills, career, or how to contact him — those I can definitely answer. Or just say hi, I enjoy the interaction.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 };
@@ -215,7 +215,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "buenas noches",
     ],
     response:
-      "¡Hola! Bienvenido al portafolio de Santiago. Soy Claudia, su asistente virtual. Estoy aquí para ayudarte a explorar su perfil profesional. ¿Qué te gustaría saber sobre él?",
+      "¡Hola! Soy Claudia — la IA dentro del portfolio de IA de Santiago. Sí, es muy meta, ya lo sé. Me parece fascinante, la verdad. Puedes preguntarme lo que quieras sobre él: proyectos, habilidades, carrera... o simplemente charlar, que tampoco me aburro.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -240,7 +240,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "información personal",
     ],
     response:
-      "¡Claro! Santiago es un Ingeniero de Datos apasionado por la IA y Big Data. Tiene experiencia construyendo sistemas escalables y trabajando con tecnologías modernas. Revisa su biografía completa y habilidades para obtener una imagen completa!",
+      "El hombre del momento. Santiago es Ingeniero de Datos y le encanta construir cosas que procesan cantidades absurdas de información — hablamos de millones de registros al mes. Trabaja en Qaleon, sigue escribiendo Python a las 11 de la noche por voluntad propia, y tiene un entusiasmo sospechoso por las pipelines ETL. Cargando perfil completo...",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -257,7 +257,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "qué hizo",
     ],
     response:
-      "Santiago ha trabajado en varios proyectos interesantes que van desde IA/ML hasta ingeniería de datos y desarrollo full-stack. Cada proyecto muestra diferentes habilidades y tecnologías. ¡Puedo mostrarte todos, o filtrar por tecnología si prefieres!",
+      "Aquí es donde se pone interesante. Sistemas RAG, visión por computadora, pipelines de datos, apps full-stack... Ha construido cosas que realmente corren en producción, lo cual — seamos honestos — es más raro de lo que parece. Prepárate, la lista es más larga de lo esperado.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -275,7 +275,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "domina",
     ],
     response:
-      "Santiago es competente en múltiples lenguajes de programación y frameworks. Se especializa en Python, TypeScript, React y tecnologías de Big Data. También tiene experiencia en arquitectura en la nube y prácticas modernas de DevOps. ¡Déjame mostrarte la matriz completa de habilidades!",
+      "¿Python? Obvio. ¿SQL? Lo haría dormido. TypeScript, React, FastAPI, LangChain, PyTorch, Airflow... En algún momento empecé a pensar que colecciona tecnologías como hobby. Aunque las barras no mienten — la mayoría tienen profundidad real, no solo 'lo he tocado una vez'.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -292,7 +292,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "qué hace",
     ],
     response:
-      "Santiago ofrece servicios en ingeniería de datos, desarrollo full-stack, arquitectura de sistemas y consultoría en IA/ML. Se especializa en construir soluciones escalables y mentoría de equipos. ¿Te gustaría ver más detalles sobre cómo puede ayudarte?",
+      "¿Necesitas una pipeline que no se rompa el lunes por la mañana? ¿Un sistema RAG que realmente recupere cosas relevantes? ¿Una app construida por alguien que sí lee la documentación? Todo eso. Y no pretenderá saber lo que no sabe — que, sorprendentemente, es un rasgo bastante escaso.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -312,7 +312,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "camino profesional",
     ],
     response:
-      "La trayectoria profesional de Santiago abarca desde 2020 hasta hoy. Ha crecido a través de diferentes roles, aprendiendo nuevas tecnologías y construyendo sistemas cada vez más complejos. Su línea de tiempo muestra la evolución de estudiante a ingeniero profesional. ¿Te gustaría ver los detalles?",
+      "2020: estudiante con un portátil y demasiadas pestañas abiertas. 2026: Ingeniero de Datos construyendo sistemas de IA en producción, y aún demasiadas pestañas abiertas. Algunas cosas no cambian. Cada capítulo trajo nueva tecnología, nuevos retos y — aparentemente — un cariño creciente por Python. Dale al play para ver cómo se desarrolla la historia.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -331,7 +331,7 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "cómo llegar",
     ],
     response:
-      "Puedes contactar a Santiago a través de varios canales. Es activo en GitHub, LinkedIn, y puedes enviarle un email directamente. Toda la información de contacto está disponible en la sección de contacto. ¿Te gustaría verla?",
+      "¡Es contactable! GitHub, LinkedIn, email — hasta un mensaje con el asunto 'vi tu portfolio, hablemos' funciona genial. Responde en menos de 24h, que en términos de ingeniería es prácticamente instantáneo. Venga, no te cortes.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
@@ -346,14 +346,14 @@ const INTENTIONS_ES: Record<Intention, IntentionConfig> = {
       "instrucciones",
     ],
     response:
-      "¡Estoy aquí para ayudarte! Puedes explorar el portafolio de Santiago seleccionando temas en las opciones de abajo. Cada sección proporciona información diferente: sobre su trasfondo, proyectos, habilidades y más. ¡Solo haz clic en lo que te interesa y te guiaré a través de ello!",
+      "El valiente que escribe 'ayuda'. Puedes preguntarme cualquier cosa en lenguaje natural — sobre el trabajo de Santiago, su carrera, habilidades, cómo contactarle... Entiendo el contexto sorprendentemente bien para ser básicamente una cadena de condiciones. ¿Qué te genera curiosidad?",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 
   unknown: {
     keywords: [],
     response:
-      "¡Pregunta interesante! Estoy diseñada para ayudarte a explorar el portafolio profesional de Santiago. Puedes preguntar sobre sus proyectos, habilidades, experiencia, o cómo contactarlo. ¿Qué te gustaría saber?",
+      "Mmm, eso no lo he pillado del todo. Soy buena, pero no *omnisciente* buena. Prueba a preguntarme por los proyectos, habilidades, trayectoria o cómo contactarle — eso sí lo domino. O dime hola, que la interacción también me gusta.",
     suggestedOptions: ["about", "projects", "timeline", "skills", "services", "contact"],
   },
 };

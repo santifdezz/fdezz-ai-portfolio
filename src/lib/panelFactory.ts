@@ -4,6 +4,7 @@ import { TimelinePanel } from "@/components/panels/TimelinePanel";
 import { ProjectsPanel } from "@/components/panels/ProjectsPanel";
 import { BioPanel } from "@/components/panels/BioPanel";
 import { SkillsPanel } from "@/components/panels/SkillsPanel";
+import { SkillTagCloud } from "@/components/panels/SkillTagCloud";
 import { ServicesPanel } from "@/components/panels/ServicesPanel";
 import { ContactPanel } from "@/components/panels/ContactPanel";
 import { HelpPanel } from "@/components/panels/HelpPanel";
@@ -32,6 +33,11 @@ export function initializePanelRegistry() {
     "skills",
     SkillsPanel,
     "Categorized skills and expertise"
+  );
+  registerPanel(
+    "skillcloud",
+    SkillTagCloud,
+    "Skills visualization as tag cloud"
   );
   registerPanel(
     "services",

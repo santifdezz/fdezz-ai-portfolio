@@ -124,7 +124,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
           {[
             { value: "3+", label: isES ? "años exp." : "yrs exp." },
             { value: "5+", label: isES ? "proyectos" : "projects" },
-            { value: "M+", label: isES ? "registros/mes" : "records/mo" },
+            { value: "+1M", label: isES ? "registros/mes" : "records/mo" },
             { value: "AI", label: isES ? "producción" : "production" },
           ].map((stat) => (
             <div key={stat.label} className="bg-[hsl(var(--secondary)/0.4)] rounded-lg p-2 text-center">
