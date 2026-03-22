@@ -54,7 +54,7 @@ export function PanelBase({
             <IconComponent className={`w-6 h-6 ${iconColorClasses[accentColor]}`} />
           )}
           {title && (
-            <h3 className="text-lg font-semibold text-[hsl(var(--foreground))]">
+            <h3 className="font-ui text-lg font-semibold text-[hsl(var(--foreground))] tracking-tight">
               {title}
             </h3>
           )}

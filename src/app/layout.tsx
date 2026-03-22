@@ -1,11 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Poppins } from "next/font/google";
 import { JsonSchema } from "@/components/JsonSchema";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  variable: "--font-ui",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const viewport: Viewport = {
@@ -84,7 +90,7 @@ export default function RootLayout({
         <JsonSchema />
         <script defer data-domain="sfseoane.es" src="https://plausible.io/js/script.js" />
       </head>
-      <body className={`${jetbrainsMono.variable} font-mono antialiased bg-[#0a0a0a] text-[#e6f7ff] overflow-hidden`}>
+      <body className={`${jetbrainsMono.variable} ${poppins.variable} font-mono antialiased bg-[#0a0a0a] text-[#e6f7ff] overflow-hidden`}>
         {children}
       </body>
     </html>

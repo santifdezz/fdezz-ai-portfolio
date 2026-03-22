@@ -41,7 +41,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">
             <Terminal className="w-4 h-4 text-purple-400" />
-            <h1 className="text-sm font-semibold text-[hsl(var(--foreground))] truncate">
+            <h1 className="font-ui text-sm font-semibold text-[hsl(var(--foreground))] truncate tracking-tight">
               SFSEOANE.ES
             </h1>
           </div>
@@ -127,7 +127,7 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
 
       {/* Quick Stats */}
       <div className="px-4 py-3 border-b border-[hsl(var(--border))]">
-        <p className="text-[10px] uppercase font-semibold text-purple-400 tracking-wider mb-2">
+        <p className="font-ui text-[10px] uppercase font-semibold text-purple-400 tracking-wider mb-2">
           {isES ? "En Números" : "By the Numbers"}
         </p>
         <div className="grid grid-cols-2 gap-2">
@@ -138,8 +138,8 @@ export function Sidebar({ chats, activeId, locale = "es", onCommandRun, onLocale
             { value: "AI", label: isES ? "producción" : "production" },
           ].map((stat) => (
             <div key={stat.label} className="bg-[hsl(var(--secondary)/0.4)] rounded-lg p-2 text-center">
-              <p className="text-sm font-bold text-purple-300">{stat.value}</p>
-              <p className="text-[10px] text-[hsl(var(--muted-foreground))] leading-tight">{stat.label}</p>
+              <p className="font-ui text-sm font-bold text-purple-300">{stat.value}</p>
+              <p className="font-ui text-[10px] text-[hsl(var(--muted-foreground))] leading-tight">{stat.label}</p>
             </div>
           ))}
         </div>

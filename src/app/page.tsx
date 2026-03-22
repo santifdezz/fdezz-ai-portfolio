@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BootScreen } from "@/components/terminal/BootScreen";
 import Terminal from "@/components/terminal/Terminal";
 import { NeuralBackground } from "@/components/background/NeuralBackground";
+import { Echo } from "@/components/character/Echo";
 
 export default function Home() {
   const [booted, setBooted] = useState(false);
@@ -31,6 +32,8 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* ECHO — only visible after boot */}
+      {booted && <Echo locale="es" />}
     </main>
   );
 }
