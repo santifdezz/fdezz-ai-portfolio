@@ -65,7 +65,7 @@ export function ChatInput({
           onChange={(e) => setInput(e.target.value)}
           placeholder={PLACEHOLDERS[locale][placeholderIdx]}
           disabled={isProcessing}
-          className="flex-1 px-4 py-2.5 bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] rounded-lg text-[hsl(var(--foreground))] placeholder-[hsl(var(--muted-foreground))] focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          className="flex-1 px-4 py-2.5 bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] rounded-lg text-[hsl(var(--foreground))] placeholder-[hsl(var(--muted-foreground))] focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/30 focus:shadow-[0_0_0_3px_hsl(280_100%_70%_/_0.12)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
           autoFocus
         />
         <motion.button

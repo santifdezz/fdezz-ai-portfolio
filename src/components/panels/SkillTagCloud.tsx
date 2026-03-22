@@ -13,11 +13,11 @@ interface SkillTagCloudProps {
 }
 
 function getSizeClass(pct: number): { fontSize: string; padding: string } {
-  if (pct >= 85) return { fontSize: "28px", padding: "12px 18px" };
-  if (pct >= 75) return { fontSize: "22px", padding: "10px 16px" };
-  if (pct >= 65) return { fontSize: "18px", padding: "8px 14px" };
-  if (pct >= 50) return { fontSize: "14px", padding: "6px 12px" };
-  return { fontSize: "12px", padding: "4px 10px" };
+  if (pct >= 85) return { fontSize: "26px", padding: "10px 18px" };
+  if (pct >= 75) return { fontSize: "20px", padding: "8px 14px" };
+  if (pct >= 65) return { fontSize: "16px", padding: "7px 12px" };
+  if (pct >= 50) return { fontSize: "13px", padding: "5px 10px" };
+  return { fontSize: "11px", padding: "4px 9px" };
 }
 
 function getColorScheme(
@@ -25,32 +25,32 @@ function getColorScheme(
 ): { bg: string; border: string; text: string } {
   if (pct >= 85)
     return {
-      bg: "bg-emerald-500/20",
-      border: "border-emerald-500/50",
+      bg: "bg-emerald-500/15",
+      border: "border-emerald-400/40",
       text: "text-emerald-300",
     };
   if (pct >= 75)
     return {
-      bg: "bg-purple-500/20",
-      border: "border-purple-500/50",
+      bg: "bg-purple-500/15",
+      border: "border-purple-400/40",
       text: "text-purple-300",
     };
   if (pct >= 65)
     return {
-      bg: "bg-blue-500/20",
-      border: "border-blue-500/50",
+      bg: "bg-blue-500/15",
+      border: "border-blue-400/40",
       text: "text-blue-300",
     };
   if (pct >= 50)
     return {
-      bg: "bg-cyan-500/20",
-      border: "border-cyan-500/50",
-      text: "text-cyan-300",
+      bg: "bg-cyan-500/15",
+      border: "border-cyan-400/40",
+      text: "text-cyan-400",
     };
   return {
-    bg: "bg-slate-500/20",
-    border: "border-slate-500/50",
-    text: "text-slate-300",
+    bg: "bg-slate-500/10",
+    border: "border-slate-400/30",
+    text: "text-slate-400",
   };
 }
 
