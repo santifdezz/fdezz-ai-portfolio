@@ -2,38 +2,51 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BootScreen } from "@/components/terminal/BootScreen";
 import Terminal from "@/components/terminal/Terminal";
 import { NeuralBackground } from "@/components/background/NeuralBackground";
-import { Echo } from "@/components/character/Echo";
+import { LandingPage } from "@/components/LandingPage";
+import type { Locale } from "@/lib/terminalTypes";
 
 export default function Home() {
-  const [booted, setBooted] = useState(false);
+  const [stage, setStage] = useState<"landing" | "terminal">("landing");
+  const [startTour, setStartTour] = useState(false);
+  const [locale, setLocale] = useState<Locale>("es");
+
+  const goExplore = () => setStage("terminal");
+  const goTour = () => { setStartTour(true); setStage("terminal"); };
 
   return (
-    <main className="relative w-full h-screen bg-[#050505] overflow-hidden">
+    <main className="relative w-full h-screen bg-[hsl(var(--background))] overflow-hidden">
       <NeuralBackground />
       <AnimatePresence mode="wait">
-        {!booted ? (
+        {stage === "landing" ? (
           <motion.div
-            key="boot"
-            exit={{ opacity: 0, transition: { duration: 0.5 } }}
+            key="landing"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0"
           >
-            <BootScreen locale="en" onComplete={() => setBooted(true)} />
+            <LandingPage
+              locale={locale}
+              onExplore={goExplore}
+              onTour={goTour}
+              onLocaleChange={setLocale}
+            />
           </motion.div>
         ) : (
           <motion.div
-            key="chat"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
+            key="terminal"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0"
           >
-            <Terminal />
+            <Terminal initialLocale={locale} autoStartTour={startTour} />
           </motion.div>
         )}
       </AnimatePresence>
-      {/* ECHO — only visible after boot */}
-      {booted && <Echo locale="es" />}
     </main>
   );
 }

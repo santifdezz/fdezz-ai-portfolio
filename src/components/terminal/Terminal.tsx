@@ -11,6 +11,8 @@ import { ChatInput } from "./ChatInput";
 import { Sidebar } from "./Sidebar";
 import { TourSelector } from "@/components/panels/TourSelector";
 import { TourPlayer } from "@/components/panels/TourPlayer";
+import { Echo } from "@/components/character/Echo";
+import type { EchoState } from "@/components/character/Echo";
 
 function makeMsg(type: TerminalMessage["type"], text: string): TerminalMessage {
   return { id: Math.random().toString(36).slice(2), type, text, timestamp: Date.now() };
@@ -79,10 +81,25 @@ function getTourCmd(tourId: string, locale: string): string {
   return TOUR_CMDS[locale]?.[tourId] ?? TOUR_CMDS["en"][tourId] ?? tourId;
 }
 
-export default function Terminal() {
+const PANEL_TO_ECHO: Record<string, EchoState> = {
+  bio:      "happy",
+  projects: "happy",
+  timeline: "thinking",
+  skills:   "happy",
+  services: "thinking",
+  contact:  "wave",
+  help:     "thinking",
+};
+
+interface TerminalProps {
+  initialLocale?: Locale;
+  autoStartTour?: boolean;
+}
+
+export default function Terminal({ initialLocale, autoStartTour = false }: TerminalProps) {
   const [history, setHistory] = useState<TerminalMessage[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", "es");
+  const [locale, setLocale] = useLocalStorage("fdezz-portfolio-lang", initialLocale ?? "es");
   const [uiState, setUiState] = useState<UIState>("welcome");
   const [selectedTours, setSelectedTours] = useState<string[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -123,6 +140,10 @@ export default function Terminal() {
     initializePanelRegistry();
   }, []);
 
+  // Derive ECHO state from last panel shown
+  const lastPanelType = history.filter((m) => m.panelType).at(-1)?.panelType;
+  const echoState: EchoState = lastPanelType ? (PANEL_TO_ECHO[lastPanelType] ?? "idle") : "idle";
+
   // Welcome messages on mount and when locale changes
   useEffect(() => {
     setHistory([]);
@@ -141,13 +162,27 @@ export default function Terminal() {
         setHistory((prev) => [...prev, msg]);
         setTimeout(show, 300);
       } else {
-        // After welcome completes, show tour selector
         setTimeout(() => setUiState("tour-selector"), 500);
       }
     };
     const timer = setTimeout(show, 200);
     return () => clearTimeout(timer);
   }, [locale]);
+
+  // Auto-start tour when coming from landing "Recorrido Guiado"
+  const autoTourFiredRef = useRef(false);
+  useEffect(() => {
+    if (!autoStartTour || autoTourFiredRef.current) return;
+    if (uiState !== "tour-selector") return;
+    autoTourFiredRef.current = true;
+    const ALL_TOURS = ["about", "projects", "timeline", "skills", "services", "contact"];
+    setSelectedTours(ALL_TOURS);
+    setUiState("tour-player");
+    setTimeout(() => {
+      handleSubmit(getTourCmd(ALL_TOURS[0], locale));
+    }, 300);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStartTour, uiState]);
 
   const addMsg = useCallback((msg: TerminalMessage): void => {
     setHistory((prev) => [...prev, msg]);
@@ -261,7 +296,7 @@ export default function Terminal() {
               </svg>
             </button>
             <div className="w-2 h-2 rounded-full bg-[hsl(var(--primary))] animate-pulse" />
-            <h1 className="text-sm font-semibold text-[hsl(var(--foreground))]">
+            <h1 className="font-ui text-sm font-semibold text-[hsl(var(--foreground))] tracking-tight">
               AI Portfolio
             </h1>
           </div>
@@ -322,6 +357,9 @@ export default function Terminal() {
           <ChatInput onSubmit={handleSubmit} isProcessing={isProcessing} locale={locale} />
         )}
       </div>
+
+      {/* ECHO — reactive to active section */}
+      <Echo locale={locale} echoState={echoState} onSendMessage={handleSubmit} />
     </div>
   );
 }
