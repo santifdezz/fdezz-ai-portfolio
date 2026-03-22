@@ -89,7 +89,7 @@ export function SkillsPanel({
                           className={`h-full rounded-full ${levelColor(pct)}`}
                           initial={{ width: 0 }}
                           animate={{ width: `${pct}%` }}
-                          transition={{ delay: 0.2 + idx * 0.08, duration: 0.6, ease: "easeOut" }}
+                          transition={{ delay: 0.2 + idx * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         />
                       </div>
                       <span className="w-20 shrink-0 text-[10px] text-[hsl(var(--muted-foreground))] text-right">

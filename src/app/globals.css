@@ -12,35 +12,35 @@
   --card: 220 13% 11%;
   --card-foreground: 220 20% 95%;
 
-  /* Purple accent system */
-  --primary: 280 100% 70%;
+  /* Purple accent system — slightly desaturated for less eye strain */
+  --primary: 280 85% 65%;
   --primary-foreground: 220 13% 9%;
-  --primary-glow: 280 100% 80%;
+  --primary-glow: 280 85% 75%;
 
   --secondary: 220 13% 15%;
   --secondary-foreground: 220 20% 95%;
 
   --muted: 220 13% 13%;
-  --muted-foreground: 220 8% 65%;
+  --muted-foreground: 220 8% 62%;
 
-  --accent: 280 70% 20%;
-  --accent-foreground: 280 100% 80%;
+  --accent: 280 60% 20%;
+  --accent-foreground: 280 85% 78%;
 
-  --destructive: 0 84% 60%;
+  --destructive: 0 75% 58%;
   --destructive-foreground: 220 20% 95%;
 
-  --border: 220 13% 20%;
-  --success: 142 76% 36%;
-  --error: 0 84% 60%;
+  --border: 220 13% 18%;
+  --success: 142 60% 38%;
+  --error: 0 75% 58%;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%), hsl(280 100% 50%));
+  --gradient-primary: linear-gradient(135deg, hsl(280 85% 65%), hsl(280 85% 50%));
   --gradient-card: linear-gradient(135deg, hsl(220 13% 11%) 0%, hsl(220 13% 13%) 100%);
 
   /* Shadows */
-  --shadow-glow: 0 0 40px hsl(280 100% 70% / 0.3);
+  --shadow-glow: 0 0 40px hsl(280 85% 65% / 0.25);
   --shadow-card: 0 8px 32px hsl(220 13% 5% / 0.8);
-  --shadow-elegant: 0 20px 60px hsl(280 100% 70% / 0.1);
+  --shadow-elegant: 0 20px 60px hsl(280 85% 65% / 0.08);
 }
 
 body {

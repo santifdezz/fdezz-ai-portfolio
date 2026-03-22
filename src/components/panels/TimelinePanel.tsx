@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   BookOpen,
   Wrench,
@@ -53,7 +53,7 @@ export function TimelinePanel({
           <div className="absolute top-5 left-0 right-0 h-1 bg-gradient-to-r from-purple-600/20 via-purple-500/40 to-purple-600/20 rounded-full" />
 
           {/* Timeline Points */}
-          <div className="relative flex justify-between items-start gap-2 px-1">
+          <div className="relative flex justify-between items-start gap-1 px-0.5 overflow-x-auto">
             {periods.map((period, idx) => {
               const IconComponent = periodIcons[period.year] || BookOpen;
               const isActive = expandedIndex === idx;
@@ -67,25 +67,32 @@ export function TimelinePanel({
                   transition={{ delay: idx * 0.1 }}
                 >
                   {/* Dot Button */}
-                  <motion.button
-                    onClick={() => setExpandedIndex(isActive ? null : idx)}
-                    className={`relative w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
-                      isActive
-                        ? "bg-purple-500/25 border-2 border-purple-400 shadow-lg shadow-purple-500/40"
-                        : "bg-[hsl(var(--secondary))] border border-purple-400/40 hover:border-purple-400/60"
-                    }`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <IconComponent
-                      className={`w-5 h-5 ${
-                        isActive ? "text-purple-300" : "text-purple-400"
+                  <div className="relative group">
+                    <motion.button
+                      onClick={() => setExpandedIndex(isActive ? null : idx)}
+                      className={`relative w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all z-10 ${
+                        isActive
+                          ? "bg-purple-500/25 border-2 border-purple-400 shadow-lg shadow-purple-500/30"
+                          : "bg-[hsl(var(--secondary))] border border-purple-400/40 hover:border-purple-400 hover:bg-purple-500/10"
                       }`}
-                    />
-                  </motion.button>
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    >
+                      <IconComponent
+                        className={`w-4 h-4 ${
+                          isActive ? "text-purple-300" : "text-purple-400/70"
+                        }`}
+                      />
+                    </motion.button>
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-[hsl(var(--card))] border border-purple-500/30 rounded text-[10px] text-purple-200 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
+                      {period.title}
+                    </div>
+                  </div>
 
                   {/* Year Label */}
-                  <p className="text-xs font-semibold text-purple-300 text-center">
+                  <p className={`text-[9px] sm:text-[10px] font-medium text-center transition-colors leading-tight max-w-full truncate ${isActive ? "text-purple-300" : "text-[hsl(var(--muted-foreground))]"}`}>
                     {period.year}
                   </p>
                 </motion.div>
@@ -95,11 +102,14 @@ export function TimelinePanel({
         </div>
 
         {/* Expanded Period Details */}
+        <AnimatePresence mode="wait">
         {expandedIndex !== null && periods[expandedIndex] && (
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            key={expandedIndex}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-4 p-4 bg-purple-500/5 rounded-lg border border-purple-500/20"
           >
             {/* Header */}
@@ -174,7 +184,7 @@ export function TimelinePanel({
                   animate={{
                     width: `${((expandedIndex + 1) / periods.length) * 100}%`,
                   }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   style={{
                     boxShadow:
                       "0 0 10px rgba(168, 85, 247, 0.5), inset 0 0 6px rgba(168, 85, 247, 0.3)",
@@ -184,6 +194,7 @@ export function TimelinePanel({
             </div>
           </motion.div>
         )}
+        </AnimatePresence>
 
         {/* Timeline Summary Stats */}
         <div className="grid grid-cols-3 gap-3">

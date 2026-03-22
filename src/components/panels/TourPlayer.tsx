@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Locale } from "@/lib/terminalTypes";
 
 interface TourStep {
@@ -68,7 +68,7 @@ export function TourPlayer({
             className="h-full bg-gradient-to-r from-purple-500 to-purple-400"
             initial={{ width: 0 }}
             animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
       </div>
@@ -114,19 +114,18 @@ export function TourPlayer({
               setCurrentStep((prev) => prev - 1);
               onCommandRun(steps[currentStep - 1].cmd);
             }}
-            className="flex-1 py-2.5 px-4 bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)/0.8)] border border-purple-400/30 text-[hsl(var(--foreground))] font-semibold rounded-lg transition-all"
+            className="flex-1 py-2.5 px-4 bg-[hsl(var(--secondary))] hover:bg-purple-500/10 border border-[hsl(var(--border))] hover:border-purple-400/40 text-[hsl(var(--muted-foreground))] hover:text-purple-300 font-medium rounded-lg transition-all flex items-center justify-center gap-1.5"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            {isES ? "← Anterior" : "← Previous"}
+            <ChevronLeft className="w-4 h-4" />
+            {isES ? "Anterior" : "Previous"}
           </motion.button>
         )}
 
         <motion.button
           onClick={handleNext}
-          className={`flex-1 py-2.5 px-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
-            currentStep > 0 ? "" : ""
-          }`}
+          className="flex-1 py-2.5 px-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >

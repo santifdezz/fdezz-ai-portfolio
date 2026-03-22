@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Briefcase, ChevronDown, CheckCircle2, ArrowRight } from "lucide-react";
 import { PanelBase } from "./PanelBase";
+import { getTechColor } from "@/lib/techColors";
 import type { Locale } from "@/lib/portfolio-content";
 
 interface Service {
@@ -144,7 +145,7 @@ export function ServicesPanel({ services, locale = "en" }: ServicesPanelProps) {
                             {service.technologies.map((tech) => (
                               <span
                                 key={tech}
-                                className="px-2 py-0.5 text-xs bg-purple-500/10 text-purple-300 rounded border border-purple-500/30"
+                                className={`px-2 py-0.5 text-[11px] font-medium rounded-full border ${getTechColor(tech)}`}
                               >
                                 {tech}
                               </span>
