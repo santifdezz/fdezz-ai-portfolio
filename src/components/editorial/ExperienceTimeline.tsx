@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useInView, useMotionValue, useMotionValueEvent, useTransform, type MotionValue } from "framer-motion";
 import type { EducationEntry } from "@/lib/portfolio-content";
 import { ganttLayout, playheadYear, recordedFraction, splitNarrative, type GanttBar } from "@/lib/editorial/timeline";
 import type { EditorialCopy } from "./copy";
@@ -48,8 +48,8 @@ function Marker({ bar, head, highlighted }: { bar: GanttBar; head: MotionValue<n
 }
 
 /**
- * The trajectory as a DAW arrangement on real years: a playhead tied to the
- * scroll sweeps 2020 → today, each stage's clip records as it passes, one-off
+ * The trajectory as a DAW arrangement on real years: a playhead
+ * sweep runs 2020 → today as the chart enters view, each stage's clip records as it passes, one-off
  * stages fire like LEDs, and a readout shows the year under the playhead.
  * Each stage still opens to its detail. Reduced motion: everything recorded,
  * no playhead.
@@ -61,10 +61,17 @@ export function ExperienceTimeline({ entries, copy }: ExperienceTimelineProps) {
 
   const chartRef = useRef<HTMLDivElement>(null);
   const reduce = useMediaQuery(REDUCED_MOTION_QUERY);
-  const { scrollYProgress } = useScroll({ target: chartRef, offset: ["start 0.75", "end 0.85"] });
-  const scrolled = useTransform(scrollYProgress, (p) => p * 100);
+  // Time-based sweep fired once as the chart enters view: scroll-tied progress left
+  // the rows empty until the reader was already halfway down.
+  const inView = useInView(chartRef, { once: true, amount: 0.05 });
+  const sweep = useMotionValue(0);
   const everything = useMotionValue(100);
-  const head = reduce ? everything : scrolled;
+  const head = reduce ? everything : sweep;
+  useEffect(() => {
+    if (reduce || !inView) return;
+    const controls = animate(sweep, 100, { duration: 2.4, ease: [0.45, 0, 0.2, 1] });
+    return () => controls.stop();
+  }, [inView, reduce, sweep]);
   const headLeft = useTransform(head, (h) => `${h}%`);
   const readout = useTransform(head, (h) => String(playheadYear(h, from, to)));
 
