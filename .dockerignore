@@ -15,3 +15,8 @@ coverage
 *~
 context/
 .claude/
+.playwright-mcp/
+*.tsbuildinfo
+test-results/
+deploy/
+.tunnel-token

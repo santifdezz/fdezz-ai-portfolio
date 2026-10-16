@@ -1,12 +1,13 @@
-# fdezz — AI Terminal Portfolio
+# sfseoane — Data Engineer Portfolio
 
-An interactive terminal-interface portfolio built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS v4**.
+A portfolio built with **Next.js 16**, **React 19**, **TypeScript**, and **Tailwind CSS v4**. An editorial landing page (serif display type, a signal-field hero, a pinned horizontal project gallery, a DAW-style timeline) presents Santiago from real data; behind **⌘K**, a `psql` session on the portfolio itself.
 
 ## Features
 
-✨ **Interactive Terminal UI** — Navigate via typed commands
-🌍 **Bilingual** — English & Spanish with `/lang en|es`
-🎨 **Dark Terminal Aesthetic** — Cyan/neon theme inspired by classic terminals
+🗄️ **⌘K psql console** — Query the portfolio as a Postgres database: `\d`, `SELECT … FROM projects`, psql's own output formats
+📈 **One motif, end to end** — The hero's ridgeline signal returns in every section rule, the project plates and the contact edge
+🌍 **Bilingual** — English & Spanish, including psql's messages
+♿ **Reduced motion** — Every animation has a still, resolved fallback
 ⚡ **Fast & Static** — No external APIs, 100% frontend
 🐳 **Containerized** — Docker for consistent development
 📱 **Responsive** — Works on desktop and mobile
@@ -37,54 +38,37 @@ npm install
 npm run dev
 ```
 
-## Commands
+## The ⌘K console
 
-Try typing these in the terminal:
+⌘K (or the `psql` button) opens a psql session whose tables — `people`,
+`projects`, `stages`, `skills`, `channels` — are built from
+`portfolio-content.ts`, so it can only say what the page says. It runs a
+slice of SQL (`SELECT * | count(*) | cols FROM t [WHERE …] [ORDER BY …]
+[LIMIT n]`, with `ILIKE`, `IS NULL` and `'v' = ANY(col)`) and the
+meta-commands `\?`, `\d [table]`, `\x [on|off|auto]` and `\q`.
 
-| Command | Description |
-|---------|-------------|
-| `/help` | List all commands |
-| `/about` | Developer profile |
-| `/projects` | Browse projects |
-| `/skills` | Skill matrix |
-| `/contact` | Contact channels |
-| `/system` | System status |
-| `/clear` | Clear terminal |
-| `/lang en\|es` | Switch language |
-
-**Easter eggs:** `/coffee`, `/whoami`, `/train`, `/joke`, `/hack`
+It is not an assistant: a plain question gets psql's syntax error plus a
+clickable hint with the query that answers it. The engine is pure and tested
+(`src/lib/console/`).
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── page.tsx              # Home (terminal)
-│   ├── layout.tsx            # Root layout
-│   ├── about/page.tsx        # About page
-│   ├── projects/page.tsx     # Projects listing
-│   ├── projects/[id]/page.tsx# Project detail
-│   ├── skills/page.tsx       # Skills matrix
-│   ├── contact/page.tsx      # Contact
-│   └── timeline/page.tsx     # Timeline
+│   ├── page.tsx                    # Editorial landing + ⌘K command palette
+│   ├── layout.tsx                  # Root layout, metadata, fonts
+│   └── globals.css                 # Theme tokens, plate colours, motion
 ├── components/
-│   ├── terminal/
-│   │   ├── Terminal.tsx      # Main terminal component
-│   │   ├── TerminalInput.tsx
-│   │   ├── TerminalHistory.tsx
-│   │   ├── TypingLine.tsx
-│   │   └── CommandSuggestions.tsx
-│   └── layouts/
-│       └── PageLayout.tsx    # Page wrapper
+│   ├── editorial/                  # Landing: hero, reveal, gallery, timeline, stack, contact
+│   │   └── copy.ts                 # UI copy (ES/EN); all facts come from portfolio-content.ts
+│   ├── CommandPalette.tsx          # ⌘K overlay and its trigger
+│   └── console/PsqlConsole.tsx     # The psql session UI
 └── lib/
-    ├── terminalTypes.ts      # TypeScript types
-    ├── commands.ts           # Command parsing
-    ├── responses.ts          # Response generation
-    ├── useCommandHandler.ts  # Command hook
-    ├── projects.ts           # Project data
-    └── content/
-        ├── en.ts             # English strings
-        └── es.ts             # Spanish strings
+    ├── editorial/                  # Pure, tested helpers (figures, ridges, timeline, scroll)
+    ├── console/                    # psql engine: tables, SQL subset, output formats
+    ├── seo/                        # JSON-LD, OG ridge field
+    └── portfolio-content.ts        # Bilingual project/skill/contact data
 ```
 
 ## Tech Stack
@@ -94,7 +78,8 @@ src/
 - **Styling:** Tailwind CSS v4
 - **Animations:** Framer Motion
 - **Containerization:** Docker & Docker Compose
-- **Font:** JetBrains Mono
+- **Fonts:** Newsreader (display), IBM Plex Sans (body), IBM Plex Mono (labels, data)
+- **Tests:** Vitest (`npm test`)
 
 ## Development
 
@@ -120,31 +105,40 @@ docker-compose exec web npm run lint
 
 ## Customization
 
-### Change developer name
+### Change developer name / bio / contact
 
-1. Update `src/app/layout.tsx` — metadata title
-2. Update `src/components/terminal/Terminal.tsx` — header and prompt
-3. Update `src/lib/content/en.ts` and `es.ts` — responses and links
-4. Update `src/app/about/page.tsx` — profile content
-5. Update `src/lib/projects.ts` — your projects
+1. Update `src/app/layout.tsx` — page metadata (title, OG, JSON-LD)
+2. Update `src/components/editorial/copy.ts` — headline, thesis and section copy
+   (a test fails if the thesis quotes a number that isn't in the content)
+3. Update `src/lib/portfolio-content.ts` — bio, projects, skills, contact
+   links (separate `contentEN`/`contentES` objects — keep both in sync)
 
 ### Add new projects
 
-Edit `src/lib/projects.ts` and add entries to the `projects` array:
+Edit `src/lib/portfolio-content.ts` and add an entry to the `projects`
+array **in both `contentEN` and `contentES`**:
 
 ```typescript
 {
   id: "my-project",
-  name: "My Project",
+  title: "My Project",
   description: "Short description",
-  overview: "Detailed overview",
-  architecture: "Tech details",
-  stack: ["Tech1", "Tech2"],
-  tags: ["tag1", "tag2"],
-  github: "https://github.com/fdezz/my-project",
-  year: 2025,
+  status: "completed", // or "in-progress"
+  statusColor: "green", // or "yellow"
+  technologies: ["Tech1", "Tech2"],
+  features: ["Feature one", "Feature two"],
+  links: {
+    github: "https://github.com/your-handle/my-project",
+  },
+  role: "founder", // optional: names it in the headline, badges it, opens the gallery
 }
 ```
+
+On the landing gallery, the giant number on each project's coloured plate is
+lifted from that project's own `features`/`description` (the largest figure,
+e.g. `200+` → "events managed"). To pick its plate colour, add
+the `id` to `PLATE_BY_PROJECT` in `src/components/editorial/ProjectSlide.tsx`;
+unknown ids rotate through the palette.
 
 ### Change colors
 
@@ -203,4 +197,4 @@ MIT — Use freely for your portfolio.
 
 **Built with ❤️ using Next.js 16, React 19, and TypeScript 5.**
 
-Made by **fdezz** — [GitHub](https://github.com/fdezz) • [Email](mailto:hello@fdezz.dev)
+Made by **Santiago Fernández** — [GitHub](https://github.com/santifdezz) • [Email](mailto:santifdezseo@gmail.com)

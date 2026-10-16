@@ -1,17 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Poppins } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans, Newsreader } from "next/font/google";
 import { JsonSchema } from "@/components/JsonSchema";
+import { OG_IMAGE_URL, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const jetbrainsMono = JetBrains_Mono({
+const plexMono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const poppins = Poppins({
+const plexSans = IBM_Plex_Sans({
   variable: "--font-ui",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-display",
+  subsets: ["latin", "latin-ext"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
 });
 
 export const viewport: Viewport = {
@@ -21,13 +30,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "sfseoane — AI Terminal Portfolio",
-  description: "Interactive AI terminal portfolio. Data Engineer & Full-Stack Developer specializing in AI, Big Data, and Cloud Architecture.",
-  keywords: ["Data Engineer", "Full Stack Developer", "AI", "Big Data", "Python", "TypeScript", "React", "Next.js"],
+  title: "Santiago Fernández — Data & AI Engineer, founder of Makineo",
+  description: "Data & AI Engineer at Qaleon and founder of Makineo, a platform for Spain's electronic music scene. Real pipelines, real numbers — plus an AI assistant behind ⌘K.",
+  keywords: ["Data Engineer", "Founder", "Makineo", "Full Stack Developer", "AI", "Big Data", "Python", "TypeScript", "React", "Next.js"],
   authors: [
     {
       name: "Santiago Fernández",
-      url: "https://sfseoane.es",
+      url: SITE_URL,
     },
   ],
   creator: "Santiago Fernández",
@@ -47,25 +56,26 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: ["es_ES"],
-    url: "https://sfseoane.es",
-    siteName: "sfseoane — AI Terminal",
-    title: "sfseoane — AI Terminal Portfolio",
-    description: "Interactive AI terminal portfolio showcasing projects, skills, and experience in Data Engineering and Full-Stack Development.",
+    url: SITE_URL,
+    siteName: "Santiago Fernández",
+    title: "Santiago Fernández — Data & AI Engineer, founder of Makineo",
+    description: "Data & AI Engineer at Qaleon and founder of Makineo (200+ events). Real pipelines, real numbers, in production.",
     images: [
       {
-        url: "https://sfseoane.es/og-image.svg",
+        // PNG, not SVG — Twitter/Facebook/LinkedIn don't render SVG previews.
+        url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: "sfseoane AI Terminal Portfolio",
-        type: "image/svg+xml",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "sfseoane — AI Terminal Portfolio",
-    description: "Interactive portfolio showcasing Data Engineering & Full-Stack Development projects",
-    images: ["https://sfseoane.es/og-image.svg"],
+    title: "Santiago Fernández — Data & AI Engineer, founder of Makineo",
+    description: "Data & AI Engineer at Qaleon and founder of Makineo — real pipelines, real numbers.",
+    images: [OG_IMAGE_URL],
     creator: "@sfdezz",
   },
   appleWebApp: {
@@ -85,12 +95,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-[#0a0a0a]">
+    // Default locale is Spanish (see Terminal's useLocalStorage default);
+    // kept in sync client-side as the user switches language.
+    <html lang="es">
       <head>
         <JsonSchema />
         <script defer data-domain="sfseoane.es" src="https://plausible.io/js/script.js" />
       </head>
-      <body className={`${jetbrainsMono.variable} ${poppins.variable} font-mono antialiased bg-[#0a0a0a] text-[#e6f7ff] overflow-hidden`}>
+      <body className={`${plexMono.variable} ${plexSans.variable} ${newsreader.variable} font-mono antialiased`}>
         {children}
       </body>
     </html>

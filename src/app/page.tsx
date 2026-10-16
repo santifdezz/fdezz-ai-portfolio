@@ -1,52 +1,48 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import Terminal from "@/components/terminal/Terminal";
-import { NeuralBackground } from "@/components/background/NeuralBackground";
-import { LandingPage } from "@/components/LandingPage";
-import type { Locale } from "@/lib/terminalTypes";
+import { useState, useEffect, useCallback } from "react";
+import { EditorialPage } from "@/components/editorial/EditorialPage";
+import { CommandPalette } from "@/components/CommandPalette";
+import type { Locale } from "@/lib/portfolio-content";
+
+const LOCALE_KEY = "fdezz-portfolio-lang";
 
 export default function Home() {
-  const [stage, setStage] = useState<"landing" | "terminal">("landing");
-  const [startTour, setStartTour] = useState(false);
+  // Default matches the SSR-rendered <html lang="es"> in layout.tsx; corrected
+  // after mount from whatever the visitor last chose (shared with the ⌘K
+  // palette's own Terminal instance via the same localStorage key).
   const [locale, setLocale] = useState<Locale>("es");
 
-  const goExplore = () => setStage("terminal");
-  const goTour = () => { setStartTour(true); setStage("terminal"); };
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(LOCALE_KEY) as Locale | null;
+      // Reading localStorage can't happen during the lazy useState
+      // initializer without breaking SSR hydration — same one-time
+      // post-mount sync as Terminal's own useLocalStorage hook.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (stored === "en" || stored === "es") setLocale(stored);
+    } catch {
+      // localStorage unavailable — fall back to the SSR default
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
+  const handleLocaleChange = useCallback((l: Locale) => {
+    setLocale(l);
+    try {
+      localStorage.setItem(LOCALE_KEY, l);
+    } catch {
+      // ignore — per-viewer convenience only
+    }
+  }, []);
 
   return (
-    <main className="relative w-full h-screen bg-[hsl(var(--background))] overflow-hidden">
-      <NeuralBackground />
-      <AnimatePresence mode="wait">
-        {stage === "landing" ? (
-          <motion.div
-            key="landing"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            <LandingPage
-              locale={locale}
-              onExplore={goExplore}
-              onTour={goTour}
-              onLocaleChange={setLocale}
-            />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="terminal"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            <Terminal initialLocale={locale} autoStartTour={startTour} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </main>
+    <>
+      <EditorialPage locale={locale} onLocaleChange={handleLocaleChange} />
+      <CommandPalette locale={locale} />
+    </>
   );
 }

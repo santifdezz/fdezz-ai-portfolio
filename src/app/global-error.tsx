@@ -14,8 +14,8 @@ export default function GlobalError({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#050505",
-          color: "#e6f7ff",
+          background: "#0a0d0b",
+          color: "#ecece7",
           fontFamily: "monospace",
           flexDirection: "column",
           gap: "1rem",
@@ -23,7 +23,7 @@ export default function GlobalError({
         }}
       >
         <p>Something went wrong.</p>
-        <button onClick={reset} style={{ cursor: "pointer", color: "#a78bfa" }}>
+        <button onClick={reset} style={{ cursor: "pointer", color: "#ff5a2e" }}>
           Try again
         </button>
       </body>

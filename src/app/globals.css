@@ -3,64 +3,120 @@
 @theme inline {
   --font-mono: var(--font-mono);
   --font-ui: var(--font-ui);
+  --font-display: var(--font-display);
 }
 
-/* === Base - Hybrid Terminal + Warm Gummy Theme === */
+/* Pinned horizontal gallery. Keep in sync with PIN_QUERY in editorial/hooks.ts. */
+@custom-variant pinned {
+  @media (min-width: 768px) and (min-height: 560px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    @slot;
+  }
+}
+
+/* === Base — "Live Pipeline": instrument-at-night, one signal accent === */
 :root {
-  /* Dark theme base — slightly warmer purple-dark */
-  --background: 255 15% 8%;
-  --foreground: 220 20% 95%;
-  --card: 258 16% 11%;
-  --card-foreground: 220 20% 95%;
+  /* Ground — near-black, faint green undertone (not pure black, not blue-black) */
+  --background: 140 13% 5%;
+  --foreground: 77 17% 92%;
+  --card: 150 14% 8%;
+  --card-foreground: 77 17% 92%;
 
-  /* Primary — warm purple */
-  --primary: 272 75% 62%;
-  --primary-foreground: 220 13% 9%;
-  --primary-glow: 272 75% 72%;
+  /* Primary — signal orange, used like a recording light, not a gradient hero */
+  --primary: 13 100% 59%;
+  --primary-foreground: 140 13% 5%;
+  --primary-glow: 13 100% 68%;
 
-  /* Coral — ECHO & accent elements */
-  --coral: 5 85% 65%;
-  --coral-glow: 5 85% 75%;
-  --coral-muted: 5 85% 65% / 0.15;
+  /* Coral — kept as an alias of the same signal accent so existing chat/panel
+     UI that references --coral (ECHO, buttons) inherits the new identity
+     without touching every component. */
+  --coral: 13 100% 59%;
+  --coral-glow: 13 100% 68%;
+  --coral-muted: 13 100% 59% / 0.15;
 
-  --secondary: 258 14% 14%;
-  --secondary-foreground: 220 20% 95%;
+  --secondary: 150 12% 10%;
+  --secondary-foreground: 77 17% 92%;
 
-  --muted: 258 14% 12%;
-  --muted-foreground: 240 6% 60%;
+  --muted: 150 12% 9%;
+  --muted-foreground: 155 8% 59%;
 
-  --accent: 272 55% 20%;
-  --accent-foreground: 272 75% 80%;
+  --accent: 13 60% 16%;
+  --accent-foreground: 13 100% 78%;
 
   --destructive: 0 70% 56%;
-  --destructive-foreground: 220 20% 95%;
+  --destructive-foreground: 77 17% 92%;
 
-  --border: 258 14% 17%;
-  --success: 142 55% 40%;
+  --border: 148 16% 16%;
+  --success: 148 69% 54%;
   --error: 0 70% 56%;
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(272 75% 62%), hsl(272 75% 48%));
-  --gradient-coral: linear-gradient(135deg, hsl(5 85% 65%), hsl(15 85% 62%));
-  --gradient-card: linear-gradient(135deg, hsl(258 16% 11%) 0%, hsl(258 14% 13%) 100%);
+  /* Gradients — same accent, two shades; never purple→blue */
+  --gradient-primary: linear-gradient(135deg, hsl(13 100% 59%), hsl(13 90% 46%));
+  --gradient-coral: linear-gradient(135deg, hsl(13 100% 59%), hsl(24 90% 55%));
+  --gradient-card: linear-gradient(135deg, hsl(150 14% 8%) 0%, hsl(150 12% 10%) 100%);
 
   /* Shadows */
-  --shadow-glow: 0 0 40px hsl(272 75% 62% / 0.22);
-  --shadow-coral: 0 0 30px hsl(5 85% 65% / 0.3);
-  --shadow-card: 0 8px 32px hsl(255 15% 4% / 0.8);
-  --shadow-elegant: 0 20px 60px hsl(272 75% 62% / 0.08);
+  --shadow-glow: 0 0 40px hsl(13 100% 59% / 0.22);
+  --shadow-coral: 0 0 30px hsl(13 100% 59% / 0.3);
+  --shadow-card: 0 8px 32px hsl(140 13% 2% / 0.8);
+  --shadow-elegant: 0 20px 60px hsl(13 100% 59% / 0.08);
+
+  /* Book-cloth plates: accent flashes on the dark ground, one per project. */
+  --plate-oxblood: 345 54% 23%;
+  --plate-oxblood-ink: 350 78% 87%;
+  --plate-bottle: 156 45% 17%;
+  --plate-bottle-ink: 150 52% 80%;
+  --plate-coral: 13 100% 59%;
+  --plate-coral-ink: 140 13% 5%;
+  --plate-petrol: 194 44% 18%;
+  --plate-petrol-ink: 188 55% 83%;
+  --plate-umber: 28 38% 21%;
+  --plate-umber-ink: 36 72% 79%;
+
+  /* Stack terms resolve to this as they're read. */
+  --signal: 150 48% 70%;
+}
+
+/* Landing palette — electric violet on Makineo's black, with Makineo's neon
+   lime as the second accent. Scoped to the landing so the ⌘K terminal keeps
+   its colours. If you change these, mirror them in PointReveal.tsx (Framer
+   needs concrete colours). */
+.editorial {
+  --background: 0 0% 3%; /* #080808 */
+  --foreground: 0 0% 94%; /* #f0f0f0 */
+  --card: 0 0% 7%; /* #111111 */
+  --secondary: 0 0% 9%;
+  --muted: 0 0% 8%;
+  --muted-foreground: 220 9% 65%; /* #9ca3af */
+  --border: 0 0% 15%;
+
+  --primary: 265 100% 70%; /* #a366ff — violet */
+  --primary-foreground: 0 0% 3%;
+  --primary-glow: 265 100% 78%;
+  --success: 265 100% 70%;
+  --signal: 73 100% 50%; /* #c8ff00 — Makineo neon */
+
+  /* Plates: violet for Makineo, Makineo's red theme for UFC. */
+  --plate-violet: 265 100% 70%;
+  --plate-violet-ink: 0 0% 3%;
+  --plate-rave: 0 41% 9%; /* #1e0d0d */
+  --plate-rave-ink: 344 100% 62%;
 }
 
 body {
   background: hsl(var(--background));
-  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(260 15% 6%) 100%);
+  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(150 12% 4%) 100%);
   color: hsl(var(--foreground));
-  font-family: var(--font-mono), "JetBrains Mono", "Courier New", monospace;
+  font-family: var(--font-mono), "IBM Plex Mono", "Courier New", monospace;
 }
 
-/* === UI font utility (Poppins for chrome/UI elements) === */
+/* === UI font utility (IBM Plex Sans for chrome/UI elements) === */
 .font-ui {
-  font-family: var(--font-ui), "Poppins", system-ui, sans-serif;
+  font-family: var(--font-ui), "IBM Plex Sans", system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), "Newsreader", Georgia, serif;
+  font-optical-sizing: auto;
 }
 
 /* === Scrollbar === */
@@ -82,134 +138,309 @@ body {
   background: hsl(var(--primary-glow));
 }
 
-/* === Animations === */
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0.2; }
+/* ── Editorial landing ─────────────────────────────────────────────── */
+
+/* Smooth only for in-page link clicks (the link takes focus); a cold load of
+   /#section jumps instantly instead of starting a long smooth scroll that
+   hydration and font swaps would cancel. */
+html:focus-within {
+  scroll-behavior: smooth;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+::selection {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
-@keyframes glow-pulse {
-  0%   { box-shadow: 0 0 5px rgba(0, 229, 255, 0.1); }
-  50%  { box-shadow: 0 0 20px rgba(0, 229, 255, 0.3); }
-  100% { box-shadow: 0 0 5px rgba(0, 229, 255, 0.1); }
+.editorial :focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-@keyframes scan {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
+.editorial .on-primary :focus-visible {
+  outline-color: hsl(var(--primary-foreground));
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-4px); }
+/* Page-load sequence (CSS so the headline never waits on JS). */
+@keyframes rise {
+  from { transform: translateY(108%); }
+  to   { transform: none; }
 }
 
-/* === Utility classes === */
-.animate-blink {
-  animation: blink 1.2s infinite;
+@keyframes enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+.rise-mask {
+  display: inline-block;
+  overflow-x: visible;
+  overflow-y: clip;
+  overflow-clip-margin: 0.04em;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  vertical-align: bottom;
 }
 
-.terminal-glow {
-  box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+.rise-word {
+  display: inline-block;
+  animation: rise 0.95s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  animation-delay: calc(var(--i, 0) * 42ms + 120ms);
 }
 
-.glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
+.enter {
+  animation: enter 0.9s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  animation-delay: var(--d, 0ms);
 }
 
-.scan-effect::after {
+/* Metrics ticker along the hero edge. */
+@keyframes marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  animation: marquee 80s linear infinite;
+}
+
+/* The record: grooves and label turn, the light on it stays put.
+   Hover or focus holds it still — instantly here; with JS, useTurntable
+   brakes it like a platter instead and marks it [data-turntable]. */
+@keyframes vinyl-spin {
+  to { transform: rotate(360deg); }
+}
+
+.vinyl-spin {
+  background:
+    repeating-radial-gradient(circle at 50% 50%, hsl(0 0% 5%) 0 1.4px, hsl(0 0% 10%) 1.8px 3px),
+    hsl(0 0% 5%);
+  box-shadow:
+    0 0 0 1px hsl(var(--border)),
+    0 20px 48px hsl(0 0% 0% / 0.7);
+  animation: vinyl-spin 14s linear infinite;
+}
+
+.vinyl-sheen {
+  background: conic-gradient(
+    from 25deg,
+    transparent 0deg,
+    hsl(0 0% 100% / 0.1) 22deg,
+    transparent 60deg,
+    transparent 180deg,
+    hsl(0 0% 100% / 0.07) 202deg,
+    transparent 240deg
+  );
+  -webkit-mask-image: radial-gradient(circle, transparent 0 28%, black 28.5%);
+  mask-image: radial-gradient(circle, transparent 0 28%, black 28.5%);
+}
+
+.vinyl:not([data-turntable]):hover .vinyl-spin,
+.vinyl:not([data-turntable]):focus-visible .vinyl-spin {
+  animation-play-state: paused;
+}
+
+/* One vertical rhythm: every section opens this far below the last one. */
+.editorial {
+  --section-y: clamp(5.5rem, 10vw, 8.5rem);
+}
+
+/* A step firing on a sequencer: a hot flash that decays to its lit state. */
+@keyframes led-hit {
+  from { filter: brightness(1.9); transform: scale(1.45); }
+  to   { filter: none; transform: none; }
+}
+
+.led-hit {
+  animation: led-hit 320ms cubic-bezier(0.1, 0.9, 0.3, 1) both;
+}
+
+/* QueryCard runs its query: the SQL types out with a block caret riding the
+   newest character, then the row prints column by column. Timings come in as
+   --qc-* custom properties from QueryCard. */
+@keyframes qc-type {
+  0%   { opacity: 0; }
+  1%   { opacity: 1; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+  100% { opacity: 1; }
+}
+
+@keyframes qc-caret {
+  0%   { opacity: 0; }
+  1%   { opacity: 1; }
+  25%  { opacity: 0; }
+  50%  { opacity: 1; }
+  75%, 100% { opacity: 0; }
+}
+
+@keyframes qc-row {
+  from { opacity: 0.25; clip-path: inset(0 100% 0 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes qc-fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes qc-fade-in {
+  from { opacity: 0; }
+}
+
+.qc-char {
+  animation: qc-type calc(var(--qc-step) * 2) steps(1, end) both;
+  animation-delay: calc(var(--qc-start) + var(--c) * var(--qc-step));
+}
+
+.qc-caret {
+  animation: qc-caret 1.6s steps(1, end) both;
+  animation-delay: var(--qc-typed);
+}
+
+.qc-row {
+  animation: qc-row 340ms cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  animation-delay: calc(var(--qc-typed) + 60ms + var(--r) * 45ms);
+}
+
+.qc-pending {
+  animation: qc-fade-out 120ms linear both;
+  animation-delay: var(--qc-typed);
+}
+
+.qc-done {
+  animation: qc-fade-in 260ms ease-out both;
+  animation-delay: var(--qc-typed);
+}
+
+/* Odometer: each digit is a strip 0–9 that rolls to its value. The real digit
+   stays in the DOM (transparent) so the text reads "3,600+", not the strip.
+   Separators get the same clipped box so every cell shares one baseline (a
+   clipped inline-block sits on its bottom edge, not on its text). */
+.odo-cell {
+  position: relative;
+  display: inline-block;
+  overflow-x: visible;
+  overflow-y: clip;
+  overflow-clip-margin: 0.06em;
+  line-height: 1;
+}
+
+.odo-digit {
+  -webkit-text-fill-color: transparent;
+}
+
+.odo-digit::after {
+  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
+  position: absolute;
+  inset: 0 0 auto 0;
+  white-space: pre;
+  text-align: center;
+  -webkit-text-fill-color: currentColor;
+  transform: translateY(0);
+  transition: transform 900ms cubic-bezier(0.2, 0.75, 0.1, 1);
+  transition-delay: calc(var(--k, 0) * 70ms);
+}
+
+.odo[data-run] .odo-digit::after {
+  transform: translateY(calc(var(--d) * -1em));
+}
+
+/* A sequencer pad being struck: a glow that blooms and dies off. */
+@keyframes pad-hit {
+  from { opacity: 0.95; transform: scale(1.3); }
+  to   { opacity: 0; transform: none; }
+}
+
+.pad-hit {
+  opacity: 0;
+  animation: pad-hit 420ms cubic-bezier(0.1, 0.9, 0.3, 1) both;
+}
+
+/* ⌘K psql console: result lines print top-down, like a slow terminal. The
+   input is the only field and always focused; the caret marks it, not a ring. */
+.psql-line {
+  animation: qc-row 220ms cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  animation-delay: calc(var(--l, 0) * 16ms);
+}
+
+.editorial .psql-input:focus-visible {
+  outline: none;
+}
+
+/* Level meter on each stack channel: segments light bottom-up, in order. */
+.meter-seg {
+  transition: background-color 120ms linear, box-shadow 120ms linear;
+  transition-delay: calc(var(--s) * 38ms);
+}
+
+/* Scanline reveal: a 1px accent line drops down the row, uncovering it. */
+.scan-reveal {
+  position: relative;
+  clip-path: inset(0 0 calc(100% - var(--scan, 100%)) 0);
+}
+
+.scan-reveal::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.4), transparent);
-  animation: scan 4s linear infinite;
+  inset-inline: 0;
+  top: calc(var(--scan, 100%) - 1px);
+  height: 1px;
+  background: hsl(var(--primary));
+  opacity: var(--scan-o, 0);
   pointer-events: none;
 }
 
-.float {
-  animation: float 3s ease-in-out infinite;
+/* The custom cursor only replaces the pointer inside its zones. */
+html[data-custom-cursor="on"] [data-cursor],
+html[data-custom-cursor="on"] [data-cursor] * {
+  cursor: none;
 }
 
-/* Delay utilities */
-.delay-75  { animation-delay: 0.075s; }
-.delay-150 { animation-delay: 0.15s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-500 { animation-delay: 0.5s; }
-
-/* === Chat bubble animations === */
-@keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(16px) scale(0.95); }
-  to   { opacity: 1; transform: translateX(0) scale(1); }
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-@keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-16px) scale(0.95); }
-  to   { opacity: 1; transform: translateX(0) scale(1); }
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  .rise-word,
+  .enter,
+  .marquee-track,
+  .vinyl-spin,
+  .led-hit,
+  .pad-hit,
+  .psql-line,
+  .qc-char,
+  .qc-row,
+  .qc-done {
+    animation: none !important;
+  }
+
+  .qc-caret,
+  .qc-pending,
+  .scan-reveal::after {
+    display: none;
+  }
+
+  .scan-reveal {
+    clip-path: none !important;
+  }
+
+  .odo-digit::after,
+  .meter-seg {
+    transition: none !important;
+  }
+
+  .odo .odo-digit::after {
+    transform: translateY(calc(var(--d) * -1em));
+  }
+
+  /* Reveals and annotations render resolved, even before hydration. */
+  [data-reveal],
+  .entity-box {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
-
-.animate-slide-in-right { animation: slide-in-right 0.3s ease-out; }
-.animate-slide-in-left  { animation: slide-in-left 0.3s ease-out; }
-
-/* === Boot screen animations === */
-@keyframes boot-line {
-  from { opacity: 0; transform: translateX(-8px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-.animate-boot-line { animation: boot-line 0.15s ease-out; }
-
-@keyframes crt-flicker {
-  0%, 91%, 95%, 100% { opacity: 1; }
-  92%, 93%            { opacity: 0.85; }
-  94%                 { opacity: 1; }
-}
-
-.crt-flicker { animation: crt-flicker 5s linear infinite; }
-
-/* Chat scroll fade top */
-.chat-scroll-fade {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 48px);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 48px);
-}
-
-/* === ECHO Character animations === */
-@keyframes echo-antenna-pulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(1.4); }
-}
-
-@keyframes echo-float {
-  0%, 100% { transform: translateY(0px) rotate(-1deg); }
-  50%       { transform: translateY(-7px) rotate(1deg); }
-}
-
-@keyframes echo-wave {
-  0%   { transform: rotate(0deg); }
-  20%  { transform: rotate(-30deg); }
-  40%  { transform: rotate(20deg); }
-  60%  { transform: rotate(-25deg); }
-  80%  { transform: rotate(15deg); }
-  100% { transform: rotate(0deg); }
-}
-
-@keyframes echo-bounce {
-  0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); }
-  30%       { transform: translateY(-12px) scaleY(1.08) scaleX(0.94); }
-  60%       { transform: translateY(0) scaleY(0.95) scaleX(1.05); }
-}
-
-.echo-float   { animation: echo-float 3.5s ease-in-out infinite; }
-.echo-bounce  { animation: echo-bounce 0.7s ease-in-out 2; }
-.echo-wave    { animation: echo-wave 0.8s ease-in-out; transform-origin: bottom center; }

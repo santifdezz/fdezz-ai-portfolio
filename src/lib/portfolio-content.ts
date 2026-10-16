@@ -8,6 +8,8 @@ export interface EducationEntry {
   narrative?: string;
   learnings?: string[];
   icon?: string;
+  /** Set on a stage where Santiago founded something (not a job or a degree). */
+  role?: 'founder';
 }
 
 export interface ProjectData {
@@ -20,8 +22,11 @@ export interface ProjectData {
   features: string[];
   links: {
     github?: string;
+    /** Live site or demo. */
     demo?: string;
   };
+  /** Set when Santiago founded the project, not only built it. */
+  role?: 'founder';
 }
 
 export interface ServiceData {
@@ -122,15 +127,6 @@ const contentEN: PortfolioContent = {
         learnings: ['Software Architecture', 'Database Design', 'API Development', 'User Interface Design', 'Full Stack Development'],
       },
       {
-        year: '2024',
-        title: 'QA Tester (Internship)',
-        institution: 'Merlín Software, A Coruña',
-        description: 'Performed automated tests on APIs, mobile apps, and websites.',
-        icon: '🧪',
-        narrative: 'Quality through automation. I learned to think like a tester, breaking things systematically to prevent users from experiencing bugs.',
-        learnings: ['Test Automation', 'E2E Testing', 'API Testing', 'Quality Assurance', 'Automated Testing Frameworks'],
-      },
-      {
         year: '2024-2025',
         title: 'Specialization in Artificial Intelligence and Big Data',
         institution: 'IES Fernando Wirtz',
@@ -138,6 +134,15 @@ const contentEN: PortfolioContent = {
         icon: '🤖',
         narrative: 'Where my journey converges. Combining all my previous skills into AI and data science. Data pipelines, machine learning models, and modern analysis techniques.',
         learnings: ['Machine Learning', 'Deep Learning', 'Data Engineering', 'Big Data Processing', 'Predictive Modeling'],
+      },
+      {
+        year: 'June 2025',
+        title: 'Founder of Makineo',
+        institution: 'Makineo',
+        description: 'Founded a full-stack platform for the Spanish electronic music scene that manages 200+ events.',
+        icon: '🎛️',
+        role: 'founder',
+        learnings: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
       },
       {
         year: '2025-2026',
@@ -167,56 +172,19 @@ const contentEN: PortfolioContent = {
       },
     },
     {
-      id: 'coruna-tenders',
-      title: 'La Coruña Public Tenders',
-      description:
-        'Automated scraping and analysis pipeline processing 1,200+ public tenders monthly. Reduced manual research from 8 hours to under 15 minutes. PostgreSQL database with live Streamlit dashboard for statistical exploration.',
-      status: 'completed',
-      statusColor: 'green',
-      technologies: ['Python', 'BeautifulSoup', 'Pandas', 'PostgreSQL', 'Streamlit'],
-      features: ['1,200+ tenders processed monthly', '8h → 15min analysis time', 'Live statistical dashboard', 'Automated data cleaning & deduplication'],
-      links: {
-        github: 'https://github.com/santifdezz/analisis-licitaciones-coruna',
-      },
-    },
-    {
-      id: 'forbes-qa',
-      title: 'Forbes Website QA',
-      description:
-        'E2E test suite with 30+ automated scenarios covering critical user flows on Forbes.com. Built with Cypress + Cucumber BDD pattern, achieving 95%+ pass rate. Validates navigation, search, dynamic content, and newsletter flows.',
-      status: 'completed',
-      statusColor: 'green',
-      technologies: ['Cypress', 'Cucumber', 'JavaScript', 'Gherkin'],
-      features: ['30+ automated test scenarios', '95%+ pass rate per run', 'BDD with Gherkin syntax', 'Full user journey coverage'],
-      links: {
-        github: 'https://github.com/santifdezz/forbes-qa-cypress',
-      },
-    },
-    {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Full-stack platform for the Spanish electronic music scene. Manages 200+ events with custom admin panel, JWT authentication, RESTful API, and automated E2E test suite. [Demo currently disabled — hosting offline]',
+        'Full-stack platform for the Spanish electronic music scene. Manages 200+ events with custom admin panel, JWT authentication, RESTful API, and automated E2E test suite.',
       status: 'completed',
       statusColor: 'green',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
       features: ['200+ events managed', 'Custom admin panel', 'JWT authentication system', 'RESTful API + E2E tests'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
+        demo: 'https://makineo.es',
       },
-    },
-    {
-      id: 'godot-game',
-      title: 'Top-Down Shooter (Godot)',
-      description:
-        'Playable 2D shooter built from scratch in Godot Engine in under 4 weeks with zero prior game dev experience. Demonstrates the ability to pick up unfamiliar tooling fast and ship something working — a core engineering skill.',
-      status: 'completed',
-      statusColor: 'green',
-      technologies: ['Godot', 'GDScript', 'C#'],
-      features: ['Built in <4 weeks from zero', 'Full gameplay loop', 'Enemy AI & collision system', 'Rapid skill acquisition demo'],
-      links: {
-        github: 'https://github.com/santifdezz/TopDown-Shooter-Game',
-      },
+      role: 'founder',
     },
   ],
 
@@ -359,15 +327,6 @@ const contentES: PortfolioContent = {
         learnings: ['Arquitectura de Software', 'Diseño de Bases de Datos', 'Desarrollo de APIs', 'Diseño de UI', 'Desarrollo Full Stack'],
       },
       {
-        year: '2024',
-        title: 'QA Tester (Prácticas)',
-        institution: 'Merlín Software, A Coruña',
-        description: 'Realicé pruebas automatizadas a APIs, apps móviles y webs.',
-        icon: '🧪',
-        narrative: 'Calidad a través de automatización. Aprendí a pensar como tester, rompiendo cosas sistemáticamente para prevenir bugs en usuarios.',
-        learnings: ['Automatización de Tests', 'Testing E2E', 'Testing de APIs', 'Aseguramiento de Calidad', 'Frameworks de Testing'],
-      },
-      {
         year: '2024-2025',
         title: 'Ciclo de Especialización en Inteligencia Artificial y Big Data',
         institution: 'IES Fernando Wirtz',
@@ -375,6 +334,15 @@ const contentES: PortfolioContent = {
         icon: '🤖',
         narrative: 'Donde mi viaje converge. Combinando todas mis habilidades previas en IA y ciencia de datos. Pipelines, modelos ML y análisis moderno.',
         learnings: ['Machine Learning', 'Deep Learning', 'Data Engineering', 'Big Data Processing', 'Modelado Predictivo'],
+      },
+      {
+        year: 'Junio 2025',
+        title: 'Fundador de Makineo',
+        institution: 'Makineo',
+        description: 'Fundé una plataforma full-stack para la escena de música electrónica española que gestiona 200+ eventos.',
+        icon: '🎛️',
+        role: 'founder',
+        learnings: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
       },
       {
         year: '2025-2026',
@@ -404,56 +372,19 @@ const contentES: PortfolioContent = {
       },
     },
     {
-      id: 'coruna-tenders',
-      title: 'Licitaciones de La Coruña',
-      description:
-        'Pipeline automatizado de scraping y análisis que procesa más de 1.200 licitaciones públicas al mes. Redujo el análisis manual de 8 horas a menos de 15 minutos. Base de datos PostgreSQL con dashboard Streamlit en tiempo real.',
-      status: 'completed',
-      statusColor: 'green',
-      technologies: ['Python', 'BeautifulSoup', 'Pandas', 'PostgreSQL', 'Streamlit'],
-      features: ['1.200+ licitaciones procesadas al mes', '8h → 15min de análisis', 'Dashboard estadístico en tiempo real', 'Limpieza y deduplicación automática'],
-      links: {
-        github: 'https://github.com/santifdezz/analisis-licitaciones-coruna',
-      },
-    },
-    {
-      id: 'forbes-qa',
-      title: 'Forbes Website QA',
-      description:
-        'Suite de tests E2E con 30+ escenarios automatizados cubriendo flujos críticos de usuario en Forbes.com. Construida con Cypress + patrón BDD Cucumber, logrando 95%+ de tasa de éxito. Valida navegación, búsqueda, contenido dinámico y newsletter.',
-      status: 'completed',
-      statusColor: 'green',
-      technologies: ['Cypress', 'Cucumber', 'JavaScript', 'Gherkin'],
-      features: ['30+ escenarios de test automatizados', '95%+ tasa de éxito por ejecución', 'BDD con sintaxis Gherkin', 'Cobertura completa del journey de usuario'],
-      links: {
-        github: 'https://github.com/santifdezz/forbes-qa-cypress',
-      },
-    },
-    {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Plataforma full-stack para la escena de música electrónica española. Gestiona 200+ eventos con panel de administración propio, autenticación JWT, API RESTful y suite de tests E2E automatizados. [Demo actualmente desactivada — hosting offline]',
+        'Plataforma full-stack para la escena de música electrónica española. Gestiona 200+ eventos con panel de administración propio, autenticación JWT, API RESTful y suite de tests E2E automatizados.',
       status: 'completed',
       statusColor: 'green',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
       features: ['200+ eventos gestionados', 'Panel de administración propio', 'Sistema de autenticación JWT', 'API RESTful + tests E2E'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
+        demo: 'https://makineo.es',
       },
-    },
-    {
-      id: 'godot-game',
-      title: 'Top-Down Shooter (Godot)',
-      description:
-        'Shooter 2D jugable construido desde cero en Godot Engine en menos de 4 semanas sin experiencia previa en desarrollo de juegos. Demuestra la capacidad de aprender herramientas desconocidas rápido y llegar a algo funcional — una habilidad clave de ingeniería.',
-      status: 'completed',
-      statusColor: 'green',
-      technologies: ['Godot', 'GDScript', 'C#'],
-      features: ['Construido en <4 semanas desde cero', 'Game loop completo', 'IA de enemigos y sistema de colisiones', 'Demo de adquisición rápida de habilidades'],
-      links: {
-        github: 'https://github.com/santifdezz/TopDown-Shooter-Game',
-      },
+      role: 'founder',
     },
   ],
 

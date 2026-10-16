@@ -1,17 +1,56 @@
+# Production on the shared Makineo VPS (/opt/portfolio). Public traffic comes
+# in through a Cloudflare Tunnel (the `tunnel` service dials out to Cloudflare),
+# so the site needs no open port and never touches Makineo's edge nginx.
+# `web` also listens on 127.0.0.1:3020 for checks from the server itself.
+name: portfolio
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
+    image: portfolio-web:latest
+    container_name: portfolio-web
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://fdezz.dev
-    restart: always
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      - "127.0.0.1:3020:3000"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+      # Next writes its ISR/image cache here; keep it in memory.
+      - /app/.next/cache:uid=1000,gid=1000
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    mem_limit: 512m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  tunnel:
+    image: cloudflare/cloudflared:2026.9.3
+    container_name: portfolio-tunnel
+    # Published routes (sfseoane.es, www) point at http://portfolio-web:3000.
+    command: ["tunnel", "--no-autoupdate", "run", "--token-file", "/run/tunnel-token"]
+    volumes:
+      # 600, owned by makineo (1001) — hence the user below.
+      - ./.tunnel-token:/run/tunnel-token:ro
+    user: "1001:1001"
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
