@@ -62,7 +62,7 @@ export function ProjectSlide({ project, index, total, copy, cursorLabel, live }:
         {figure ? (
           <figure>
             {figure.pre && <p className="mb-2 font-mono text-[10.5px] uppercase tracking-[0.2em] opacity-80">({figure.pre})</p>}
-            <p className="font-display text-[clamp(4.25rem,22vw,8.5rem)] font-light italic leading-[0.82] tracking-[-0.045em] [font-variant-numeric:lining-nums_proportional-nums] pinned:text-[clamp(4.5rem,10.5vw,10rem)]">
+            <p className="pl-[0.06em] font-display text-[clamp(4.25rem,22vw,8.5rem)] font-light italic leading-[0.82] tracking-[-0.045em] [font-variant-numeric:lining-nums_proportional-nums] pinned:text-[clamp(4.5rem,10.5vw,10rem)]">
               <Odometer value={figure.value} live={live} />
             </p>
             <figcaption className="mt-3 max-w-[18ch] font-display text-[clamp(1.15rem,1.7vw,1.6rem)] italic leading-tight">

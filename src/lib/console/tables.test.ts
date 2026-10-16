@@ -35,7 +35,7 @@ describe("buildDatabase", () => {
 
   it("reads projects with their headline figure and links", () => {
     const makineo = rowsOf("projects").find((p) => p.id === "makineo");
-    expect(makineo).toMatchObject({ founder: true, figure: "200+ events managed", site: "https://makineo.es" });
+    expect(makineo).toMatchObject({ founder: true, figure: "1,000+ experiences listed", site: "https://makineo.es" });
     expect(rowsOf("projects").find((p) => p.id === "ufc-data")).toMatchObject({ founder: false, site: null });
   });
 

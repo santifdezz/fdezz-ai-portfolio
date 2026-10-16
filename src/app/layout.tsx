@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Santiago Fernández",
     title: "Santiago Fernández — Data & AI Engineer, founder of Makineo",
-    description: "Data & AI Engineer at Qaleon and founder of Makineo (200+ events). Real pipelines, real numbers, in production.",
+    description: "Data & AI Engineer at Qaleon and founder of Makineo (1,000+ experiences). Real pipelines, real numbers, in production.",
     images: [
       {
         // PNG, not SVG — Twitter/Facebook/LinkedIn don't render SVG previews.

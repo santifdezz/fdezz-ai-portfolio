@@ -61,7 +61,7 @@ export function EditorialNav({ copy, locale, onLocaleChange }: EditorialNavProps
             className="no-scrollbar overflow-x-auto max-md:[mask-image:linear-gradient(90deg,transparent,black_14px,black_calc(100%-14px),transparent)]"
           >
             <div className="relative w-max min-w-full pb-1.5">
-              <ul className="grid auto-cols-[minmax(6.75rem,1fr)] grid-flow-col">
+              <ul className="grid auto-cols-[minmax(2.25rem,auto)] grid-flow-col md:auto-cols-[minmax(6.75rem,1fr)]">
                 {SECTION_IDS.map((id, i) => {
                   const state = i < activeIndex ? "done" : i === activeIndex ? "active" : "queued";
                   return (
@@ -83,7 +83,7 @@ export function EditorialNav({ copy, locale, onLocaleChange }: EditorialNavProps
                             state === "active" ? "led-hit" : ""
                           }`}
                         />
-                        {copy.nav.items[id]}
+                        <span className={state === "active" ? "" : "max-md:sr-only"}>{copy.nav.items[id]}</span>
                       </a>
                     </li>
                   );

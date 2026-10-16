@@ -40,9 +40,9 @@ describe("run · SELECT", () => {
   it("filters booleans, ILIKE patterns, array membership and NULLs", () => {
     expect(values("SELECT title FROM projects WHERE founder = true")).toEqual([["Makineo"]]);
     expect(values("SELECT skill FROM skills WHERE skill ILIKE 'pyt%'")).toEqual([["Python"]]);
-    expect(values("SELECT title FROM projects WHERE 'Cypress' = ANY(stack)")).toEqual([["Makineo"]]);
-    expect(values("SELECT title FROM projects WHERE site IS NULL")).toEqual([["UFC Data Pipeline"], ["Punch"], ["CuadroScan"]]);
-    expect(values("SELECT title FROM projects WHERE stack ILIKE '%mongo%' AND status != 'in-progress'")).toEqual([["Makineo"]]);
+    expect(values("SELECT title FROM projects WHERE 'Capacitor' = ANY(stack)")).toEqual([["Makineo"]]);
+    expect(values("SELECT title FROM projects WHERE site IS NULL")).toEqual([["UFC Data Pipeline"]]);
+    expect(values("SELECT title FROM projects WHERE stack ILIKE '%capacitor%' AND status != 'in-progress'")).toEqual([["Makineo"]]);
   });
 
   it("counts", () => {

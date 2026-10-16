@@ -185,8 +185,8 @@ html:focus-within {
 
 .rise-word {
   display: inline-block;
-  animation: rise 0.95s cubic-bezier(0.2, 0.75, 0.1, 1) both;
-  animation-delay: calc(var(--i, 0) * 42ms + 120ms);
+  animation: rise 0.55s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  animation-delay: calc(var(--i, 0) * 22ms);
 }
 
 .enter {
@@ -334,8 +334,8 @@ html:focus-within {
   text-align: center;
   -webkit-text-fill-color: currentColor;
   transform: translateY(0);
-  transition: transform 900ms cubic-bezier(0.2, 0.75, 0.1, 1);
-  transition-delay: calc(var(--k, 0) * 70ms);
+  transition: transform 650ms cubic-bezier(0.2, 0.75, 0.1, 1);
+  transition-delay: calc(var(--k, 0) * 40ms);
 }
 
 .odo[data-run] .odo-digit::after {

@@ -23,14 +23,14 @@ const figureOf = (locale: "en" | "es", id: string) => {
 describe("getProjectFigure — real content", () => {
   it.each([
     ["ufc-data", { pre: "", value: "3,600+", label: "events" }],
-    ["makineo", { pre: "", value: "200+", label: "events managed" }],
+    ["makineo", { pre: "", value: "1,000+", label: "experiences listed" }],
   ])("en · %s", (id, expected) => {
     expect(figureOf("en", id)).toEqual(expected);
   });
 
   it.each([
     ["ufc-data", { pre: "", value: "3.600+", label: "eventos" }],
-    ["makineo", { pre: "", value: "200+", label: "eventos gestionados" }],
+    ["makineo", { pre: "", value: "1.000+", label: "experiencias publicadas" }],
   ])("es · %s", (id, expected) => {
     expect(figureOf("es", id)).toEqual(expected);
   });

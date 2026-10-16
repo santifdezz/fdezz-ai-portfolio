@@ -25,8 +25,8 @@ describe("hero thesis", () => {
   });
 
   it.each([
-    ["en", "200+ events managed on Makineo, a full-stack platform for the Spanish electronic music scene — and my RAG and ETL systems run in production at Qaleon Solutions."],
-    ["es", "200+ eventos gestionados en Makineo, plataforma full-stack para la escena de música electrónica española — y mis sistemas RAG y ETL, en producción en Qaleon Solutions."],
+    ["en", "1,000+ experiences listed on Makineo, a full-stack platform for the Spanish electronic music scene — and my RAG and ETL systems run in production at Qaleon Solutions."],
+    ["es", "1.000+ experiencias publicadas en Makineo, plataforma full-stack para la escena de música electrónica española — y mis sistemas RAG y ETL, en producción en Qaleon Solutions."],
   ] as const)("%s: reads as one sentence built from content", (locale, expected) => {
     expect(thesisText(locale)).toBe(expected);
   });

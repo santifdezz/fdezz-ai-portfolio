@@ -139,10 +139,10 @@ const contentEN: PortfolioContent = {
         year: 'June 2025',
         title: 'Founder of Makineo',
         institution: 'Makineo',
-        description: 'Founded a full-stack platform for the Spanish electronic music scene that manages 200+ events.',
+        description: 'Founded a full-stack platform for the Spanish electronic music scene that lists 1,000+ experiences.',
         icon: '🎛️',
         role: 'founder',
-        learnings: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
+        learnings: ['Nuxt', 'Vue', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Capacitor', 'Playwright'],
       },
       {
         year: '2025-2026',
@@ -175,11 +175,11 @@ const contentEN: PortfolioContent = {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Full-stack platform for the Spanish electronic music scene. Manages 200+ events with custom admin panel, JWT authentication, RESTful API, and automated E2E test suite.',
+        'Full-stack platform for the Spanish electronic music scene. Lists 1,000+ experiences with a custom admin panel, a FastAPI backend, a native mobile shell and an automated E2E test suite.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
-      features: ['200+ events managed', 'Custom admin panel', 'JWT authentication system', 'RESTful API + E2E tests'],
+      technologies: ['Nuxt', 'Vue', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Capacitor', 'Playwright'],
+      features: ['1,000+ experiences listed', 'Custom admin panel', 'Native mobile shell (Capacitor)', 'FastAPI backend + E2E tests'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
         demo: 'https://makineo.es',
@@ -196,7 +196,7 @@ const contentEN: PortfolioContent = {
       technologies: ['Python', 'FastAPI', 'Nuxt 3', 'PostgreSQL', 'Redis', 'Playwright', 'Claude'],
       features: ['4 audit families: SEO, accessibility, GEO, tech', 'AI vision notes on full-page screenshots', 'WCAG contrast fixes with exact values', 'SSRF-hardened URL fetching'],
       links: {
-        github: 'https://github.com/santifdezz/punch',
+        demo: 'https://punch.sfseoane.es',
       },
     },
     {
@@ -208,7 +208,9 @@ const contentEN: PortfolioContent = {
       statusColor: 'yellow',
       technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
       features: ['Photo to confirmable inventory', 'Rules engine with BOE citations', 'Single-line diagram and printable report', '3 sample photos in a no-API-key demo mode'],
-      links: {},
+      links: {
+        demo: 'https://cuadroscan.sfseoane.es',
+      },
     },
   ],
 
@@ -257,7 +259,7 @@ const contentEN: PortfolioContent = {
     description: "I'm always open to new opportunities and interesting projects. Don't hesitate to contact me.",
     email: 'santifdezseo@gmail.com',
     location: 'Madrid, Spain',
-    availability: 'Open to OSS · Employed @ Qaleon',
+    availability: 'Data Engineer @ Qaleon · Founder of Makineo',
     channels: [
       {
         type: 'email',
@@ -363,10 +365,10 @@ const contentES: PortfolioContent = {
         year: 'Junio 2025',
         title: 'Fundador de Makineo',
         institution: 'Makineo',
-        description: 'Fundé una plataforma full-stack para la escena de música electrónica española que gestiona 200+ eventos.',
+        description: 'Fundé una plataforma full-stack para la escena de música electrónica española que publica 1.000+ experiencias.',
         icon: '🎛️',
         role: 'founder',
-        learnings: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
+        learnings: ['Nuxt', 'Vue', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Capacitor', 'Playwright'],
       },
       {
         year: '2025-2026',
@@ -399,11 +401,11 @@ const contentES: PortfolioContent = {
       id: 'makineo',
       title: 'Makineo',
       description:
-        'Plataforma full-stack para la escena de música electrónica española. Gestiona 200+ eventos con panel de administración propio, autenticación JWT, API RESTful y suite de tests E2E automatizados.',
+        'Plataforma full-stack para la escena de música electrónica española. Publica 1.000+ experiencias con panel de administración propio, backend FastAPI, app móvil nativa y suite de tests E2E automatizados.',
       status: 'completed',
       statusColor: 'green',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Cypress'],
-      features: ['200+ eventos gestionados', 'Panel de administración propio', 'Sistema de autenticación JWT', 'API RESTful + tests E2E'],
+      technologies: ['Nuxt', 'Vue', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Capacitor', 'Playwright'],
+      features: ['1.000+ experiencias publicadas', 'Panel de administración propio', 'App móvil nativa (Capacitor)', 'Backend FastAPI + tests E2E'],
       links: {
         github: 'https://github.com/santifdezz/makineo-app',
         demo: 'https://makineo.es',
@@ -420,7 +422,7 @@ const contentES: PortfolioContent = {
       technologies: ['Python', 'FastAPI', 'Nuxt 3', 'PostgreSQL', 'Redis', 'Playwright', 'Claude'],
       features: ['4 familias de auditoría: SEO, accesibilidad, GEO, técnica', 'Notas de visión IA sobre capturas completas', 'Arreglos de contraste WCAG con valores exactos', 'Descarga de URLs protegida contra SSRF'],
       links: {
-        github: 'https://github.com/santifdezz/punch',
+        demo: 'https://punch.sfseoane.es',
       },
     },
     {
@@ -432,7 +434,9 @@ const contentES: PortfolioContent = {
       statusColor: 'yellow',
       technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
       features: ['De la foto a un inventario confirmable', 'Motor de reglas con citas del BOE', 'Esquema unifilar e informe imprimible', '3 fotos de ejemplo en modo demo sin clave de API'],
-      links: {},
+      links: {
+        demo: 'https://cuadroscan.sfseoane.es',
+      },
     },
   ],
 
@@ -477,7 +481,7 @@ const contentES: PortfolioContent = {
     description: 'Estoy siempre abierto a nuevas oportunidades y proyectos interesantes. No dudes en contactarme.',
     email: 'santifdezseo@gmail.com',
     location: 'Madrid, España',
-    availability: 'Abierto a OSS · Contratado @ Qaleon',
+    availability: 'Data Engineer @ Qaleon · Fundador de Makineo',
     channels: [
       {
         type: 'email',
