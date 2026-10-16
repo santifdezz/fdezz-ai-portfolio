@@ -186,6 +186,30 @@ const contentEN: PortfolioContent = {
       },
       role: 'founder',
     },
+    {
+      id: 'punch',
+      title: 'Punch',
+      description:
+        'UI/UX reviewer: paste a URL, it opens the page in a real browser, measures SEO, accessibility, AI-search visibility and Web Vitals, and a vision model annotates the screenshot like a desk critic.',
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Python', 'FastAPI', 'Nuxt 3', 'PostgreSQL', 'Redis', 'Playwright', 'Claude'],
+      features: ['4 audit families: SEO, accessibility, GEO, tech', 'AI vision notes on full-page screenshots', 'WCAG contrast fixes with exact values', 'SSRF-hardened URL fetching'],
+      links: {
+        github: 'https://github.com/santifdezz/punch',
+      },
+    },
+    {
+      id: 'cuadroscan',
+      title: 'CuadroScan',
+      description:
+        "Photo of a home's electrical panel in, REBT compliance review out. The AI only reads the photo; a deterministic rules engine decides, and every check cites its article and page of the regulation.",
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
+      features: ['Photo to confirmable inventory', 'Rules engine with BOE citations', 'Single-line diagram and printable report', '3 sample photos in a no-API-key demo mode'],
+      links: {},
+    },
   ],
 
   services: [
@@ -385,6 +409,30 @@ const contentES: PortfolioContent = {
         demo: 'https://makineo.es',
       },
       role: 'founder',
+    },
+    {
+      id: 'punch',
+      title: 'Punch',
+      description:
+        'Revisor de UI/UX: pegas una URL, abre la página en un navegador real, mide SEO, accesibilidad, visibilidad en buscadores de IA y Web Vitals, y un modelo de visión anota la captura como un crítico de mesa.',
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Python', 'FastAPI', 'Nuxt 3', 'PostgreSQL', 'Redis', 'Playwright', 'Claude'],
+      features: ['4 familias de auditoría: SEO, accesibilidad, GEO, técnica', 'Notas de visión IA sobre capturas completas', 'Arreglos de contraste WCAG con valores exactos', 'Descarga de URLs protegida contra SSRF'],
+      links: {
+        github: 'https://github.com/santifdezz/punch',
+      },
+    },
+    {
+      id: 'cuadroscan',
+      title: 'CuadroScan',
+      description:
+        'Foto del cuadro eléctrico de una vivienda y revisión contra el REBT. La IA solo lee la foto; un motor de reglas determinista decide, y cada comprobación cita su artículo y página del reglamento.',
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
+      features: ['De la foto a un inventario confirmable', 'Motor de reglas con citas del BOE', 'Esquema unifilar e informe imprimible', '3 fotos de ejemplo en modo demo sin clave de API'],
+      links: {},
     },
   ],
 
