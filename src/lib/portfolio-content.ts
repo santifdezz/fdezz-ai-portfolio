@@ -87,7 +87,7 @@ const contentEN: PortfolioContent = {
     description:
       'A combination of specialized technical training and passion for data that allows me to transform complex information into useful solutions.',
     bio: {
-      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI\'ve built RAG systems with LangChain, designed ETL pipelines orchestrated with Airflow, and trained vision models for real-time detection, all in production, collaborating directly with clients.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
+      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI started with networks and hardware and ended up in data and AI. Today, as a data engineer at Qaleon, I help companies in several sectors get more out of their documents with Python and Docker. And I founded Makineo, a platform for Spain\'s electronic music scene.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
       fullDescription: 'I combine solid engineering foundations with hands-on specialization in AI and data science. At Qaleon I work across the full data stack: from raw ingestion and ETL orchestration to ML model deployment and RAG systems, always in production, always with real business impact.',
       tagline: 'Passionate about Data',
       skills: {
@@ -324,7 +324,7 @@ const contentES: PortfolioContent = {
     description:
       'Una combinación de formación técnica especializada y pasión por los datos que me permite transformar información compleja en soluciones útiles.',
     bio: {
-      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nHe construido sistemas RAG con LangChain, diseñado pipelines ETL orquestados con Airflow, y entrenado modelos de visión para detección en tiempo real, todo en producción, colaborando directamente con clientes.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
+      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nEmpecé con redes y hardware y acabé en los datos y la IA. Hoy, como Data Engineer en Qaleon, ayudo a empresas de varios sectores a sacar partido de sus documentos con Python y Docker. Y fundé Makineo, la plataforma de la escena electrónica en España.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
       fullDescription: 'Combino fundamentos sólidos de ingeniería con especialización práctica en IA y ciencia de datos. En Qaleon trabajo en todo el stack de datos: desde ingesta y orquestación ETL hasta despliegue de modelos ML y sistemas RAG, siempre en producción, siempre con impacto real de negocio.',
       tagline: 'Apasionado por los datos',
       skills: {

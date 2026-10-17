@@ -65,11 +65,9 @@ describe("annotateEntities", () => {
   it("finds the real entities in the real EN bio paragraph", () => {
     const paragraph = getPortfolioContent("en").about.bio.shortDescription.split("\n\n")[2];
     expect(entities(paragraph, groupsFor("en"))).toEqual([
-      "RAG systems:METHOD",
-      "LangChain:LIB",
-      "ETL pipelines:METHOD",
-      "Airflow:TOOL",
-      "vision models:METHOD",
+      "AI:METHOD",
+      "Python:LANG",
+      "Docker:TOOL",
     ]);
     expect(joined(paragraph, groupsFor("en"))).toBe(paragraph);
   });
@@ -77,11 +75,9 @@ describe("annotateEntities", () => {
   it("finds the real entities in the real ES bio paragraph", () => {
     const paragraph = getPortfolioContent("es").about.bio.shortDescription.split("\n\n")[2];
     expect(entities(paragraph, groupsFor("es"))).toEqual([
-      "sistemas RAG:METHOD",
-      "LangChain:LIB",
-      "pipelines ETL:METHOD",
-      "Airflow:TOOL",
-      "modelos de visión:METHOD",
+      "IA:METHOD",
+      "Python:LANG",
+      "Docker:TOOL",
     ]);
     expect(joined(paragraph, groupsFor("es"))).toBe(paragraph);
   });
