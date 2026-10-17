@@ -258,9 +258,12 @@ html[data-intro="done"] .intro {
 }
 
 /* Page-load sequence (CSS so the headline never waits on JS). */
+/* Words emerge (lift, fade and un-blur) instead of rising out of a clipped box,
+   so no hard edge ever shows where the text "starts". */
 @keyframes rise {
-  from { transform: translateY(108%); }
-  to   { transform: none; }
+  from { transform: translateY(0.34em); opacity: 0; filter: blur(8px); }
+  60%  { filter: blur(0); }
+  to   { transform: none; opacity: 1; filter: none; }
 }
 
 @keyframes enter {
@@ -270,11 +273,6 @@ html[data-intro="done"] .intro {
 
 .rise-mask {
   display: inline-block;
-  overflow-x: visible;
-  overflow-y: clip;
-  overflow-clip-margin: 0.04em;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
   vertical-align: bottom;
 }
 
@@ -431,10 +429,16 @@ html[data-intro="done"] .intro {
 .odo-cell {
   position: relative;
   display: inline-block;
-  overflow-x: visible;
-  overflow-y: clip;
-  overflow-clip-margin: 0.06em;
+  overflow: clip;
+  /* Room for an italic's overhang inside the box, so only the top and bottom fade. */
+  padding: 0.14em 0.14em 0;
+  margin: -0.14em -0.14em 0;
   line-height: 1;
+  /* Digits roll through a soft window, not a hard-edged box: the fade zones are
+     the padding (just outside a resting digit, and too short to show a neighbour:
+     the one below starts right under the bottom edge, so that side stays tight). */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 12%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 12%);
 }
 
 .odo-digit {
@@ -446,7 +450,7 @@ html[data-intro="done"] .intro {
      full lap on the way there so it reads as a counter, not a fade. */
   content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
   position: absolute;
-  inset: 0 0 auto 0;
+  inset: 0.14em 0.14em auto 0.14em;
   white-space: pre;
   text-align: center;
   -webkit-text-fill-color: currentColor;
@@ -462,13 +466,22 @@ html[data-intro="done"] .intro {
   transition: opacity 500ms ease-out;
 }
 
+/* Motion blur while the digits are moving, so the roll smears instead of cutting. */
+@keyframes odo-blur {
+  0%   { filter: blur(0); }
+  35%  { filter: blur(2.2px); }
+  100% { filter: blur(0); }
+}
+
 @keyframes odo-roll {
   from { transform: translateY(0); }
   to   { transform: translateY(calc((var(--d) + 10) * -1em)); }
 }
 
 .odo[data-run] .odo-digit::after {
-  animation: odo-roll 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation:
+    odo-roll 1100ms cubic-bezier(0.22, 1, 0.36, 1) both,
+    odo-blur 1100ms linear both;
   animation-delay: calc(var(--k, 0) * 60ms);
 }
 
