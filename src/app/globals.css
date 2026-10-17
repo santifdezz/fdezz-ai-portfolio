@@ -169,7 +169,7 @@ html:focus-within {
 }
 
 @keyframes enter {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: none; }
 }
 
@@ -185,22 +185,19 @@ html:focus-within {
 
 .rise-word {
   display: inline-block;
-  animation: rise 0.55s cubic-bezier(0.2, 0.75, 0.1, 1) both;
-  animation-delay: calc(var(--i, 0) * 22ms);
+  animation: rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 30ms);
 }
 
 .enter {
-  animation: enter 0.9s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+  animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--d, 0ms);
 }
 
 /* Metrics ticker along the hero edge. */
-@keyframes marquee {
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
+/* The track only moves with the scroll (MetricsTicker sets its transform). */
 .marquee-track {
-  animation: marquee 80s linear infinite;
+  will-change: transform;
 }
 
 /* The record: grooves and label turn, the light on it stays put.
@@ -296,7 +293,7 @@ html:focus-within {
 
 .qc-row {
   animation: qc-row 340ms cubic-bezier(0.2, 0.75, 0.1, 1) both;
-  animation-delay: calc(var(--qc-typed) + 60ms + var(--r) * 45ms);
+  animation-delay: calc(var(--qc-typed) + 60ms + var(--r) * 70ms);
 }
 
 .qc-pending {
@@ -327,19 +324,34 @@ html:focus-within {
 }
 
 .odo-digit::after {
-  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
+  /* Two laps of 0–9: it rests on the final digit and, when it runs, spins a
+     full lap on the way there so it reads as a counter, not a fade. */
+  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
   position: absolute;
   inset: 0 0 auto 0;
   white-space: pre;
   text-align: center;
   -webkit-text-fill-color: currentColor;
-  transform: translateY(0);
-  transition: transform 650ms cubic-bezier(0.2, 0.75, 0.1, 1);
-  transition-delay: calc(var(--k, 0) * 40ms);
+  transform: translateY(calc(var(--d) * -1em));
+}
+
+/* Waiting for its slide: the real value, dimmed, never a stray 0. */
+.odo[data-wait] {
+  opacity: 0.4;
+}
+
+.odo {
+  transition: opacity 500ms ease-out;
+}
+
+@keyframes odo-roll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(calc((var(--d) + 10) * -1em)); }
 }
 
 .odo[data-run] .odo-digit::after {
-  transform: translateY(calc(var(--d) * -1em));
+  animation: odo-roll 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--k, 0) * 60ms);
 }
 
 /* A sequencer pad being struck: a glow that blooms and dies off. */
@@ -428,13 +440,17 @@ html[data-custom-cursor="on"] [data-cursor] * {
     clip-path: none !important;
   }
 
-  .odo-digit::after,
-  .meter-seg {
+  .meter-seg,
+  .odo {
     transition: none !important;
   }
 
-  .odo .odo-digit::after {
-    transform: translateY(calc(var(--d) * -1em));
+  .odo[data-wait] {
+    opacity: 1;
+  }
+
+  .odo[data-run] .odo-digit::after {
+    animation: none;
   }
 
   /* Reveals and annotations render resolved, even before hydration. */

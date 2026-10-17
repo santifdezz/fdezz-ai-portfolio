@@ -35,7 +35,7 @@ function HeroActions({ copy, cvLink, className = "" }: { copy: EditorialCopy; cv
   const base =
     "inline-flex items-center gap-2 rounded-full px-5 py-3 font-ui text-[0.9375rem] font-medium transition-colors";
   return (
-    <div className={`enter flex flex-wrap gap-3 ${className}`} style={delay(520)}>
+    <div className={`enter flex flex-wrap gap-3 ${className}`} style={delay(420)}>
       <a
         href="#contact"
         className={`${base} bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:opacity-90`}
@@ -80,7 +80,7 @@ export function Hero({ copy, content }: HeroProps) {
 
         <div className="flex min-w-0 flex-col gap-8 sm:flex-row sm:items-end sm:justify-between lg:col-start-1 lg:row-start-2 lg:self-start">
           <div className="flex min-w-0 flex-col gap-6">
-            <p className="enter max-w-[36rem] font-ui text-[1.0625rem] leading-relaxed text-[hsl(var(--muted-foreground))] sm:text-lg" style={delay(620)}>
+            <p className="enter max-w-[36rem] font-ui text-[1.0625rem] leading-relaxed text-[hsl(var(--muted-foreground))] sm:text-lg" style={delay(320)}>
               {thesis.map((segment, i) =>
                 segment.strong ? (
                   <strong key={i} className="font-medium text-[hsl(var(--foreground))]">
@@ -93,7 +93,7 @@ export function Hero({ copy, content }: HeroProps) {
             </p>
             <HeroActions copy={copy} cvLink={content.about.cvLink} className="max-lg:hidden" />
           </div>
-          <div className="enter self-end sm:self-auto" style={delay(780)}>
+          <div className="enter self-end sm:self-auto" style={delay(560)}>
             <VinylBadge
               href="#contact"
               ring={`${copy.hero.badge} · ${status}`}

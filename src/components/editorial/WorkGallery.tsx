@@ -110,13 +110,6 @@ export function WorkGallery({ projects: contentOrder, copy }: WorkGalleryProps) 
                       }`}
                     >
                       {pad2(i + 1)}
-                      {i === active && (
-                        <span
-                          key={active}
-                          aria-hidden
-                          className="pad-hit pointer-events-none absolute inset-0 rounded-[4px] bg-[hsl(var(--primary))] shadow-[0_0_22px_hsl(var(--primary))]"
-                        />
-                      )}
                     </button>
                   </li>
                 ))}

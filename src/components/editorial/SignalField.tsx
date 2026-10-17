@@ -13,7 +13,7 @@ const IDLE_FRAME_MS = 33; // ~30 fps while nothing is chasing the cursor
  * A ridgeline field behind the hero: stacked signal lines — a data plot and a
  * techno record sleeve at once — that rise into a peak where the cursor
  * passes, each ridge hiding the ones behind it. Drawn once and left still
- * under reduced motion; no cursor peak on touch or small screens.
+ * under reduced motion and on touch or small screens (nothing to chase).
  */
 export function SignalField({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -23,8 +23,9 @@ export function SignalField({ className = "" }: { className?: string }) {
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
 
-    const still = window.matchMedia(REDUCED_MOTION_QUERY).matches;
     const follows = window.matchMedia(CURSOR_QUERY).matches;
+    // Reduced motion, or no cursor to chase (phones): drawn once and left still.
+    const still = window.matchMedia(REDUCED_MOTION_QUERY).matches || !follows;
     const target = { x: 0, y: 0, strength: 0 };
     const peak = { x: 0, y: 0, strength: 0 };
     let width = 0;
