@@ -87,8 +87,8 @@ const contentEN: PortfolioContent = {
     description:
       'A combination of specialized technical training and passion for data that allows me to transform complex information into useful solutions.',
     bio: {
-      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI\'ve built RAG systems with LangChain, designed ETL pipelines orchestrated with Airflow, and trained vision models for real-time detection — all in production, collaborating directly with clients.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
-      fullDescription: 'I combine solid engineering foundations with hands-on specialization in AI and data science. At Qaleon I work across the full data stack: from raw ingestion and ETL orchestration to ML model deployment and RAG systems — always in production, always with real business impact.',
+      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI\'ve built RAG systems with LangChain, designed ETL pipelines orchestrated with Airflow, and trained vision models for real-time detection, all in production, collaborating directly with clients.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
+      fullDescription: 'I combine solid engineering foundations with hands-on specialization in AI and data science. At Qaleon I work across the full data stack: from raw ingestion and ETL orchestration to ML model deployment and RAG systems, always in production, always with real business impact.',
       tagline: 'Passionate about Data',
       skills: {
         'Languages': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
@@ -162,7 +162,7 @@ const contentEN: PortfolioContent = {
       id: 'ufc-data',
       title: 'UFC Data Pipeline',
       description:
-        'ETL pipeline extracting 20+ years of UFC data — 3,600+ events, 1,500+ fighters. Cleans, normalises, and feeds an ML classification model targeting 65%+ accuracy for fight outcome prediction using 50+ fighter features.',
+        'ETL pipeline extracting 20+ years of UFC data: 3,600+ events, 1,500+ fighters. Cleans, normalises, and feeds an ML classification model targeting 65%+ accuracy for fight outcome prediction using 50+ fighter features.',
       status: 'in-progress',
       statusColor: 'yellow',
       technologies: ['Python', 'BeautifulSoup', 'Scikit-learn', 'Pandas', 'PostgreSQL'],
@@ -324,8 +324,8 @@ const contentES: PortfolioContent = {
     description:
       'Una combinación de formación técnica especializada y pasión por los datos que me permite transformar información compleja en soluciones útiles.',
     bio: {
-      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nHe construido sistemas RAG con LangChain, diseñado pipelines ETL orquestados con Airflow, y entrenado modelos de visión para detección en tiempo real — todo en producción, colaborando directamente con clientes.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
-      fullDescription: 'Combino fundamentos sólidos de ingeniería con especialización práctica en IA y ciencia de datos. En Qaleon trabajo en todo el stack de datos: desde ingesta y orquestación ETL hasta despliegue de modelos ML y sistemas RAG — siempre en producción, siempre con impacto real de negocio.',
+      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nHe construido sistemas RAG con LangChain, diseñado pipelines ETL orquestados con Airflow, y entrenado modelos de visión para detección en tiempo real, todo en producción, colaborando directamente con clientes.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
+      fullDescription: 'Combino fundamentos sólidos de ingeniería con especialización práctica en IA y ciencia de datos. En Qaleon trabajo en todo el stack de datos: desde ingesta y orquestación ETL hasta despliegue de modelos ML y sistemas RAG, siempre en producción, siempre con impacto real de negocio.',
       tagline: 'Apasionado por los datos',
       skills: {
         'Lenguajes': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
@@ -399,7 +399,7 @@ const contentES: PortfolioContent = {
       id: 'ufc-data',
       title: 'UFC Data Pipeline',
       description:
-        'Pipeline ETL que extrae más de 20 años de datos de UFC — 3.600+ eventos, 1.500+ luchadores. Limpia, normaliza y alimenta un modelo ML de clasificación con objetivo de >65% de precisión en predicción de resultados usando 50+ características por luchador.',
+        'Pipeline ETL que extrae más de 20 años de datos de UFC: 3.600+ eventos, 1.500+ luchadores. Limpia, normaliza y alimenta un modelo ML de clasificación con objetivo de >65% de precisión en predicción de resultados usando 50+ características por luchador.',
       status: 'in-progress',
       statusColor: 'yellow',
       technologies: ['Python', 'BeautifulSoup', 'Scikit-learn', 'Pandas', 'PostgreSQL'],

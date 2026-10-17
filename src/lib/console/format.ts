@@ -27,7 +27,7 @@ export const PSQL_TEXT = {
     hintLabel: "HINT",
     hint: (h: Hint) =>
       h.kind === "query" ? "This is a SQL console. Try:" : h.kind === "tables" ? "List the tables with:" : "See its columns with:",
-    banner: ["psql (16.4) — portfolio @ sfseoane.es", 'Type \\? for help, \\d to list the tables.'],
+    banner: ["psql (16.4), portfolio @ sfseoane.es", 'Type \\? for help, \\d to list the tables.'],
     help: [
       "General",
       "  \\d [TABLE]      list tables, or describe one",
@@ -64,7 +64,7 @@ export const PSQL_TEXT = {
     hintLabel: "SUGERENCIA",
     hint: (h: Hint) =>
       h.kind === "query" ? "Esto es una consola SQL. Prueba:" : h.kind === "tables" ? "Lista las tablas con:" : "Mira sus columnas con:",
-    banner: ["psql (16.4) — portfolio @ sfseoane.es", "Escribe \\? para ver la ayuda, \\d para listar las tablas."],
+    banner: ["psql (16.4), portfolio @ sfseoane.es", "Escribe \\? para ver la ayuda, \\d para listar las tablas."],
     help: [
       "General",
       "  \\d [TABLA]      lista las tablas, o describe una",

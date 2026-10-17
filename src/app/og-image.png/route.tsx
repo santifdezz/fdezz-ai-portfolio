@@ -72,7 +72,7 @@ function buildScene() {
 
   const tagline =
     founded.length > 0
-      ? `Construyo sistemas de datos con IA — y fundé ${founded.map((p) => p.title).join(" y ")}.`
+      ? `Construyo sistemas de datos con IA y fundé ${founded.map((p) => p.title).join(" y ")}.`
       : "Construyo sistemas de datos con IA que procesan millones de registros.";
 
   const rows: Array<{ name: string; type: string; value: string }> = [

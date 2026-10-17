@@ -79,7 +79,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       lead: "Santiago Fernández.",
       rest: (founded) =>
         founded.length
-          ? `I build AI-powered data systems — and founded ${listFormat("en")(founded)}.`
+          ? `I build AI-powered data systems and founded ${listFormat("en")(founded)}.`
           : "I build AI-powered data systems that process millions of records.",
       thesis: ({ venture, employer }) => {
         const systems = { text: "RAG and ETL systems", strong: true };
@@ -88,7 +88,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
         return [
           { text: venture.figure, strong: true },
           { text: ` on ${venture.name}, a ${venture.pitch}` },
-          ...(employer ? [{ text: " — and my " }, systems, { text: runs }] : [{ text: "." }]),
+          ...(employer ? [{ text: ". My " }, systems, { text: runs }] : [{ text: "." }]),
         ];
       },
       badge: "Let's talk",
@@ -155,7 +155,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       lead: "Santiago Fernández.",
       rest: (founded) =>
         founded.length
-          ? `Construyo sistemas de datos con IA — y fundé ${listFormat("es")(founded)}.`
+          ? `Construyo sistemas de datos con IA y fundé ${listFormat("es")(founded)}.`
           : "Construyo sistemas de datos con IA que procesan millones de registros.",
       thesis: ({ venture, employer }) => {
         const systems = { text: "sistemas RAG y ETL", strong: true };
@@ -164,7 +164,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
         return [
           { text: venture.figure, strong: true },
           { text: ` en ${venture.name}, ${venture.pitch}` },
-          ...(employer ? [{ text: " — y mis " }, systems, { text: runs }] : [{ text: "." }]),
+          ...(employer ? [{ text: ". Mis " }, systems, { text: runs }] : [{ text: "." }]),
         ];
       },
       badge: "Hablemos",
