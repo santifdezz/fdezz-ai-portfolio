@@ -9,6 +9,7 @@ import { CustomCursor } from "./CustomCursor";
 import { EditorialNav } from "./EditorialNav";
 import { useTransport } from "./hooks";
 import { Intro } from "./Intro";
+import { SignalThread } from "./SignalThread";
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Hero } from "./Hero";
 import { PointReveal } from "./PointReveal";
@@ -45,6 +46,7 @@ export function EditorialPage({ locale, onLocaleChange }: EditorialPageProps) {
           {copy.skip}
         </a>
         <Intro name="Santiago Fernández" role={copy.intro.role} />
+        <SignalThread />
         <EditorialNav copy={copy} locale={locale} onLocaleChange={onLocaleChange} />
         <main id="main">
           <Hero copy={copy} content={content} />
