@@ -162,6 +162,62 @@ html:focus-within {
   outline-color: hsl(var(--primary-foreground));
 }
 
+/* Opening title: a sheet over the page that lifts once the name has landed.
+   Pure CSS, so it plays before hydration; the hero's entrances wait on --hero-at. */
+@media (max-width: 767px) {
+  html .editorial { --intro: 1500ms; }
+}
+
+html[data-intro="done"] .editorial {
+  --intro: 0ms;
+}
+
+html[data-intro="done"] .intro {
+  display: none;
+}
+
+@keyframes intro-out {
+  from { transform: none; visibility: visible; }
+  99%  { visibility: visible; }
+  to   { transform: translateY(-101%); visibility: hidden; }
+}
+
+@keyframes intro-char {
+  from { opacity: 0; transform: translateY(0.35em); filter: blur(14px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes intro-track {
+  from { letter-spacing: 0.42em; }
+  to   { letter-spacing: -0.02em; }
+}
+
+@keyframes intro-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.intro {
+  animation: intro-out 850ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation-delay: calc(var(--intro) - 850ms);
+}
+
+.intro-name {
+  animation: intro-track 1500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 250ms;
+}
+
+.intro-char {
+  display: inline-block;
+  animation: intro-char 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(250ms + var(--i, 0) * 38ms);
+}
+
+.intro-role {
+  animation: intro-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 1200ms;
+}
+
 /* Page-load sequence (CSS so the headline never waits on JS). */
 @keyframes rise {
   from { transform: translateY(108%); }
@@ -186,7 +242,7 @@ html:focus-within {
 .rise-word {
   display: inline-block;
   animation: rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(var(--i, 0) * 30ms);
+  animation-delay: calc(var(--i, 0) * 30ms + var(--hero-at, 0ms));
 }
 
 /* Below the fold the entrance waits for the scroll instead of playing on load
@@ -209,7 +265,7 @@ html:focus-within {
 
 .enter {
   animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: var(--d, 0ms);
+  animation-delay: calc(var(--d, 0ms) + var(--hero-at, 0ms));
 }
 
 /* Metrics ticker along the hero edge. */
@@ -259,6 +315,9 @@ html:focus-within {
   --section-y: clamp(5.5rem, 10vw, 8.5rem);
   /* 112 BPM: the page's pulse. Loops are whole numbers of beats. */
   --beat: 535.7ms;
+  /* The opening title (Intro) runs this long; the hero's entrances start as its sheet lifts. */
+  --intro: 2600ms;
+  --hero-at: max(0ms, calc(var(--intro) - 450ms));
 }
 
 /* A step firing on a sequencer: a hot flash that decays to its lit state. */
@@ -303,27 +362,27 @@ html:focus-within {
 
 .qc-char {
   animation: qc-type calc(var(--qc-step) * 2) steps(1, end) both;
-  animation-delay: calc(var(--qc-start) + var(--c) * var(--qc-step));
+  animation-delay: calc(var(--qc-start) + var(--c) * var(--qc-step) + var(--hero-at, 0ms));
 }
 
 .qc-caret {
   animation: qc-caret calc(var(--beat) * 3) steps(1, end) both;
-  animation-delay: var(--qc-typed);
+  animation-delay: calc(var(--qc-typed) + var(--hero-at, 0ms));
 }
 
 .qc-row {
   animation: qc-row 340ms cubic-bezier(0.2, 0.75, 0.1, 1) both;
-  animation-delay: calc(var(--qc-typed) + 60ms + var(--r) * 70ms);
+  animation-delay: calc(var(--qc-typed) + 60ms + var(--r) * 70ms + var(--hero-at, 0ms));
 }
 
 .qc-pending {
   animation: qc-fade-out 120ms linear both;
-  animation-delay: var(--qc-typed);
+  animation-delay: calc(var(--qc-typed) + var(--hero-at, 0ms));
 }
 
 .qc-done {
   animation: qc-fade-in 260ms ease-out both;
-  animation-delay: var(--qc-typed);
+  animation-delay: calc(var(--qc-typed) + var(--hero-at, 0ms));
 }
 
 /* Odometer: each digit is a strip 0–9 that rolls to its value. The real digit
@@ -433,6 +492,14 @@ html[data-custom-cursor="on"] [data-cursor] * {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html .editorial {
+    --intro: 0ms;
+  }
+
+  .intro {
+    display: none;
+  }
+
   html:focus-within {
     scroll-behavior: auto;
   }
