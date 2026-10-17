@@ -189,6 +189,24 @@ html:focus-within {
   animation-delay: calc(var(--i, 0) * 30ms);
 }
 
+/* Below the fold the entrance waits for the scroll instead of playing on load
+   (browsers without scroll timelines just play it as the page loads). */
+@supports (animation-timeline: view()) {
+  .rise-view .rise-word {
+    animation-timeline: view();
+    animation-delay: 0s;
+    animation-duration: auto;
+    animation-range: entry calc(8% + var(--i, 0) * 2.5%) entry calc(58% + var(--i, 0) * 2.5%);
+    animation-fill-mode: both;
+  }
+
+  .fade-view {
+    animation: enter linear both;
+    animation-timeline: view();
+    animation-range: entry 45% entry 95%;
+  }
+}
+
 .enter {
   animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: var(--d, 0ms);
@@ -201,7 +219,7 @@ html:focus-within {
 }
 
 /* The record: grooves and label turn, the light on it stays put.
-   Hover or focus holds it still — instantly here; with JS, useTurntable
+   Hover or focus holds it still — instantly here; with JS, useTransport
    brakes it like a platter instead and marks it [data-turntable]. */
 @keyframes vinyl-spin {
   to { transform: rotate(360deg); }
@@ -214,7 +232,7 @@ html:focus-within {
   box-shadow:
     0 0 0 1px hsl(var(--border)),
     0 20px 48px hsl(0 0% 0% / 0.7);
-  animation: vinyl-spin 14s linear infinite;
+  animation: vinyl-spin calc(var(--beat) * 8) linear infinite;
 }
 
 .vinyl-sheen {
@@ -239,6 +257,8 @@ html:focus-within {
 /* One vertical rhythm: every section opens this far below the last one. */
 .editorial {
   --section-y: clamp(5.5rem, 10vw, 8.5rem);
+  /* 112 BPM: the page's pulse. Loops are whole numbers of beats. */
+  --beat: 535.7ms;
 }
 
 /* A step firing on a sequencer: a hot flash that decays to its lit state. */
@@ -287,7 +307,7 @@ html:focus-within {
 }
 
 .qc-caret {
-  animation: qc-caret 1.6s steps(1, end) both;
+  animation: qc-caret calc(var(--beat) * 3) steps(1, end) both;
   animation-delay: var(--qc-typed);
 }
 
@@ -418,6 +438,7 @@ html[data-custom-cursor="on"] [data-cursor] * {
   }
 
   .rise-word,
+  .fade-view,
   .enter,
   .marquee-track,
   .vinyl-spin,

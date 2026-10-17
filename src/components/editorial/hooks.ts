@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useMotionValue } from "framer-motion";
 import { readingPosition } from "@/lib/editorial/scroll";
 
@@ -119,36 +119,51 @@ export function useClipboard(resetMs = 1800) {
   return { state, copy };
 }
 
+/** The page's shared clock: loops read `transport.rate`, `useTransport` moves it. */
+export const transport = { rate: 1 };
+
 const BRAKE_MS = 150; // time constant: ~600ms from full speed to a stop
 const NUDGE_DECAY_MS = 260;
 const MAX_NUDGE = 2.2;
+const STOP_RATE = 0.35; // where a tape stop dips to before the clock recovers
+const STOP_AFTER_MS = 140; // still this long after scrolling = the hand left the platter
+const STOP_MIN_NUDGE = 0.25; // only a real push earns a tape stop
 
 /**
- * Treats the CSS animations inside `ref` as a turntable instead of a loop:
- * hover or focus brakes them to a stop over ~600ms and releasing spins them
- * back up; with `pitch`, scrolling nudges the speed like a hand on the
- * platter (faster scrolling down, slower scrolling up). No-op when reduced
- * motion has removed the animations.
+ * One transport for the whole page. Every CSS loop marked `data-loop` and every
+ * canvas that reads `transport.rate` runs on it: scrolling pushes the speed
+ * like a hand on the platter (faster scrolling down, slower scrolling up) and,
+ * when the scroll stops after a real push, the clock dips and recovers like a
+ * tape stop. Hovering or focusing a `data-brake` element brakes the loops
+ * inside it to a stop and releasing spins them back up. No-op under reduced
+ * motion, where the loops are already gone.
  */
-export function useTurntable<T extends HTMLElement>(ref: RefObject<T | null>, { pitch = false } = {}) {
+export function useTransport() {
   useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof el.getAnimations !== "function") return;
+    if (typeof document.getAnimations !== "function") return;
     if (window.matchMedia(REDUCED_MOTION_QUERY).matches) return;
 
-    el.dataset.turntable = "on";
-    let rate = 1;
     let nudge = 0;
-    let held = false;
+    let stop = 1; // < 1 while recovering from a tape stop
+    let hold = 1; // 1 free, 0 braked: applies inside the held element only
+    let held: Element | null = null;
     let frame = 0;
     let last = performance.now();
     let lastY = window.scrollY;
     let lastScroll = last;
+    let stopTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const loops = () =>
+      document
+        .getAnimations()
+        .filter((a): a is CSSAnimation => "animationName" in a && !!(a.effect as KeyframeEffect | null)?.target?.closest?.("[data-loop]"));
 
     const apply = () => {
-      // CSS animations only: hover transitions inside (the vinyl's button) must not freeze.
-      for (const animation of el.getAnimations({ subtree: true })) {
-        if ("animationName" in animation) animation.playbackRate = rate;
+      transport.rate = Math.max(0, (1 + nudge) * stop);
+      for (const animation of loops()) {
+        const target = (animation.effect as KeyframeEffect).target as Element;
+        const braked = held && held.contains(target) ? hold : 1;
+        animation.playbackRate = transport.rate * braked;
       }
     };
     const tick = (now: number) => {
@@ -156,11 +171,16 @@ export function useTurntable<T extends HTMLElement>(ref: RefObject<T | null>, { 
       const dt = Math.min(64, now - last);
       last = now;
       nudge *= Math.exp(-dt / NUDGE_DECAY_MS);
-      const goal = held ? 0 : 1 + nudge;
-      rate += (goal - rate) * (1 - Math.exp(-dt / BRAKE_MS));
-      if (Math.abs(goal - rate) < 0.002 && Math.abs(nudge) < 0.002) rate = goal;
+      stop += (1 - stop) * (1 - Math.exp(-dt / 220));
+      hold += ((held ? 0 : 1) - hold) * (1 - Math.exp(-dt / BRAKE_MS));
+      const settled = Math.abs(nudge) < 0.002 && 1 - stop < 0.002 && Math.abs((held ? 0 : 1) - hold) < 0.002;
+      if (settled) {
+        nudge = 0;
+        stop = 1;
+        hold = held ? 0 : 1;
+      }
       apply();
-      if (rate !== goal || Math.abs(nudge) >= 0.002) frame = requestAnimationFrame(tick);
+      if (!settled) frame = requestAnimationFrame(tick);
     };
     const wake = () => {
       if (!frame) {
@@ -168,38 +188,55 @@ export function useTurntable<T extends HTMLElement>(ref: RefObject<T | null>, { 
         frame = requestAnimationFrame(tick);
       }
     };
-    const hold = () => {
-      held = true;
-      wake();
-    };
-    const release = () => {
-      held = false;
-      wake();
-    };
     const onScroll = () => {
       const now = performance.now();
       const velocity = (window.scrollY - lastY) / Math.max(16, now - lastScroll); // px/ms
       lastY = window.scrollY;
       lastScroll = now;
       nudge = Math.max(-0.9, Math.min(MAX_NUDGE, nudge + velocity * 0.6));
+      clearTimeout(stopTimer);
+      stopTimer = setTimeout(() => {
+        if (Math.abs(nudge) > STOP_MIN_NUDGE) stop = STOP_RATE;
+        wake();
+      }, STOP_AFTER_MS);
+      wake();
+    };
+    const brakeOf = (e: Event) => (e.target instanceof Element ? e.target.closest("[data-brake]") : null);
+    const grab = (e: Event) => {
+      const el = brakeOf(e);
+      if (!el) return;
+      held = el;
+      wake();
+    };
+    const release = (e: Event) => {
+      if (brakeOf(e) !== held) return;
+      held = null;
       wake();
     };
 
-    el.addEventListener("pointerenter", hold);
-    el.addEventListener("pointerleave", release);
-    el.addEventListener("focusin", hold);
-    el.addEventListener("focusout", release);
-    if (pitch) window.addEventListener("scroll", onScroll, { passive: true });
+    // JS is in charge of braking now: switch off the instant CSS pause.
+    const brakes = document.querySelectorAll<HTMLElement>("[data-brake]");
+    brakes.forEach((el) => (el.dataset.turntable = "on"));
+
+    document.addEventListener("pointerover", grab);
+    document.addEventListener("pointerout", release);
+    document.addEventListener("focusin", grab);
+    document.addEventListener("focusout", release);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(frame);
-      delete el.dataset.turntable;
-      el.removeEventListener("pointerenter", hold);
-      el.removeEventListener("pointerleave", release);
-      el.removeEventListener("focusin", hold);
-      el.removeEventListener("focusout", release);
+      clearTimeout(stopTimer);
+      document.removeEventListener("pointerover", grab);
+      document.removeEventListener("pointerout", release);
+      document.removeEventListener("focusin", grab);
+      document.removeEventListener("focusout", release);
       window.removeEventListener("scroll", onScroll);
-      rate = 1;
-      apply();
+      nudge = 0;
+      stop = 1;
+      held = null;
+      brakes.forEach((el) => delete el.dataset.turntable);
+      transport.rate = 1;
+      for (const animation of loops()) animation.playbackRate = 1;
     };
-  }, [ref, pitch]);
+  }, []);
 }

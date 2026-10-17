@@ -16,7 +16,7 @@ interface HeroProps {
 const delay = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
 
 /** Each word rises out of its own mask; `offset` continues the stagger across spans. */
-function RisingWords({ text, offset = 0 }: { text: string; offset?: number }) {
+export function RisingWords({ text, offset = 0 }: { text: string; offset?: number }) {
   const words = text.split(" ");
   return words.map((word, i) => (
     <span key={`${i}-${word}`}>

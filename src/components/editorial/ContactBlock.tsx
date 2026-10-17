@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { PortfolioContent } from "@/lib/portfolio-content";
 import type { EditorialCopy } from "./copy";
 import { ContactEdge } from "./ContactEdge";
+import { RisingWords } from "./Hero";
 import { CopyButton, ResultFooter, SectionEyebrow } from "./primitives";
 
 interface ContactBlockProps {
@@ -32,10 +33,16 @@ export function ContactBlock({ contact, copy }: ContactBlockProps) {
 
         <h2
           id="contact-title"
-          className="mt-12 max-w-[14ch] font-display text-[clamp(2.9rem,7.4vw,7.75rem)] font-normal leading-[0.94] tracking-[-0.03em] text-balance"
+          className="rise-view mt-12 max-w-[14ch] font-display text-[clamp(2.9rem,7.4vw,7.75rem)] font-normal leading-[0.94] tracking-[-0.03em] text-balance"
         >
-          {contact.subtitle}.
+          <RisingWords text={`${contact.subtitle}.`} />
         </h2>
+        {/* The close mirrors the opening query: decorative, fades in with the headline. */}
+        <p aria-hidden className="rise-view mt-8 font-mono text-[12px] tracking-[0.04em] text-[hsl(var(--primary-foreground)/0.7)]">
+          <span className="fade-view inline-block">
+            INSERT INTO conversaciones (de, para) VALUES (&apos;tú&apos;, &apos;santiago&apos;);
+          </span>
+        </p>
         <p className="mt-6 max-w-[34rem] font-ui text-lg leading-relaxed text-[hsl(var(--primary-foreground)/0.82)]">
           {firstSentence(contact.description)}
         </p>

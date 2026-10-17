@@ -7,6 +7,7 @@ import { COPY, ENTITY_TAGS } from "./copy";
 import { ContactBlock } from "./ContactBlock";
 import { CustomCursor } from "./CustomCursor";
 import { EditorialNav } from "./EditorialNav";
+import { useTransport } from "./hooks";
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Hero } from "./Hero";
 import { PointReveal } from "./PointReveal";
@@ -22,6 +23,7 @@ interface EditorialPageProps {
 const POINT_PARAGRAPH = 2;
 
 export function EditorialPage({ locale, onLocaleChange }: EditorialPageProps) {
+  useTransport();
   const copy = COPY[locale];
   const content = getPortfolioContent(locale);
   const { bio, education } = content.about;
