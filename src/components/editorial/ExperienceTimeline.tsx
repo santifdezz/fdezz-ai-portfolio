@@ -63,15 +63,16 @@ export function ExperienceTimeline({ entries, copy }: ExperienceTimelineProps) {
   const reduce = useMediaQuery(REDUCED_MOTION_QUERY);
   // Time-based sweep fired once as the chart enters view: scroll-tied progress left
   // the rows empty until the reader was already halfway down.
-  const inView = useInView(chartRef, { once: true, amount: 0.05 });
+  const inView = useInView(chartRef, { once: true, amount: 0.35 });
   const sweep = useMotionValue(0);
   const everything = useMotionValue(100);
   const head = reduce ? everything : sweep;
   useEffect(() => {
     if (reduce || !inView) return;
-    const controls = animate(sweep, 100, { duration: 2.4, ease: [0.45, 0, 0.2, 1] });
+    // A playhead doesn't brake mid-way: near-linear, easing only at the ends; 300ms per year.
+    const controls = animate(sweep, 100, { duration: Math.max(1.2, (to - from) * 0.3), ease: [0.25, 0, 0.75, 1] });
     return () => controls.stop();
-  }, [inView, reduce, sweep]);
+  }, [inView, reduce, sweep, from, to]);
   const headLeft = useTransform(head, (h) => `${h}%`);
   const readout = useTransform(head, (h) => String(playheadYear(h, from, to)));
 

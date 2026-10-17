@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { ridgeLift, ripple } from "@/lib/editorial/signal";
-import { CURSOR_QUERY, REDUCED_MOTION_QUERY } from "./hooks";
+import { CURSOR_QUERY, REDUCED_MOTION_QUERY, transport } from "./hooks";
 
 const LINES = 24;
 const STEP = 8; // px between samples along a ridge
@@ -13,7 +13,7 @@ const IDLE_FRAME_MS = 33; // ~30 fps while nothing is chasing the cursor
  * A ridgeline field behind the hero: stacked signal lines — a data plot and a
  * techno record sleeve at once — that rise into a peak where the cursor
  * passes, each ridge hiding the ones behind it. Drawn once and left still
- * under reduced motion; no cursor peak on touch or small screens.
+ * under reduced motion and on touch or small screens (nothing to chase).
  */
 export function SignalField({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -23,8 +23,9 @@ export function SignalField({ className = "" }: { className?: string }) {
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
 
-    const still = window.matchMedia(REDUCED_MOTION_QUERY).matches;
     const follows = window.matchMedia(CURSOR_QUERY).matches;
+    // Reduced motion, or no cursor to chase (phones): drawn once and left still.
+    const still = window.matchMedia(REDUCED_MOTION_QUERY).matches || !follows;
     const target = { x: 0, y: 0, strength: 0 };
     const peak = { x: 0, y: 0, strength: 0 };
     let width = 0;
@@ -32,7 +33,8 @@ export function SignalField({ className = "" }: { className?: string }) {
     let frame = 0;
     let lastDraw = 0;
     let visible = true;
-    const startedAt = performance.now();
+    let clock = 0; // seconds on the page's shared transport (scroll speeds it, a tape stop dips it)
+    let lastTick = performance.now();
     // Colours come from the landing palette (globals.css → .editorial).
     const styles = getComputedStyle(canvas);
     const token = (name: string) => styles.getPropertyValue(name).trim() || "0 0% 50%";
@@ -79,8 +81,10 @@ export function SignalField({ className = "" }: { className?: string }) {
       peak.y += (target.y - peak.y) * 0.14;
       peak.strength += (target.strength - peak.strength) * 0.08;
       const chasing = peak.strength > 0.01 || target.strength > 0;
+      clock += ((now - lastTick) / 1000) * transport.rate;
+      lastTick = now;
       if (chasing || now - lastDraw >= IDLE_FRAME_MS) {
-        draw((now - startedAt) / 1000);
+        draw(clock);
         lastDraw = now;
       }
       if (visible) frame = requestAnimationFrame(tick);
@@ -95,7 +99,7 @@ export function SignalField({ className = "" }: { className?: string }) {
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.lineWidth = 1;
-      draw(still ? 0 : (performance.now() - startedAt) / 1000);
+      draw(clock);
     };
 
     const onPointer = (e: PointerEvent) => {

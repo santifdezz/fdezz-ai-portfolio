@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef } from "react";
 import { ArrowDownRight } from "lucide-react";
-import { useTurntable } from "./hooks";
 
 const RING = 37;
 const RING_LENGTH = 2 * Math.PI * RING;
@@ -18,21 +16,18 @@ interface VinylBadgeProps {
  * The contact call-to-action as a record — Makineo is an electronic-music
  * platform. Grooves and label turn slowly; the light on the vinyl and the
  * button in the middle stay put. Hover or focus brakes it to a stop like a
- * platter, and letting go spins it back up.
+ * platter, and letting go spins it back up (see useTransport).
  */
 export function VinylBadge({ href, ring, label, cursorLabel }: VinylBadgeProps) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  useTurntable(ref);
-
   return (
     <a
-      ref={ref}
+      data-brake
       href={href}
       aria-label={label}
       data-cursor={cursorLabel}
       className="vinyl group relative block size-[7rem] shrink-0 rounded-full sm:size-[8.5rem]"
     >
-      <span aria-hidden className="vinyl-spin absolute inset-0 rounded-full">
+      <span aria-hidden data-loop className="vinyl-spin absolute inset-0 rounded-full">
         <span className="absolute inset-[22%] rounded-full bg-[hsl(var(--primary))]">
           <svg viewBox="0 0 100 100" className="absolute inset-0 size-full overflow-visible">
             <defs>

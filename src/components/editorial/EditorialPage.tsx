@@ -7,8 +7,12 @@ import { COPY, ENTITY_TAGS } from "./copy";
 import { ContactBlock } from "./ContactBlock";
 import { CustomCursor } from "./CustomCursor";
 import { EditorialNav } from "./EditorialNav";
+import { useTransport } from "./hooks";
+import { Intro } from "./Intro";
+import { SignalThread } from "./SignalThread";
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Hero } from "./Hero";
+import { KineticBand } from "./KineticBand";
 import { PointReveal } from "./PointReveal";
 import { StackList } from "./StackList";
 import { WorkGallery } from "./WorkGallery";
@@ -22,6 +26,7 @@ interface EditorialPageProps {
 const POINT_PARAGRAPH = 2;
 
 export function EditorialPage({ locale, onLocaleChange }: EditorialPageProps) {
+  useTransport();
   const copy = COPY[locale];
   const content = getPortfolioContent(locale);
   const { bio, education } = content.about;
@@ -41,12 +46,17 @@ export function EditorialPage({ locale, onLocaleChange }: EditorialPageProps) {
         >
           {copy.skip}
         </a>
+        <Intro name="Santiago Fernández" role={copy.intro.role} />
+        <SignalThread />
         <EditorialNav copy={copy} locale={locale} onLocaleChange={onLocaleChange} />
         <main id="main">
           <Hero copy={copy} content={content} />
           <PointReveal eyebrow={copy.point.eyebrow} paragraph={point} groups={groups} entitiesLabel={copy.point.entities} />
+          <KineticBand label={copy.nav.items.work} number="02" />
           <WorkGallery projects={content.projects} copy={copy} />
+          <KineticBand label={copy.nav.items.experience} number="03" />
           <ExperienceTimeline entries={education} copy={copy} />
+          <KineticBand label={copy.nav.items.stack} number="04" />
           <StackList skills={bio.skills} copy={copy} />
           <ContactBlock contact={content.contact} copy={copy} />
         </main>

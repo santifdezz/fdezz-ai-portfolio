@@ -1,18 +1,45 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "framer-motion";
 import type { ProjectData } from "@/lib/portfolio-content";
 import { activeSlideIndex } from "@/lib/editorial/scroll";
 import { foundersFirst } from "@/lib/editorial/ventures";
 import type { EditorialCopy } from "./copy";
 import { PIN_QUERY, useMediaQuery } from "./hooks";
-import { ProjectSlide } from "./ProjectSlide";
+import { plateFor, ProjectSlide } from "./ProjectSlide";
 import { pad2, ResultFooter, SectionEyebrow, TwoTone } from "./primitives";
 
 interface WorkGalleryProps {
   projects: ProjectData[];
   copy: EditorialCopy;
+}
+
+/** The slide's position on the scroll (0..1), as the centre of a window `half` wide either side. */
+const around = (index: number, total: number) => (total > 1 ? index / (total - 1) : 0);
+
+/** Washes the pinned stage with the active project's plate colour, glowing from behind the slide. Only opacity changes. */
+function Tint({ plate, index, total, progress }: { plate: string; index: number; total: number; progress: MotionValue<number> }) {
+  const at = around(index, total);
+  const half = total > 1 ? 1 / (total - 1) : 1;
+  const opacity = useTransform(progress, [at - half, at, at + half], [0, 1, 0], { clamp: true });
+  return <motion.div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ opacity, background: `radial-gradient(120% 90% at 50% 60%, hsl(var(--plate-${plate}) / 0.34), hsl(var(--plate-${plate}) / 0.08) 60%, transparent 85%)` }} />;
+}
+
+/** One slide of the pinned gallery; its plate's ridges draw as it comes to the centre. */
+function PinnedSlide({ progress, ...slide }: { progress: MotionValue<number> } & React.ComponentProps<typeof ProjectSlide>) {
+  const at = around(slide.index, slide.total);
+  const half = slide.total > 1 ? 1 / (slide.total - 1) : 1;
+  const ridgeDraw = useTransform(progress, [at - half, at - half * 0.15], [0.12, 1], { clamp: true });
+  // Depth: the slide at the centre is full size and bright; its neighbours recede.
+  const away = useTransform(progress, (p) => Math.min(1, Math.abs(p - at) / half));
+  const scale = useTransform(away, [0, 1], [1, 0.9]);
+  const opacity = useTransform(away, [0, 1], [1, 0.45]);
+  return (
+    <motion.div className="h-full" style={{ scale, opacity }}>
+      <ProjectSlide {...slide} ridgeDraw={ridgeDraw} />
+    </motion.div>
+  );
 }
 
 /**
@@ -88,8 +115,12 @@ export function WorkGallery({ projects: contentOrder, copy }: WorkGalleryProps) 
       >
         <div
           ref={viewportRef}
-          className="pinned:sticky pinned:top-0 pinned:flex pinned:h-screen pinned:flex-col pinned:overflow-clip pinned:pb-8 pinned:pt-20"
+          className="pinned:sticky pinned:top-0 pinned:isolate pinned:flex pinned:h-screen pinned:flex-col pinned:overflow-clip pinned:pb-8 pinned:pt-20"
         >
+          {pinned &&
+            projects.map((project, i) => (
+              <Tint key={project.id} plate={plateFor(project.id, i)} index={i} total={total} progress={scrollYProgress} />
+            ))}
           {/* Step-sequencer pads: one per project, lit as you pass, playhead below. */}
           <div className="mx-auto mb-6 hidden w-full max-w-[90rem] items-center gap-6 px-6 pinned:flex lg:px-10">
             <div className="relative pb-2.5">
@@ -110,13 +141,6 @@ export function WorkGallery({ projects: contentOrder, copy }: WorkGalleryProps) 
                       }`}
                     >
                       {pad2(i + 1)}
-                      {i === active && (
-                        <span
-                          key={active}
-                          aria-hidden
-                          className="pad-hit pointer-events-none absolute inset-0 rounded-[4px] bg-[hsl(var(--primary))] shadow-[0_0_22px_hsl(var(--primary))]"
-                        />
-                      )}
                     </button>
                   </li>
                 ))}
@@ -141,14 +165,19 @@ export function WorkGallery({ projects: contentOrder, copy }: WorkGalleryProps) 
                 onFocusCapture={() => bringIntoView(i)}
                 className="pinned:h-full pinned:max-h-[38rem] pinned:w-[var(--slide-w)] pinned:shrink-0 pinned:self-center"
               >
-                <ProjectSlide
-                  project={project}
-                  index={i}
-                  total={total}
-                  copy={copy}
-                  cursorLabel={pinned ? copy.cursor.scroll : undefined}
-                  live={pinned ? i === active : undefined}
-                />
+                {pinned ? (
+                  <PinnedSlide
+                    progress={scrollYProgress}
+                    project={project}
+                    index={i}
+                    total={total}
+                    copy={copy}
+                    cursorLabel={copy.cursor.scroll}
+                    live={i === active}
+                  />
+                ) : (
+                  <ProjectSlide project={project} index={i} total={total} copy={copy} />
+                )}
               </li>
             ))}
           </motion.ol>

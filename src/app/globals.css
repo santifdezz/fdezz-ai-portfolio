@@ -162,49 +162,157 @@ html:focus-within {
   outline-color: hsl(var(--primary-foreground));
 }
 
+/* Opening title: a sheet over the page that lifts once the name has landed.
+   Pure CSS, so it plays before hydration; the hero's entrances wait on --hero-at. */
+@media (max-width: 767px) {
+  html .editorial { --intro: 1500ms; }
+}
+
+html[data-intro="done"] .editorial {
+  --intro: 0ms;
+}
+
+html[data-intro="done"] .intro {
+  display: none;
+}
+
+@keyframes intro-out {
+  from { transform: none; visibility: visible; }
+  99%  { visibility: visible; }
+  to   { transform: translateY(-101%); visibility: hidden; }
+}
+
+@keyframes intro-char {
+  from { opacity: 0; transform: translateY(0.35em); filter: blur(14px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes intro-track {
+  from { letter-spacing: 0.42em; }
+  to   { letter-spacing: -0.02em; }
+}
+
+@keyframes intro-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.intro {
+  animation: intro-out 850ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  animation-delay: calc(var(--intro) - 850ms);
+}
+
+.intro-name {
+  animation: intro-track 1500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 250ms;
+}
+
+.intro-char {
+  display: inline-block;
+  animation: intro-char 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(250ms + var(--i, 0) * 38ms);
+}
+
+.intro-role {
+  animation: intro-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 1200ms;
+}
+
+/* Kinetic bands between sections: the name crosses the screen with the scroll. */
+.kinetic-track {
+  /* Without scroll timelines the band is a still: the name sits at the left. */
+  transform: translateX(0);
+  -webkit-text-stroke: 1px hsl(var(--foreground) / 0.28);
+  color: transparent;
+}
+
+@keyframes kinetic-cross {
+  from { transform: translateX(7vw); }
+  to   { transform: translateX(-3vw); }
+}
+
+@keyframes kinetic-fill {
+  0%   { color: transparent; -webkit-text-stroke-color: hsl(var(--foreground) / 0.28); }
+  45%  { color: hsl(var(--foreground)); -webkit-text-stroke-color: hsl(var(--foreground)); }
+  55%  { color: hsl(var(--foreground)); -webkit-text-stroke-color: hsl(var(--foreground)); }
+  100% { color: transparent; -webkit-text-stroke-color: hsl(var(--foreground) / 0.28); }
+}
+
+@keyframes kinetic-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@supports (animation-timeline: view()) {
+  .kinetic-track {
+    animation: kinetic-cross linear both, kinetic-fill linear both;
+    animation-timeline: view(), view();
+    animation-range: entry 0% exit 100%, entry 5% exit 95%;
+  }
+
+  .kinetic-rule {
+    animation: kinetic-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 90%;
+  }
+}
+
 /* Page-load sequence (CSS so the headline never waits on JS). */
+/* Words emerge (lift, fade and un-blur) instead of rising out of a clipped box,
+   so no hard edge ever shows where the text "starts". */
 @keyframes rise {
-  from { transform: translateY(108%); }
-  to   { transform: none; }
+  from { transform: translateY(0.34em); opacity: 0; filter: blur(8px); }
+  60%  { filter: blur(0); }
+  to   { transform: none; opacity: 1; filter: none; }
 }
 
 @keyframes enter {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: none; }
 }
 
 .rise-mask {
   display: inline-block;
-  overflow-x: visible;
-  overflow-y: clip;
-  overflow-clip-margin: 0.04em;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
   vertical-align: bottom;
 }
 
 .rise-word {
   display: inline-block;
-  animation: rise 0.55s cubic-bezier(0.2, 0.75, 0.1, 1) both;
-  animation-delay: calc(var(--i, 0) * 22ms);
+  animation: rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 30ms + var(--hero-at, 0ms));
+}
+
+/* Below the fold the entrance waits for the scroll instead of playing on load
+   (browsers without scroll timelines just play it as the page loads). */
+@supports (animation-timeline: view()) {
+  .rise-view .rise-word {
+    animation-timeline: view();
+    animation-delay: 0s;
+    animation-duration: auto;
+    animation-range: entry calc(8% + var(--i, 0) * 2.5%) entry calc(58% + var(--i, 0) * 2.5%);
+    animation-fill-mode: both;
+  }
+
+  .fade-view {
+    animation: enter linear both;
+    animation-timeline: view();
+    animation-range: entry 45% entry 95%;
+  }
 }
 
 .enter {
-  animation: enter 0.9s cubic-bezier(0.2, 0.75, 0.1, 1) both;
-  animation-delay: var(--d, 0ms);
+  animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--d, 0ms) + var(--hero-at, 0ms));
 }
 
 /* Metrics ticker along the hero edge. */
-@keyframes marquee {
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
+/* The track only moves with the scroll (MetricsTicker sets its transform). */
 .marquee-track {
-  animation: marquee 80s linear infinite;
+  will-change: transform;
 }
 
 /* The record: grooves and label turn, the light on it stays put.
-   Hover or focus holds it still — instantly here; with JS, useTurntable
+   Hover or focus holds it still — instantly here; with JS, useTransport
    brakes it like a platter instead and marks it [data-turntable]. */
 @keyframes vinyl-spin {
   to { transform: rotate(360deg); }
@@ -217,7 +325,7 @@ html:focus-within {
   box-shadow:
     0 0 0 1px hsl(var(--border)),
     0 20px 48px hsl(0 0% 0% / 0.7);
-  animation: vinyl-spin 14s linear infinite;
+  animation: vinyl-spin calc(var(--beat) * 8) linear infinite;
 }
 
 .vinyl-sheen {
@@ -242,6 +350,11 @@ html:focus-within {
 /* One vertical rhythm: every section opens this far below the last one. */
 .editorial {
   --section-y: clamp(5.5rem, 10vw, 8.5rem);
+  /* 112 BPM: the page's pulse. Loops are whole numbers of beats. */
+  --beat: 535.7ms;
+  /* The opening title (Intro) runs this long; the hero's entrances start as its sheet lifts. */
+  --intro: 2600ms;
+  --hero-at: max(0ms, calc(var(--intro) - 450ms));
 }
 
 /* A step firing on a sequencer: a hot flash that decays to its lit state. */
@@ -286,27 +399,27 @@ html:focus-within {
 
 .qc-char {
   animation: qc-type calc(var(--qc-step) * 2) steps(1, end) both;
-  animation-delay: calc(var(--qc-start) + var(--c) * var(--qc-step));
+  animation-delay: calc(var(--qc-start) + var(--c) * var(--qc-step) + var(--hero-at, 0ms));
 }
 
 .qc-caret {
-  animation: qc-caret 1.6s steps(1, end) both;
-  animation-delay: var(--qc-typed);
+  animation: qc-caret calc(var(--beat) * 3) steps(1, end) both;
+  animation-delay: calc(var(--qc-typed) + var(--hero-at, 0ms));
 }
 
 .qc-row {
   animation: qc-row 340ms cubic-bezier(0.2, 0.75, 0.1, 1) both;
-  animation-delay: calc(var(--qc-typed) + 60ms + var(--r) * 45ms);
+  animation-delay: calc(var(--qc-typed) + 60ms + var(--r) * 70ms + var(--hero-at, 0ms));
 }
 
 .qc-pending {
   animation: qc-fade-out 120ms linear both;
-  animation-delay: var(--qc-typed);
+  animation-delay: calc(var(--qc-typed) + var(--hero-at, 0ms));
 }
 
 .qc-done {
   animation: qc-fade-in 260ms ease-out both;
-  animation-delay: var(--qc-typed);
+  animation-delay: calc(var(--qc-typed) + var(--hero-at, 0ms));
 }
 
 /* Odometer: each digit is a strip 0–9 that rolls to its value. The real digit
@@ -316,10 +429,16 @@ html:focus-within {
 .odo-cell {
   position: relative;
   display: inline-block;
-  overflow-x: visible;
-  overflow-y: clip;
-  overflow-clip-margin: 0.06em;
+  overflow: clip;
+  /* Room for an italic's overhang inside the box, so only the top and bottom fade. */
+  padding: 0.14em 0.14em 0;
+  margin: -0.14em -0.14em 0;
   line-height: 1;
+  /* Digits roll through a soft window, not a hard-edged box: the fade zones are
+     the padding (just outside a resting digit, and too short to show a neighbour:
+     the one below starts right under the bottom edge, so that side stays tight). */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 12%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 12%);
 }
 
 .odo-digit {
@@ -327,19 +446,43 @@ html:focus-within {
 }
 
 .odo-digit::after {
-  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
+  /* Two laps of 0–9: it rests on the final digit and, when it runs, spins a
+     full lap on the way there so it reads as a counter, not a fade. */
+  content: "0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9\A 0\A 1\A 2\A 3\A 4\A 5\A 6\A 7\A 8\A 9";
   position: absolute;
-  inset: 0 0 auto 0;
+  inset: 0.14em 0.14em auto 0.14em;
   white-space: pre;
   text-align: center;
   -webkit-text-fill-color: currentColor;
-  transform: translateY(0);
-  transition: transform 650ms cubic-bezier(0.2, 0.75, 0.1, 1);
-  transition-delay: calc(var(--k, 0) * 40ms);
+  transform: translateY(calc(var(--d) * -1em));
+}
+
+/* Waiting for its slide: the real value, dimmed, never a stray 0. */
+.odo[data-wait] {
+  opacity: 0.4;
+}
+
+.odo {
+  transition: opacity 500ms ease-out;
+}
+
+/* Motion blur while the digits are moving, so the roll smears instead of cutting. */
+@keyframes odo-blur {
+  0%   { filter: blur(0); }
+  35%  { filter: blur(2.2px); }
+  100% { filter: blur(0); }
+}
+
+@keyframes odo-roll {
+  from { transform: translateY(0); }
+  to   { transform: translateY(calc((var(--d) + 10) * -1em)); }
 }
 
 .odo[data-run] .odo-digit::after {
-  transform: translateY(calc(var(--d) * -1em));
+  animation:
+    odo-roll 1100ms cubic-bezier(0.22, 1, 0.36, 1) both,
+    odo-blur 1100ms linear both;
+  animation-delay: calc(var(--k, 0) * 60ms);
 }
 
 /* A sequencer pad being struck: a glow that blooms and dies off. */
@@ -401,11 +544,29 @@ html[data-custom-cursor="on"] [data-cursor] * {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html .editorial {
+    --intro: 0ms;
+  }
+
+  .kinetic-track,
+  .kinetic-rule {
+    animation: none !important;
+  }
+
+  .kinetic-track {
+    -webkit-text-stroke-color: hsl(var(--foreground) / 0.4);
+  }
+
+  .intro {
+    display: none;
+  }
+
   html:focus-within {
     scroll-behavior: auto;
   }
 
   .rise-word,
+  .fade-view,
   .enter,
   .marquee-track,
   .vinyl-spin,
@@ -428,13 +589,17 @@ html[data-custom-cursor="on"] [data-cursor] * {
     clip-path: none !important;
   }
 
-  .odo-digit::after,
-  .meter-seg {
+  .meter-seg,
+  .odo {
     transition: none !important;
   }
 
-  .odo .odo-digit::after {
-    transform: translateY(calc(var(--d) * -1em));
+  .odo[data-wait] {
+    opacity: 1;
+  }
+
+  .odo[data-run] .odo-digit::after {
+    animation: none;
   }
 
   /* Reveals and annotations render resolved, even before hydration. */

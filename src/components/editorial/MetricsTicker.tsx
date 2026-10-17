@@ -1,22 +1,47 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { ProjectData } from "@/lib/portfolio-content";
 import { getProjectFigures, isCompactFigure } from "@/lib/editorial/figures";
-import { useTurntable } from "./hooks";
+import { REDUCED_MOTION_QUERY } from "./hooks";
 import { RegistrationMark } from "./primitives";
 
 /**
  * A ticker along the hero's bottom edge carrying every number each project
  * quotes (its headline figure plus the ones short enough to stand alone),
- * each under its project's name. It runs like a platter: scrolling nudges its
- * speed and hovering brakes it. Decorative here (the gallery shows the same
+ * each under its project's name. It rests until you scroll, then travels with
+ * the page (a perpetual loop would be a third thing moving on the first
+ * screen). Decorative here (the gallery shows the same
  * figures in full), so it is hidden from assistive tech. Its right end fades
  * out before the fixed ⌘K button.
  */
 export function MetricsTicker({ projects }: { projects: readonly ProjectData[] }) {
   const ref = useRef<HTMLDivElement>(null);
-  useTurntable(ref, { pitch: true });
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || window.matchMedia(REDUCED_MOTION_QUERY).matches) return;
+    let offset = 0;
+    let lastY = window.scrollY;
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
+      const half = track.scrollWidth / 2;
+      if (half > 0) offset %= half;
+      track.style.transform = `translate3d(${-offset}px,0,0)`;
+    };
+    const onScroll = () => {
+      offset += Math.abs(window.scrollY - lastY) * 0.5;
+      lastY = window.scrollY;
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   const figures = projects.flatMap((p) =>
     getProjectFigures(p)
@@ -31,9 +56,9 @@ export function MetricsTicker({ projects }: { projects: readonly ProjectData[] }
       ref={ref}
       aria-hidden
       className="enter relative overflow-hidden border-y border-[hsl(var(--border))] py-3 [mask-image:linear-gradient(90deg,transparent,black_6%,black_calc(100%-11rem),transparent_calc(100%-7.5rem))]"
-      style={{ ["--d" as string]: "900ms" }}
+      style={{ ["--d" as string]: "760ms" }}
     >
-      <div className="marquee-track flex w-max">
+      <div ref={trackRef} className="marquee-track flex w-max">
         {[0, 1].map((half) => (
           <ul key={half} className="flex shrink-0 items-center">
             {run.map((f, i) => (

@@ -97,8 +97,14 @@ export default function RootLayout({
   return (
     // Default locale is Spanish (see Terminal's useLocalStorage default);
     // kept in sync client-side as the user switches language.
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
+        {/* The opening title plays once per session; a repeat visit skips it before first paint. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{if(sessionStorage.getItem('intro'))document.documentElement.dataset.intro='done';else sessionStorage.setItem('intro','1')}catch(e){}",
+          }}
+        />
         <JsonSchema />
         <script defer data-domain="sfseoane.es" src="https://plausible.io/js/script.js" />
       </head>

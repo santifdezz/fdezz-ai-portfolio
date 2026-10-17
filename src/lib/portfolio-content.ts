@@ -212,6 +212,17 @@ const contentEN: PortfolioContent = {
         demo: 'https://cuadroscan.sfseoane.es',
       },
     },
+    {
+      id: 'agiency',
+      title: 'AGIENCY',
+      description:
+        "First-person 3D simulator where you run a tiny agency and delegate sales to an AI agent. You set its permissions, hard limits and how closely you supervise it, then watch where it goes wrong. Design phase, rules validated in headless tests before any art.",
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Godot 4', 'GDScript', 'Utility AI', 'Headless tests'],
+      features: ['1-4 player co-op, one host runs the simulation', 'Deterministic simulation with a seeded RNG', 'Utility-AI agents, no LLM at runtime', 'Rules tested headless before art or network'],
+      links: {},
+    },
   ],
 
   services: [
@@ -437,6 +448,17 @@ const contentES: PortfolioContent = {
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },
+    },
+    {
+      id: 'agiency',
+      title: 'AGIENCY',
+      description:
+        "Simulador 3D en primera persona donde diriges una agencia diminuta y delegas las ventas en un agente de IA. Defines sus permisos, sus límites duros y cuánto lo supervisas, y ves dónde se tuerce. En fase de diseño, con las reglas validadas en tests headless antes de cualquier arte.",
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Godot 4', 'GDScript', 'Utility AI', 'Headless tests'],
+      features: ['Coop de 1-4 jugadores, un host ejecuta la simulación', 'Simulación determinista con RNG con semilla', 'Agentes con Utility AI, sin LLM en ejecución', 'Reglas probadas en headless antes del arte o la red'],
+      links: {},
     },
   ],
 

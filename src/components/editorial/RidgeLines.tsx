@@ -1,6 +1,6 @@
 import { ridgePath } from "@/lib/editorial/signal";
 
-const WIDTH = 600;
+export const WIDTH = 600;
 
 interface RidgeLinesProps {
   /** Number of stacked ridges. */
@@ -17,7 +17,7 @@ interface RidgeLinesProps {
  * one peak, stroked in the current text colour (set the strength with the
  * text opacity). Decorative.
  */
-export function RidgeLines({ lines = 9, peakAt = 0.66, ground, className = "" }: RidgeLinesProps) {
+export function ridgeGeometry(lines: number, peakAt: number) {
   const height = 40 + lines * 22;
   const ridges = Array.from({ length: lines }, (_, i) => {
     const base = 40 + i * 22;
@@ -35,6 +35,11 @@ export function RidgeLines({ lines = 9, peakAt = 0.66, ground, className = "" }:
     });
     return { d, area: `${d}L${WIDTH},${height}L0,${height}Z` };
   });
+  return { height, ridges };
+}
+
+export function RidgeLines({ lines = 9, peakAt = 0.66, ground, className = "" }: RidgeLinesProps) {
+  const { height, ridges } = ridgeGeometry(lines, peakAt);
 
   return (
     <svg aria-hidden viewBox={`0 0 ${WIDTH} ${height}`} preserveAspectRatio="none" className={`pointer-events-none ${className}`}>

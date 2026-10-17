@@ -25,14 +25,21 @@ const SQL: ReadonlyArray<{ text: string; tone?: "keyword" | "literal" } | "br"> 
   { text: "'santiago'", tone: "literal" },
   { text: ";" },
 ];
+// Each token's first step; a line break costs a beat, so WHERE arrives after a pause.
+const LINE_PAUSE = 7; // in steps: ~180ms
+const TOKEN_STARTS = SQL.reduce<number[]>((starts, token, i) => {
+  const prev = i === 0 ? 0 : starts[i - 1] + (SQL[i - 1] === "br" ? LINE_PAUSE : (SQL[i - 1] as { text: string }).text.length);
+  return [...starts, prev];
+}, []);
 const SQL_LENGTH = SQL.reduce((n, token) => n + (token === "br" ? 0 : token.text.length), 0);
 
-// Load sequence (ms): the card frame enters at 320, typing starts once it has landed.
+// Load sequence (ms): the card frame enters at 160, typing starts once it has landed.
+// Typed at a human pace, with a beat of hesitation before WHERE.
 const TYPE_START = 520;
-const TYPE_STEP = 12;
-const TYPED_AT = TYPE_START + SQL_LENGTH * TYPE_STEP;
+const TYPE_STEP = 26;
+const TYPED_AT = TYPE_START + (SQL_LENGTH + LINE_PAUSE) * TYPE_STEP;
 const SEQUENCE = {
-  ["--d" as string]: "320ms",
+  ["--d" as string]: "160ms",
   ["--qc-start" as string]: `${TYPE_START}ms`,
   ["--qc-step" as string]: `${TYPE_STEP}ms`,
   ["--qc-typed" as string]: `${TYPED_AT}ms`,
@@ -42,7 +49,6 @@ const TONE = { keyword: "text-[hsl(var(--primary))]", literal: "text-[hsl(var(--
 
 /** The SQL typed out character by character (CSS only, so it runs before hydration). */
 function TypedQuery() {
-  let index = 0;
   return (
     <code aria-hidden className="font-mono text-[12px] leading-relaxed text-[hsl(var(--foreground)/0.85)]">
       {SQL.map((token, t) =>
@@ -50,8 +56,8 @@ function TypedQuery() {
           <br key={t} />
         ) : (
           <span key={t} className={token.tone ? TONE[token.tone] : undefined}>
-            {Array.from(token.text, (ch) => (
-              <span key={index} className="qc-char" style={{ ["--c" as string]: index++ } as CSSProperties}>
+            {Array.from(token.text, (ch, i) => (
+              <span key={i} className="qc-char" style={{ ["--c" as string]: TOKEN_STARTS[t] + i } as CSSProperties}>
                 {ch}
               </span>
             ))}

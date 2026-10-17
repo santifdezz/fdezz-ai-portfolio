@@ -62,6 +62,7 @@ export interface EditorialCopy {
   resultRows: (n: number) => string;
   clipboard: { copy: string; copied: string; failed: string; failedHint: string };
   cursor: { scroll: string; repo: string; contact: string };
+  intro: { role: string };
 }
 
 export const COPY: Record<Locale, EditorialCopy> = {
@@ -139,6 +140,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       failedHint: "Couldn't copy. Select the address to copy it.",
     },
     cursor: { scroll: "Scroll", repo: "GitHub ↗", contact: "Contact" },
+    intro: { role: "Data & AI Engineer" },
   },
   es: {
     skip: "Saltar al contenido",
@@ -214,5 +216,6 @@ export const COPY: Record<Locale, EditorialCopy> = {
       failedHint: "No se pudo copiar. Selecciona la dirección para copiarla.",
     },
     cursor: { scroll: "Desliza", repo: "GitHub ↗", contact: "Contacto" },
+    intro: { role: "Data & AI Engineer" },
   },
 };
