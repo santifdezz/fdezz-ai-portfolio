@@ -227,8 +227,8 @@ html[data-intro="done"] .intro {
 }
 
 @keyframes kinetic-cross {
-  from { transform: translateX(14vw); }
-  to   { transform: translateX(-62vw); }
+  from { transform: translateX(7vw); }
+  to   { transform: translateX(-3vw); }
 }
 
 @keyframes kinetic-fill {
