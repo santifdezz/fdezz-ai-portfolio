@@ -154,7 +154,7 @@ const contentEN: PortfolioContent = {
         learnings: ['RAG System Development', 'Database Query Optimization', 'Vision Models for Detection & Classification', 'Sentiment Analysis', 'ETL Orchestration with Airflow', 'Docker Containerization', 'Production Environments', 'ISO 27001 Compliance', 'Infrastructure Support', 'Client Collaboration', 'AI Agent Development', 'Task Management at Scale'],
       },
     ],
-    cvLink: 'https://drive.google.com/file/d/1dbUMNeNlhRK0g-ME5o7E6tKNkuXnGtzr/view?usp=sharing',
+    cvLink: '/cv/santiago-fernandez-cv-en.pdf',
   },
 
   projects: [
@@ -391,7 +391,7 @@ const contentES: PortfolioContent = {
         learnings: ['Desarrollo de Sistemas RAG', 'Optimización de Queries de BD', 'Modelos de Visión para Detección & Clasificación', 'Análisis de Sentimiento', 'Orquestación ETL con Airflow', 'Containerización Docker', 'Entornos de Producción', 'Cumplimiento ISO 27001', 'Mantenimiento de Infraestructura', 'Colaboración con Cliente', 'Desarrollo de Agentes IA', 'Gestión de Tareas a Escala'],
       },
     ],
-    cvLink: 'https://drive.google.com/file/d/1vHmpMBStHvWnwua-diwFh_GwdIv5NUF7/view?usp=sharing',
+    cvLink: '/cv/santiago-fernandez-cv-es.pdf',
   },
 
   projects: [
