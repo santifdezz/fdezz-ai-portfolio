@@ -12,6 +12,7 @@ import { Intro } from "./Intro";
 import { SignalThread } from "./SignalThread";
 import { ExperienceTimeline } from "./ExperienceTimeline";
 import { Hero } from "./Hero";
+import { KineticBand } from "./KineticBand";
 import { PointReveal } from "./PointReveal";
 import { StackList } from "./StackList";
 import { WorkGallery } from "./WorkGallery";
@@ -51,8 +52,11 @@ export function EditorialPage({ locale, onLocaleChange }: EditorialPageProps) {
         <main id="main">
           <Hero copy={copy} content={content} />
           <PointReveal eyebrow={copy.point.eyebrow} paragraph={point} groups={groups} entitiesLabel={copy.point.entities} />
+          <KineticBand label={copy.nav.items.work} number="02" />
           <WorkGallery projects={content.projects} copy={copy} />
+          <KineticBand label={copy.nav.items.experience} number="03" />
           <ExperienceTimeline entries={education} copy={copy} />
+          <KineticBand label={copy.nav.items.stack} number="04" />
           <StackList skills={bio.skills} copy={copy} />
           <ContactBlock contact={content.contact} copy={copy} />
         </main>

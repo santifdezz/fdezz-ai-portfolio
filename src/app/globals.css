@@ -218,6 +218,45 @@ html[data-intro="done"] .intro {
   animation-delay: 1200ms;
 }
 
+/* Kinetic bands between sections: the name crosses the screen with the scroll. */
+.kinetic-track {
+  /* Without scroll timelines the band is a still: the name sits at the left. */
+  transform: translateX(0);
+  -webkit-text-stroke: 1px hsl(var(--foreground) / 0.28);
+  color: transparent;
+}
+
+@keyframes kinetic-cross {
+  from { transform: translateX(14vw); }
+  to   { transform: translateX(-62vw); }
+}
+
+@keyframes kinetic-fill {
+  0%   { color: transparent; -webkit-text-stroke-color: hsl(var(--foreground) / 0.28); }
+  45%  { color: hsl(var(--foreground)); -webkit-text-stroke-color: hsl(var(--foreground)); }
+  55%  { color: hsl(var(--foreground)); -webkit-text-stroke-color: hsl(var(--foreground)); }
+  100% { color: transparent; -webkit-text-stroke-color: hsl(var(--foreground) / 0.28); }
+}
+
+@keyframes kinetic-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@supports (animation-timeline: view()) {
+  .kinetic-track {
+    animation: kinetic-cross linear both, kinetic-fill linear both;
+    animation-timeline: view(), view();
+    animation-range: entry 0% exit 100%, entry 5% exit 95%;
+  }
+
+  .kinetic-rule {
+    animation: kinetic-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 90%;
+  }
+}
+
 /* Page-load sequence (CSS so the headline never waits on JS). */
 @keyframes rise {
   from { transform: translateY(108%); }
@@ -494,6 +533,15 @@ html[data-custom-cursor="on"] [data-cursor] * {
 @media (prefers-reduced-motion: reduce) {
   html .editorial {
     --intro: 0ms;
+  }
+
+  .kinetic-track,
+  .kinetic-rule {
+    animation: none !important;
+  }
+
+  .kinetic-track {
+    -webkit-text-stroke-color: hsl(var(--foreground) / 0.4);
   }
 
   .intro {
