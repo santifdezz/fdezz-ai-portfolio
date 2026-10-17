@@ -18,12 +18,12 @@ interface WorkGalleryProps {
 /** The slide's position on the scroll (0..1), as the centre of a window `half` wide either side. */
 const around = (index: number, total: number) => (total > 1 ? index / (total - 1) : 0);
 
-/** Washes the pinned stage with the active project's plate colour, a tenth strong. Only opacity changes. */
+/** Washes the pinned stage with the active project's plate colour, glowing from behind the slide. Only opacity changes. */
 function Tint({ plate, index, total, progress }: { plate: string; index: number; total: number; progress: MotionValue<number> }) {
   const at = around(index, total);
   const half = total > 1 ? 1 / (total - 1) : 1;
   const opacity = useTransform(progress, [at - half, at, at + half], [0, 1, 0], { clamp: true });
-  return <motion.div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ opacity, background: `hsl(var(--plate-${plate}) / 0.1)` }} />;
+  return <motion.div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ opacity, background: `radial-gradient(120% 90% at 50% 60%, hsl(var(--plate-${plate}) / 0.34), hsl(var(--plate-${plate}) / 0.08) 60%, transparent 85%)` }} />;
 }
 
 /** One slide of the pinned gallery; its plate's ridges draw as it comes to the centre. */
@@ -31,7 +31,15 @@ function PinnedSlide({ progress, ...slide }: { progress: MotionValue<number> } &
   const at = around(slide.index, slide.total);
   const half = slide.total > 1 ? 1 / (slide.total - 1) : 1;
   const ridgeDraw = useTransform(progress, [at - half, at - half * 0.15], [0.12, 1], { clamp: true });
-  return <ProjectSlide {...slide} ridgeDraw={ridgeDraw} />;
+  // Depth: the slide at the centre is full size and bright; its neighbours recede.
+  const away = useTransform(progress, (p) => Math.min(1, Math.abs(p - at) / half));
+  const scale = useTransform(away, [0, 1], [1, 0.9]);
+  const opacity = useTransform(away, [0, 1], [1, 0.45]);
+  return (
+    <motion.div className="h-full" style={{ scale, opacity }}>
+      <ProjectSlide {...slide} ridgeDraw={ridgeDraw} />
+    </motion.div>
+  );
 }
 
 /**
