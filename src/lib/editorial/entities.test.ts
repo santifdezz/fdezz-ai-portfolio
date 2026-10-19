@@ -65,9 +65,9 @@ describe("annotateEntities", () => {
   it("finds the real entities in the real EN bio paragraph", () => {
     const paragraph = getPortfolioContent("en").about.bio.shortDescription.split("\n\n")[2];
     expect(entities(paragraph, groupsFor("en"))).toEqual([
-      "AI:METHOD",
       "Python:LANG",
       "Docker:TOOL",
+      "AI:METHOD",
     ]);
     expect(joined(paragraph, groupsFor("en"))).toBe(paragraph);
   });
@@ -75,9 +75,9 @@ describe("annotateEntities", () => {
   it("finds the real entities in the real ES bio paragraph", () => {
     const paragraph = getPortfolioContent("es").about.bio.shortDescription.split("\n\n")[2];
     expect(entities(paragraph, groupsFor("es"))).toEqual([
-      "IA:METHOD",
       "Python:LANG",
       "Docker:TOOL",
+      "IA:METHOD",
     ]);
     expect(joined(paragraph, groupsFor("es"))).toBe(paragraph);
   });

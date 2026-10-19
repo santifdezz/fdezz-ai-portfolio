@@ -77,6 +77,7 @@ describe("thesisFacts", () => {
     expect(thesisFacts(getPortfolioContent("en"))).toEqual({
       venture: { name: "Makineo", figure: "1,000+ experiences listed", pitch: "full-stack platform for the Spanish electronic music scene" },
       employer: "Qaleon Solutions",
+      impact: "Multi-project solutions for clients across several sectors, including a multinational: 30,000+ documents and 20M+ data records processed",
     });
   });
 
@@ -86,6 +87,6 @@ describe("thesisFacts", () => {
       projects: [project("solo", "founder")],
       about: { ...content.about, education: [{ ...content.about.education[0], role: "founder" }] },
     });
-    expect(facts).toEqual({ venture: null, employer: null });
+    expect(facts).toEqual({ venture: null, employer: null, impact: null });
   });
 });

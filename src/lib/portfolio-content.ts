@@ -5,6 +5,8 @@ export interface EducationEntry {
   title: string;
   institution: string;
   description: string;
+  /** What this stage delivered, as one phrase (no final stop) for the hero. */
+  headline?: string;
   narrative?: string;
   learnings?: string[];
   icon?: string;
@@ -87,7 +89,7 @@ const contentEN: PortfolioContent = {
     description:
       'A combination of specialized technical training and passion for data that allows me to transform complex information into useful solutions.',
     bio: {
-      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI started with networks and hardware and ended up in data and AI. Today, as a data engineer at Qaleon, I help companies in several sectors get more out of their documents with Python and Docker. And I founded Makineo, a platform for Spain\'s electronic music scene.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
+      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI\'m a data engineer at Qaleon Solutions, where I help companies in several sectors get more out of their documents with Python and Docker. I came in from networks and hardware and stayed for data and AI. I also founded Makineo, a platform for Spain\'s electronic music scene.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
       fullDescription: 'I combine solid engineering foundations with hands-on specialization in AI and data science. At Qaleon I work across the full data stack: from raw ingestion and ETL orchestration to ML model deployment and RAG systems, always in production, always with real business impact.',
       tagline: 'Passionate about Data',
       skills: {
@@ -150,6 +152,7 @@ const contentEN: PortfolioContent = {
         institution: 'Qaleon Solutions - AI Consulting, Madrid',
         description: 'Multi-project role delivering solutions across several sectors, including a multinational client: 30,000+ documents and 20M+ data records processed. Owns the prior research, sourcing of the resources each solution needs, support and upkeep of the infrastructure, and ISO 27001 compliance.',
         icon: '🚀',
+        headline: 'Multi-project solutions for clients across several sectors, including a multinational: 30,000+ documents and 20M+ data records processed',
         narrative: 'From education to production. Applying advanced AI concepts in real-world scenarios. Leading the charge on RAG implementation, optimizing database queries for performance, building vision models for detection and classification, orchestrating complex ETL workflows with Airflow, and collaborating closely with clients to deliver cutting-edge AI solutions.',
         learnings: ['RAG System Development', 'Database Query Optimization', 'Vision Models for Detection & Classification', 'Sentiment Analysis', 'ETL Orchestration with Airflow', 'Docker Containerization', 'Production Environments', 'ISO 27001 Compliance', 'Infrastructure Support', 'Client Collaboration', 'AI Agent Development', 'Task Management at Scale'],
       },
@@ -324,7 +327,7 @@ const contentES: PortfolioContent = {
     description:
       'Una combinación de formación técnica especializada y pasión por los datos que me permite transformar información compleja en soluciones útiles.',
     bio: {
-      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nEmpecé con redes y hardware y acabé en los datos y la IA. Hoy, como Data Engineer en Qaleon, ayudo a empresas de varios sectores a sacar partido de sus documentos con Python y Docker. Y fundé Makineo, la plataforma de la escena electrónica en España.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
+      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nSoy Data Engineer en Qaleon Solutions, donde ayudo a empresas de varios sectores a sacar partido de sus documentos con Python y Docker. Llegué desde las redes y el hardware, y me quedé en los datos y la IA. Además fundé Makineo, la plataforma de la escena electrónica en España.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
       fullDescription: 'Combino fundamentos sólidos de ingeniería con especialización práctica en IA y ciencia de datos. En Qaleon trabajo en todo el stack de datos: desde ingesta y orquestación ETL hasta despliegue de modelos ML y sistemas RAG, siempre en producción, siempre con impacto real de negocio.',
       tagline: 'Apasionado por los datos',
       skills: {
@@ -387,6 +390,7 @@ const contentES: PortfolioContent = {
         institution: 'Qaleon Solutions - Consultoría de IA, Madrid',
         description: 'Rol multiproyecto con soluciones para distintos sectores, incluido un cliente multinacional: 30.000+ documentos y 20M+ de datos procesados. Responsable de la investigación previa, la búsqueda de los recursos que necesita cada solución, el apoyo y mantenimiento de la infraestructura y el cumplimiento de ISO 27001.',
         icon: '🚀',
+        headline: 'Soluciones multiproyecto para clientes de distintos sectores, incluida una multinacional: 30.000+ documentos y 20M+ de datos procesados',
         narrative: 'De la educación a producción. Aplicando conceptos avanzados de IA en escenarios reales. Liderando la implementación de RAG, optimizando queries de bases de datos para performance, construyendo modelos de visión para detección y clasificación, orquestando flujos ETL complejos con Airflow, y colaborando estrechamente con clientes para entregar soluciones de IA de punta.',
         learnings: ['Desarrollo de Sistemas RAG', 'Optimización de Queries de BD', 'Modelos de Visión para Detección & Clasificación', 'Análisis de Sentimiento', 'Orquestación ETL con Airflow', 'Containerización Docker', 'Entornos de Producción', 'Cumplimiento ISO 27001', 'Mantenimiento de Infraestructura', 'Colaboración con Cliente', 'Desarrollo de Agentes IA', 'Gestión de Tareas a Escala'],
       },

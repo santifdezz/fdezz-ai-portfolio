@@ -31,8 +31,10 @@ export function projectPitch(project: Pick<ProjectData, "description">): string 
 export interface ThesisFacts {
   /** The venture he founded: its headline figure ("200+ events managed"), name and what it is. */
   venture: { name: string; figure: string; pitch: string } | null;
-  /** Where his systems run today: the organisation of his latest stage. */
+  /** Where he works today: the organisation of his latest stage. */
   employer: string | null;
+  /** What that stage delivered, as one phrase (no final stop). */
+  impact: string | null;
 }
 
 export function thesisFacts(content: Pick<PortfolioContent, "projects" | "about">): ThesisFacts {
@@ -45,5 +47,6 @@ export function thesisFacts(content: Pick<PortfolioContent, "projects" | "about"
         ? { name: founded.title, figure: [figure.pre, figure.value, figure.label].filter(Boolean).join(" "), pitch: projectPitch(founded) }
         : null,
     employer: latest && latest.role !== "founder" ? organisationName(latest.institution) : null,
+    impact: latest && latest.role !== "founder" ? (latest.headline ?? null) : null,
   };
 }

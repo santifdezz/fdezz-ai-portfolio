@@ -32,8 +32,8 @@ export interface EditorialCopy {
   hero: {
     facts: { status: string };
     lead: string;
-    /** First-person sentence after the name; names what he founded, if anything. */
-    rest: (founded: string[]) => string;
+    /** The role line after the name: where he works and what he founded, in the register of a CV. */
+    rest: (founded: string[], employer: string | null) => string;
     thesis: (facts: ThesisFacts) => ThesisSegment[];
     badge: string;
     badgeLabel: string;
@@ -77,20 +77,22 @@ export const COPY: Record<Locale, EditorialCopy> = {
     hero: {
       facts: { status: "Status" },
       lead: "Santiago Fernández.",
-      rest: (founded) =>
-        founded.length
-          ? `I build AI-powered data systems and founded ${listFormat("en")(founded)}.`
-          : "I build AI-powered data systems that process millions of records.",
-      thesis: ({ venture, employer }) => {
-        const systems = { text: "RAG and ETL systems", strong: true };
-        const runs = employer ? ` run in production at ${employer}.` : " run in production.";
-        if (!venture) return [{ text: "My " }, systems, { text: runs }];
-        return [
-          { text: venture.figure, strong: true },
-          { text: ` on ${venture.name}, a ${venture.pitch}` },
-          ...(employer ? [{ text: ". My " }, systems, { text: runs }] : [{ text: "." }]),
-        ];
+      rest: (founded, employer) => {
+        const role = employer ? `Data & AI Engineer at ${employer}` : "Data & AI Engineer";
+        return founded.length ? `${role} and founder of ${listFormat("en")(founded)}.` : `${role}.`;
       },
+      thesis: ({ venture, impact }) => [
+        ...(impact ? [{ text: `${impact}.` }] : []),
+        ...(venture
+          ? [
+              { text: `${impact ? " " : ""}Founder of ` },
+              { text: venture.name, strong: true },
+              { text: `, a ${venture.pitch}, with ` },
+              { text: venture.figure, strong: true },
+              { text: "." },
+            ]
+          : []),
+      ],
       badge: "Let's talk",
       badgeLabel: "Go to contact",
     },
@@ -153,20 +155,22 @@ export const COPY: Record<Locale, EditorialCopy> = {
     hero: {
       facts: { status: "Estado" },
       lead: "Santiago Fernández.",
-      rest: (founded) =>
-        founded.length
-          ? `Construyo sistemas de datos con IA y fundé ${listFormat("es")(founded)}.`
-          : "Construyo sistemas de datos con IA que procesan millones de registros.",
-      thesis: ({ venture, employer }) => {
-        const systems = { text: "sistemas RAG y ETL", strong: true };
-        const runs = employer ? `, en producción en ${employer}.` : ", en producción.";
-        if (!venture) return [{ text: "Mis " }, systems, { text: runs }];
-        return [
-          { text: venture.figure, strong: true },
-          { text: ` en ${venture.name}, ${venture.pitch}` },
-          ...(employer ? [{ text: ". Mis " }, systems, { text: runs }] : [{ text: "." }]),
-        ];
+      rest: (founded, employer) => {
+        const role = employer ? `Data & AI Engineer en ${employer}` : "Data & AI Engineer";
+        return founded.length ? `${role} y fundador de ${listFormat("es")(founded)}.` : `${role}.`;
       },
+      thesis: ({ venture, impact }) => [
+        ...(impact ? [{ text: `${impact}.` }] : []),
+        ...(venture
+          ? [
+              { text: `${impact ? " " : ""}Fundador de ` },
+              { text: venture.name, strong: true },
+              { text: `, ${venture.pitch}, con ` },
+              { text: venture.figure, strong: true },
+              { text: "." },
+            ]
+          : []),
+      ],
       badge: "Hablemos",
       badgeLabel: "Ir a contacto",
     },

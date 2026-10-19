@@ -58,7 +58,8 @@ export function Hero({ copy, content }: HeroProps) {
   const status = content.contact.availability.split(" · ")[0];
   const founded = foundedProjects(content.projects).map((p) => p.title);
   const leadWords = copy.hero.lead.split(" ").length;
-  const thesis = copy.hero.thesis(thesisFacts(content));
+  const facts = thesisFacts(content);
+  const thesis = copy.hero.thesis(facts);
 
   // One grid, three blocks: on phones the card follows the headline (the
   // facts come before the pitch); from lg the card sits beside both.
@@ -70,7 +71,7 @@ export function Hero({ copy, content }: HeroProps) {
         <h1 className="min-w-0 font-display font-normal leading-[0.98] tracking-[-0.025em] text-[clamp(2.6rem,5.6vw,5.9rem)] text-pretty lg:col-start-1 lg:row-start-1 lg:self-end">
           <RisingWords text={copy.hero.lead} />{" "}
           <span className="italic font-light text-[hsl(var(--muted-foreground))]">
-            <RisingWords text={copy.hero.rest(founded)} offset={leadWords} />
+            <RisingWords text={copy.hero.rest(founded, facts.employer)} offset={leadWords} />
           </span>
         </h1>
 

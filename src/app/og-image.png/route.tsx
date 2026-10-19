@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { foundedProjects } from "@/lib/editorial/ventures";
+import { COPY } from "@/components/editorial/copy";
+import { foundedProjects, thesisFacts } from "@/lib/editorial/ventures";
 import { parseYearRange } from "@/lib/editorial/timeline";
 import { getPortfolioContent } from "@/lib/portfolio-content";
 import { buildRidgeField, ridgeGlow } from "@/lib/seo/og-ridges";
@@ -70,10 +71,10 @@ function buildScene() {
   const status = contact.availability.split(" · ")[0];
   const domain = new URL(SITE_URL).host;
 
-  const tagline =
-    founded.length > 0
-      ? `Construyo sistemas de datos con IA y fundé ${founded.map((p) => p.title).join(" y ")}.`
-      : "Construyo sistemas de datos con IA que procesan millones de registros.";
+  const tagline = COPY.es.hero.rest(
+    founded.map((p) => p.title),
+    thesisFacts({ projects, about }).employer,
+  );
 
   const rows: Array<{ name: string; type: string; value: string }> = [
     { name: "role", type: "text", value: current?.title ?? "" },
