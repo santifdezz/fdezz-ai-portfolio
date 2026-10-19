@@ -35,7 +35,7 @@ const PERSON_ID = `${SITE_URL}/#person`;
 
 // As the page title presents him (src/app/layout.tsx); portfolio-content has no field for either.
 const NAME = "Santiago Fernández";
-const JOB_TITLE = "Data & AI Engineer";
+const JOB_TITLE = "Data Scientist";
 
 const LANGUAGES = ["Spanish", "English"];
 

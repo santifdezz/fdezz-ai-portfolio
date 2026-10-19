@@ -73,8 +73,8 @@ describe("hero headline", () => {
   });
 
   it.each([
-    ["en", "Data & AI Engineer at Qaleon Solutions and founder of Makineo."],
-    ["es", "Data & AI Engineer en Qaleon Solutions y fundador de Makineo."],
+    ["en", "Data Scientist at Qaleon Solutions and founder of Makineo."],
+    ["es", "Data Scientist en Qaleon Solutions y fundador de Makineo."],
   ] as const)("%s: states the role like a CV, employer first and no first-person verbs", (locale, expected) => {
     const sentence = COPY[locale].hero.rest(["Makineo"], "Qaleon Solutions");
     expect(sentence).toBe(expected);
@@ -83,7 +83,7 @@ describe("hero headline", () => {
   });
 
   it.each(["en", "es"] as const)("%s: degrades to a plain role line without a venture or employer", (locale) => {
-    expect(COPY[locale].hero.rest([], null)).toBe("Data & AI Engineer.");
+    expect(COPY[locale].hero.rest([], null)).toBe("Data Scientist.");
     expect(COPY[locale].hero.rest([], "Qaleon Solutions")).not.toMatch(/found|fund/i);
   });
 });

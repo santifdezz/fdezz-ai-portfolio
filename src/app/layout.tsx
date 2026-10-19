@@ -30,9 +30,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Santiago Fernández | Data & AI Engineer, founder of Makineo",
-  description: "Data & AI Engineer at Qaleon and founder of Makineo, a platform for Spain's electronic music scene. Real pipelines, real numbers, plus an AI assistant behind ⌘K.",
-  keywords: ["Data Engineer", "Founder", "Makineo", "Full Stack Developer", "AI", "Big Data", "Python", "TypeScript", "React", "Next.js"],
+  title: "Santiago Fernández | Data Scientist, founder of Makineo",
+  description: "Data Scientist at Qaleon and founder of Makineo, a platform for Spain's electronic music scene. Real pipelines, real numbers, plus an AI assistant behind ⌘K.",
+  keywords: ["Data Scientist", "Founder", "Makineo", "Full Stack Developer", "AI", "Big Data", "Python", "TypeScript", "React", "Next.js"],
   authors: [
     {
       name: "Santiago Fernández",
@@ -58,8 +58,8 @@ export const metadata: Metadata = {
     alternateLocale: ["es_ES"],
     url: SITE_URL,
     siteName: "Santiago Fernández",
-    title: "Santiago Fernández | Data & AI Engineer, founder of Makineo",
-    description: "Data & AI Engineer at Qaleon and founder of Makineo (1,000+ experiences). Real pipelines, real numbers, in production.",
+    title: "Santiago Fernández | Data Scientist, founder of Makineo",
+    description: "Data Scientist at Qaleon and founder of Makineo (1,000+ experiences). Real pipelines, real numbers, in production.",
     images: [
       {
         // PNG, not SVG — Twitter/Facebook/LinkedIn don't render SVG previews.
@@ -73,8 +73,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Santiago Fernández | Data & AI Engineer, founder of Makineo",
-    description: "Data & AI Engineer at Qaleon and founder of Makineo. Real pipelines, real numbers.",
+    title: "Santiago Fernández | Data Scientist, founder of Makineo",
+    description: "Data Scientist at Qaleon and founder of Makineo. Real pipelines, real numbers.",
     images: [OG_IMAGE_URL],
     creator: "@sfdezz",
   },

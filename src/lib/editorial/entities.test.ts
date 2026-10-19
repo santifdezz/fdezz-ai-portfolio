@@ -67,7 +67,6 @@ describe("annotateEntities", () => {
     expect(entities(paragraph, groupsFor("en"))).toEqual([
       "Python:LANG",
       "Docker:TOOL",
-      "AI:METHOD",
     ]);
     expect(joined(paragraph, groupsFor("en"))).toBe(paragraph);
   });
@@ -77,7 +76,6 @@ describe("annotateEntities", () => {
     expect(entities(paragraph, groupsFor("es"))).toEqual([
       "Python:LANG",
       "Docker:TOOL",
-      "IA:METHOD",
     ]);
     expect(joined(paragraph, groupsFor("es"))).toBe(paragraph);
   });

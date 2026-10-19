@@ -24,7 +24,7 @@ describe("buildDatabase", () => {
       expect.objectContaining({
         id: "santiago",
         name: "Santiago Fernández",
-        role: "Data Engineer at Qaleon Solutions",
+        role: "Data Scientist at Qaleon Solutions",
         founded: ["Makineo"],
         first_year: 2020,
         last_year: 2026,
@@ -48,6 +48,6 @@ describe("buildDatabase", () => {
 
   it("speaks the reader's language", () => {
     const es = buildDatabase(getPortfolioContent("es"));
-    expect(es.get("people")!.rows[0][2]).toBe("Data Engineer en Qaleon Solutions");
+    expect(es.get("people")!.rows[0][2]).toBe("Data Scientist en Qaleon Solutions");
   });
 });

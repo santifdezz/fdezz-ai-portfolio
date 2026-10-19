@@ -78,7 +78,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       facts: { status: "Status" },
       lead: "Santiago Fernández.",
       rest: (founded, employer) => {
-        const role = employer ? `Data & AI Engineer at ${employer}` : "Data & AI Engineer";
+        const role = employer ? `Data Scientist at ${employer}` : "Data Scientist";
         return founded.length ? `${role} and founder of ${listFormat("en")(founded)}.` : `${role}.`;
       },
       thesis: ({ venture, impact }) => [
@@ -142,7 +142,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       failedHint: "Couldn't copy. Select the address to copy it.",
     },
     cursor: { scroll: "Scroll", repo: "GitHub ↗", contact: "Contact" },
-    intro: { role: "Data & AI Engineer" },
+    intro: { role: "Data Scientist" },
   },
   es: {
     skip: "Saltar al contenido",
@@ -156,7 +156,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       facts: { status: "Estado" },
       lead: "Santiago Fernández.",
       rest: (founded, employer) => {
-        const role = employer ? `Data & AI Engineer en ${employer}` : "Data & AI Engineer";
+        const role = employer ? `Data Scientist en ${employer}` : "Data Scientist";
         return founded.length ? `${role} y fundador de ${listFormat("es")(founded)}.` : `${role}.`;
       },
       thesis: ({ venture, impact }) => [
@@ -220,6 +220,6 @@ export const COPY: Record<Locale, EditorialCopy> = {
       failedHint: "No se pudo copiar. Selecciona la dirección para copiarla.",
     },
     cursor: { scroll: "Desliza", repo: "GitHub ↗", contact: "Contacto" },
-    intro: { role: "Data & AI Engineer" },
+    intro: { role: "Data Scientist" },
   },
 };

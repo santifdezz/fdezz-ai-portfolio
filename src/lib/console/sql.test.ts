@@ -33,7 +33,7 @@ describe("run · SELECT", () => {
   it("projects, filters, orders and limits", () => {
     expect(values("SELECT start_year, title FROM stages WHERE start_year >= 2024 ORDER BY start_year DESC LIMIT 2")).toEqual([
       [2025, "Founder of Makineo"],
-      [2025, "Data Engineer at Qaleon Solutions"],
+      [2025, "Data Scientist at Qaleon Solutions"],
     ]);
   });
 
@@ -46,7 +46,7 @@ describe("run · SELECT", () => {
   });
 
   it("counts", () => {
-    expect(rows("SELECT count(*) FROM skills WHERE category = 'Languages';")).toMatchObject({ columns: [{ name: "count" }], rows: [[5]] });
+    expect(rows("SELECT count(*) FROM skills WHERE category = 'Languages';")).toMatchObject({ columns: [{ name: "count" }], rows: [[3]] });
   });
 
   it("returns no rows rather than failing when nothing matches", () => {

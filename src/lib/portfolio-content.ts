@@ -89,15 +89,15 @@ const contentEN: PortfolioContent = {
     description:
       'A combination of specialized technical training and passion for data that allows me to transform complex information into useful solutions.',
     bio: {
-      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Engineer at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI\'m a data engineer at Qaleon Solutions, where I help companies in several sectors get more out of their documents with Python and Docker. I came in from networks and hardware and stayed for data and AI. I also founded Makineo, a platform for Spain\'s electronic music scene.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
+      shortDescription: 'Hello. I\'m Santi.\n\nMy journey started in 2020 learning networks and hardware. Today, in 2026, I work as a Data Scientist at Qaleon Solutions, building AI-powered data systems that process millions of records.\n\nI\'m a data scientist at Qaleon Solutions, where I help companies in several sectors get more out of their documents with Python and Docker. I came in from networks and hardware and stayed for data and AI. I also founded Makineo, a platform for Spain\'s electronic music scene.\n\nThe common thread across all of it: data, automation, and making complex systems work reliably.',
       fullDescription: 'I combine solid engineering foundations with hands-on specialization in AI and data science. At Qaleon I work across the full data stack: from raw ingestion and ETL orchestration to ML model deployment and RAG systems, always in production, always with real business impact.',
       tagline: 'Passionate about Data',
       skills: {
-        'Languages': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
-        'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
-        'Libraries': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow', 'OpenCV'],
-        'Tools & Databases': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS', 'Ollama', 'Claude Code'],
-        'Specializations': ['Machine Learning', 'ETL Pipelines', 'Web Development', 'QA Automation', 'Data Analysis', 'RAG Systems', 'Vision Models', 'Sentiment Analysis', 'AI Agents'],
+        'Languages': ['Python', 'SQL', 'TypeScript'],
+        'Frameworks': ['FastAPI'],
+        'Libraries': ['Pandas', 'Scikit-learn', 'LangChain'],
+        'Tools & Databases': ['PostgreSQL', 'Docker', 'Git', 'Apache Airflow', 'FAISS', 'Ollama'],
+        'Specializations': ['Machine Learning', 'ETL Pipelines', 'RAG Systems', 'Vision Models', 'Data Analysis'],
       },
     },
     education: [
@@ -148,7 +148,7 @@ const contentEN: PortfolioContent = {
       },
       {
         year: '2025-2026',
-        title: 'Data Engineer at Qaleon Solutions',
+        title: 'Data Scientist at Qaleon Solutions',
         institution: 'Qaleon Solutions - AI Consulting, Madrid',
         description: 'Multi-project role delivering solutions across several sectors, including a multinational client: 30,000+ documents and 20M+ data records processed. Owns the prior research, sourcing of the resources each solution needs, support and upkeep of the infrastructure, and ISO 27001 compliance.',
         icon: '🚀',
@@ -273,7 +273,7 @@ const contentEN: PortfolioContent = {
     description: "I'm always open to new opportunities and interesting projects. Don't hesitate to contact me.",
     email: 'santifdezseo@gmail.com',
     location: 'Madrid, Spain',
-    availability: 'Data Engineer @ Qaleon · Founder of Makineo',
+    availability: 'Data Scientist @ Qaleon · Founder of Makineo',
     channels: [
       {
         type: 'email',
@@ -327,15 +327,15 @@ const contentES: PortfolioContent = {
     description:
       'Una combinación de formación técnica especializada y pasión por los datos que me permite transformar información compleja en soluciones útiles.',
     bio: {
-      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Engineer en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nSoy Data Engineer en Qaleon Solutions, donde ayudo a empresas de varios sectores a sacar partido de sus documentos con Python y Docker. Llegué desde las redes y el hardware, y me quedé en los datos y la IA. Además fundé Makineo, la plataforma de la escena electrónica en España.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
+      shortDescription: 'Hola. Soy Santi.\n\nMi viaje comenzó en 2020 aprendiendo redes y hardware. Hoy, en 2026, trabajo como Data Scientist en Qaleon Solutions, construyendo sistemas de datos con IA que procesan millones de registros.\n\nSoy Data Scientist en Qaleon Solutions, donde ayudo a empresas de varios sectores a sacar partido de sus documentos con Python y Docker. Llegué desde las redes y el hardware, y me quedé en los datos y la IA. Además fundé Makineo, la plataforma de la escena electrónica en España.\n\nEl hilo conductor de todo ello: datos, automatización, y hacer que sistemas complejos funcionen de forma fiable.',
       fullDescription: 'Combino fundamentos sólidos de ingeniería con especialización práctica en IA y ciencia de datos. En Qaleon trabajo en todo el stack de datos: desde ingesta y orquestación ETL hasta despliegue de modelos ML y sistemas RAG, siempre en producción, siempre con impacto real de negocio.',
       tagline: 'Apasionado por los datos',
       skills: {
-        'Lenguajes': ['Python', 'JavaScript', 'TypeScript', 'SQL', 'GDScript'],
-        'Frameworks': ['Django', 'FastAPI', 'Flask', 'React', 'Next.js', 'Express'],
-        'Librerías': ['Pandas', 'Scikit-learn', 'Matplotlib', 'Streamlit', 'NumPy', 'LangChain', 'TensorFlow', 'OpenCV'],
-        'Herramientas y BD': ['PostgreSQL', 'MongoDB', 'Docker', 'Git', 'Jupyter', 'Apache Airflow', 'LLaMA', 'FAISS', 'Ollama', 'Claude Code'],
-        'Especializaciones': ['Machine Learning', 'Pipelines ETL', 'Desarrollo Web', 'Automatización QA', 'Análisis de Datos', 'Sistemas RAG', 'Modelos de Visión', 'Análisis de Sentimiento', 'Agentes IA'],
+        'Lenguajes': ['Python', 'SQL', 'TypeScript'],
+        'Frameworks': ['FastAPI'],
+        'Librerías': ['Pandas', 'Scikit-learn', 'LangChain'],
+        'Herramientas y BD': ['PostgreSQL', 'Docker', 'Git', 'Apache Airflow', 'FAISS', 'Ollama'],
+        'Especializaciones': ['Machine Learning', 'Pipelines ETL', 'Sistemas RAG', 'Modelos de Visión', 'Análisis de Datos'],
       },
     },
     education: [
@@ -386,7 +386,7 @@ const contentES: PortfolioContent = {
       },
       {
         year: '2025-2026',
-        title: 'Data Engineer en Qaleon Solutions',
+        title: 'Data Scientist en Qaleon Solutions',
         institution: 'Qaleon Solutions - Consultoría de IA, Madrid',
         description: 'Rol multiproyecto con soluciones para distintos sectores, incluido un cliente multinacional: 30.000+ documentos y 20M+ de datos procesados. Responsable de la investigación previa, la búsqueda de los recursos que necesita cada solución, el apoyo y mantenimiento de la infraestructura y el cumplimiento de ISO 27001.',
         icon: '🚀',
@@ -507,7 +507,7 @@ const contentES: PortfolioContent = {
     description: 'Estoy siempre abierto a nuevas oportunidades y proyectos interesantes. No dudes en contactarme.',
     email: 'santifdezseo@gmail.com',
     location: 'Madrid, España',
-    availability: 'Data Engineer @ Qaleon · Fundador de Makineo',
+    availability: 'Data Scientist @ Qaleon · Fundador de Makineo',
     channels: [
       {
         type: 'email',
