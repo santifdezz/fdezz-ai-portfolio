@@ -210,7 +210,7 @@ const contentEN: PortfolioContent = {
       status: 'in-progress',
       statusColor: 'yellow',
       technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
-      features: ['Photo to confirmable inventory', 'Rules engine with BOE citations', 'Single-line diagram and printable report', '3 sample photos in a no-API-key demo mode'],
+      features: ['Photo to confirmable inventory', 'Rules engine with BOE citations', 'Single-line diagram and printable report', 'Demo mode with 2 real panel photos, no API key needed'],
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },
@@ -448,7 +448,7 @@ const contentES: PortfolioContent = {
       status: 'in-progress',
       statusColor: 'yellow',
       technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
-      features: ['De la foto a un inventario confirmable', 'Motor de reglas con citas del BOE', 'Esquema unifilar e informe imprimible', '3 fotos de ejemplo en modo demo sin clave de API'],
+      features: ['De la foto a un inventario confirmable', 'Motor de reglas con citas del BOE', 'Esquema unifilar e informe imprimible', 'Modo demo con 2 fotos reales de cuadros, sin clave de API'],
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },

@@ -19,9 +19,9 @@ const smooth = (a: number, b: number, x: number) => {
  * that sweeps across them like an audio peak while the name tightens out of
  * wide tracking, then the whole sheet lifts to reveal the hero. The sheet and
  * the name are plain CSS (so they run before hydration and the hero's
- * entrances are timed against `--intro`); only the wave needs JS. Phones get
- * the name alone and a shorter run; returning visitors in the same session and
- * reduced motion skip it (see layout.tsx and globals.css).
+ * entrances are timed against `--intro`); only the wave needs JS. Phones,
+ * returning visitors in the same session and reduced motion skip it (see
+ * layout.tsx and globals.css).
  */
 export function Intro({ name, role }: { name: string; role: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

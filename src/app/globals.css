@@ -164,8 +164,11 @@ html:focus-within {
 
 /* Opening title: a sheet over the page that lifts once the name has landed.
    Pure CSS, so it plays before hydration; the hero's entrances wait on --hero-at. */
+/* Phones skip the opening title: a black screen before any content is a worse trade there. */
 @media (max-width: 767px) {
-  html .editorial { --intro: 1500ms; }
+  html .editorial { --intro: 0ms; }
+
+  .intro { display: none; }
 }
 
 html[data-intro="done"] .editorial {

@@ -1,7 +1,7 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
-import { motion, useMotionValue, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { Fragment, useRef } from "react";
+import { motion, useMotionValue, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { annotateEntities, type EntityGroup } from "@/lib/editorial/entities";
 import { revealWindow } from "@/lib/editorial/scroll";
 import { REDUCED_MOTION_QUERY, useMediaQuery } from "./hooks";
@@ -63,11 +63,6 @@ export function PointReveal({ eyebrow, paragraph, groups, entitiesLabel }: Point
   const total = order.filter((n) => n >= 0).length;
   const windows = Array.from({ length: total }, (_, k) => revealWindow(k, total, 1));
 
-  const [found, setFound] = useState(0);
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    setFound(windows.filter(([start, end]) => p >= (start + end) / 2).length);
-  });
-
   return (
     <section id="point" aria-label={eyebrow} className="scroll-mt-16">
       <div className="mx-auto max-w-[90rem] px-4 pt-[var(--section-y)] sm:px-6 lg:px-10">
@@ -75,7 +70,7 @@ export function PointReveal({ eyebrow, paragraph, groups, entitiesLabel }: Point
           label={eyebrow}
           meta={
             <span aria-hidden>
-              ner(about.bio) <span className="text-[hsl(var(--primary))]">→</span> {entitiesLabel(reduce ? total : found, total)}
+              ner(about.bio) <span className="text-[hsl(var(--primary))]">→</span> {entitiesLabel(total, total)}
             </span>
           }
         />
