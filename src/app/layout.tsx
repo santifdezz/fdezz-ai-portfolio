@@ -99,10 +99,10 @@ export default function RootLayout({
     // kept in sync client-side as the user switches language.
     <html lang="es" suppressHydrationWarning>
       <head>
-        {/* The opening title plays once per session; a repeat visit skips it before first paint. */}
+        {/* The opening title plays once per session for people. A repeat visit, a crawler or an automated browser (screenshots, Lighthouse) skips it before first paint. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "try{if(sessionStorage.getItem('intro'))document.documentElement.dataset.intro='done';else sessionStorage.setItem('intro','1')}catch(e){}",
+            __html: "try{var n=navigator,b=n.webdriver||/bot|crawl|spider|lighthouse|headless|prerender|preview/i.test(n.userAgent);if(b||sessionStorage.getItem('intro'))document.documentElement.dataset.intro='done';else sessionStorage.setItem('intro','1')}catch(e){}",
           }}
         />
         <JsonSchema />
