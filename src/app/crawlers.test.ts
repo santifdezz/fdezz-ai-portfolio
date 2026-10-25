@@ -6,6 +6,6 @@ import sitemap from "./sitemap";
 describe("robots.txt and sitemap", () => {
   it("send crawlers to the canonical site", () => {
     expect(robots().sitemap).toBe(`${SITE_URL}/sitemap.xml`);
-    expect(sitemap().map((entry) => entry.url)).toEqual([SITE_URL]);
+    expect(sitemap().map((entry) => entry.url)).toEqual([SITE_URL, `${SITE_URL}/makineo`]);
   });
 });

@@ -54,6 +54,7 @@ export interface EditorialCopy {
     progress: string;
     pad: (n: number, title: string) => string;
     visit: (host: string) => string;
+    caseStudy: string;
   };
   experience: { eyebrow: string; lead: (n: number) => string; rest: string; current: string };
   stack: { eyebrow: string; lead: string; rest: string; meta: (items: number, groups: number) => string };
@@ -112,6 +113,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       progress: "Project",
       pad: (n, title) => `Go to project ${n}: ${title}`,
       visit: (host) => `Visit ${host}`,
+      caseStudy: "How it's built",
     },
     experience: {
       eyebrow: "Experience",
@@ -190,6 +192,7 @@ export const COPY: Record<Locale, EditorialCopy> = {
       progress: "Proyecto",
       pad: (n, title) => `Ir al proyecto ${n}: ${title}`,
       visit: (host) => `Visitar ${host}`,
+      caseStudy: "Cómo está hecho",
     },
     experience: {
       eyebrow: "Experiencia",

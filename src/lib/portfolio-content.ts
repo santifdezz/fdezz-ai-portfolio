@@ -26,6 +26,8 @@ export interface ProjectData {
     github?: string;
     /** Live site or demo. */
     demo?: string;
+    /** Internal page that explains how it is built (for work whose code is private). */
+    caseStudy?: string;
   };
   /** Set when Santiago founded the project, not only built it. */
   role?: 'founder';
@@ -184,8 +186,8 @@ const contentEN: PortfolioContent = {
       technologies: ['Nuxt', 'Vue', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Capacitor', 'Playwright'],
       features: ['1,000+ experiences listed', 'Custom admin panel', 'Native mobile shell (Capacitor)', 'FastAPI backend + E2E tests'],
       links: {
-        github: 'https://github.com/santifdezz/makineo-app',
         demo: 'https://makineo.es',
+        caseStudy: '/makineo',
       },
       role: 'founder',
     },
@@ -210,7 +212,7 @@ const contentEN: PortfolioContent = {
       status: 'in-progress',
       statusColor: 'yellow',
       technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
-      features: ['Photo to confirmable inventory', 'Rules engine with BOE citations', 'Single-line diagram and printable report', 'Demo mode with 2 real panel photos, no API key needed'],
+      features: ['Photo to confirmable inventory', 'Rules engine with BOE citations', 'Single-line diagram and printable report', 'Demo mode with 4 real panel photos, no API key needed'],
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },
@@ -422,8 +424,8 @@ const contentES: PortfolioContent = {
       technologies: ['Nuxt', 'Vue', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Capacitor', 'Playwright'],
       features: ['1.000+ experiencias publicadas', 'Panel de administración propio', 'App móvil nativa (Capacitor)', 'Backend FastAPI + tests E2E'],
       links: {
-        github: 'https://github.com/santifdezz/makineo-app',
         demo: 'https://makineo.es',
+        caseStudy: '/makineo',
       },
       role: 'founder',
     },
@@ -448,7 +450,7 @@ const contentES: PortfolioContent = {
       status: 'in-progress',
       statusColor: 'yellow',
       technologies: ['Python', 'FastAPI', 'Claude', 'SVG'],
-      features: ['De la foto a un inventario confirmable', 'Motor de reglas con citas del BOE', 'Esquema unifilar e informe imprimible', 'Modo demo con 2 fotos reales de cuadros, sin clave de API'],
+      features: ['De la foto a un inventario confirmable', 'Motor de reglas con citas del BOE', 'Esquema unifilar e informe imprimible', 'Modo demo con 4 fotos reales de cuadros, sin clave de API'],
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },

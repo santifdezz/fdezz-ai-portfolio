@@ -1,4 +1,5 @@
-import { ArrowUpRight, Github, Globe } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, BookOpen, Github, Globe } from "lucide-react";
 import type { MotionValue } from "framer-motion";
 import type { ProjectData } from "@/lib/portfolio-content";
 import { getProjectFigures, isCompactFigure } from "@/lib/editorial/figures";
@@ -136,6 +137,17 @@ export function ProjectSlide({ project, index, total, copy, cursorLabel, live, r
                 {copy.work.visit(site.host)}
                 <ArrowUpRight aria-hidden className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
+            )}
+            {project.links.caseStudy && (
+              <Link
+                href={project.links.caseStudy}
+                data-cursor={copy.work.caseStudy}
+                className="group inline-flex shrink-0 items-center gap-2 border-b border-[hsl(var(--foreground)/0.3)] pb-1 font-mono text-[11px] uppercase tracking-[0.16em] text-[hsl(var(--foreground))] transition-colors hover:border-[hsl(var(--primary))] hover:text-[hsl(var(--primary))]"
+              >
+                <BookOpen aria-hidden className="size-3.5" />
+                {copy.work.caseStudy}
+                <ArrowUpRight aria-hidden className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
             )}
             {project.links.github && (
               <a
