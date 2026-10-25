@@ -23,7 +23,7 @@ const figureOf = (locale: "en" | "es", id: string) => {
 describe("getProjectFigure — real content", () => {
   it.each([
     ["makineobeats", { pre: "", value: "16", label: "genres, each one a pack" }],
-    ["cabezones-fc", { pre: "", value: "10", label: "parody franchises in one big-headed league" }],
+    ["chutabol", { pre: "", value: "10", label: "parody franchises in one big-headed league" }],
     ["makineo", { pre: "", value: "1,000+", label: "experiences listed" }],
   ])("en · %s", (id, expected) => {
     expect(figureOf("en", id)).toEqual(expected);
@@ -31,7 +31,7 @@ describe("getProjectFigure — real content", () => {
 
   it.each([
     ["makineobeats", { pre: "", value: "16", label: "géneros, cada uno es un pack" }],
-    ["cabezones-fc", { pre: "", value: "10", label: "franquicias de parodia en una liga cabezona" }],
+    ["chutabol", { pre: "", value: "10", label: "franquicias de parodia en una liga cabezona" }],
     ["makineo", { pre: "", value: "1.000+", label: "experiencias publicadas" }],
   ])("es · %s", (id, expected) => {
     expect(figureOf("es", id)).toEqual(expected);

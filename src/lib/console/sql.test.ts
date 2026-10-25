@@ -27,7 +27,7 @@ describe("run · SELECT", () => {
   });
 
   it("is case-insensitive about keywords and names, and forgives a missing semicolon", () => {
-    expect(values("select TITLE from Projects")).toEqual([["Makineo"], ["Punch"], ["CuadroScan"], ["MakineoBeats"], ["Cabezones FC"]]);
+    expect(values("select TITLE from Projects")).toEqual([["Makineo"], ["Punch"], ["CuadroScan"], ["MakineoBeats"], ["ChutaBol"]]);
   });
 
   it("projects, filters, orders and limits", () => {
@@ -41,7 +41,7 @@ describe("run · SELECT", () => {
     expect(values("SELECT title FROM projects WHERE founder = true")).toEqual([["Makineo"]]);
     expect(values("SELECT skill FROM skills WHERE skill ILIKE 'pyt%'")).toEqual([["Python"]]);
     expect(values("SELECT title FROM projects WHERE 'Capacitor' = ANY(stack)")).toEqual([["Makineo"]]);
-    expect(values("SELECT title FROM projects WHERE site IS NULL")).toEqual([["Cabezones FC"]]);
+    expect(values("SELECT title FROM projects WHERE site IS NULL")).toEqual([["ChutaBol"]]);
     expect(values("SELECT title FROM projects WHERE stack ILIKE '%capacitor%' AND status != 'in-progress'")).toEqual([["Makineo"]]);
   });
 

@@ -223,8 +223,8 @@ const contentEN: PortfolioContent = {
       media: { src: '/work/makineobeats.jpg', alt: 'MakineoBeats web app: hero, a featured track and the genre picker' },
     },
     {
-      id: 'cabezones-fc',
-      title: 'Cabezones FC',
+      id: 'chutabol',
+      title: 'ChutaBol',
       description:
         "Satirical 5v5 football in 3D, in the browser: big-headed cartoon players, a parody Hyperbolic Superleague and a press that invents everything. Own deterministic engine and utility AI; a full match is playable from kick-off to the final whistle.",
       status: 'in-progress',
@@ -232,7 +232,7 @@ const contentEN: PortfolioContent = {
       technologies: ['TypeScript', 'Three.js', 'React Three Fiber', 'Vitest', 'Playwright'],
       features: ['10 parody franchises in one big-headed league', 'Own deterministic physics engine, fixed timestep', 'Utility-based AI, from Amateur to Legend', 'Keyboard and gamepad, remappable'],
       links: {},
-      media: { src: '/work/cabezones.jpg', alt: 'Cabezones FC main menu: the logo, the match modes and a news ticker' },
+      media: { src: '/work/chutabol.jpg', alt: 'ChutaBol main menu: the logo, the game modes and a news ticker' },
     },
   ],
 
@@ -465,8 +465,8 @@ const contentES: PortfolioContent = {
       media: { src: '/work/makineobeats.jpg', alt: 'Aplicación web de MakineoBeats: portada, un tema destacado y el selector de géneros' },
     },
     {
-      id: 'cabezones-fc',
-      title: 'Cabezones FC',
+      id: 'chutabol',
+      title: 'ChutaBol',
       description:
         "Fútbol satírico 5v5 en 3D, en el navegador: futbolistas cartoon cabezones, una Superliga Hiperbólica de parodia y una prensa que se lo inventa todo. Motor propio determinista e IA por utilidad; un partido completo se juega de principio a fin.",
       status: 'in-progress',
@@ -474,7 +474,7 @@ const contentES: PortfolioContent = {
       technologies: ['TypeScript', 'Three.js', 'React Three Fiber', 'Vitest', 'Playwright'],
       features: ['10 franquicias de parodia en una liga cabezona', 'Motor de física propio y determinista, paso fijo', 'IA por utilidad, de Amateur a Leyenda', 'Teclado y mando, con teclas remapeables'],
       links: {},
-      media: { src: '/work/cabezones.jpg', alt: 'Menú principal de Cabezones FC: el logo, los modos de partido y un teletipo de noticias' },
+      media: { src: '/work/chutabol.jpg', alt: 'Menú principal de ChutaBol: el logo, los modos de juego y un teletipo de noticias' },
     },
   ],
 
