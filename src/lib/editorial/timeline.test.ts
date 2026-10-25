@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getPortfolioContent } from "@/lib/portfolio-content";
-import { ganttLayout, parseYearRange, playheadYear, recordedFraction, splitNarrative, trajectorySegments } from "./timeline";
+import { ganttLayout, parseYearRange, splitNarrative, trajectorySegments } from "./timeline";
 
 describe("splitNarrative", () => {
   it("uses the first sentence as the kicker and keeps the rest as bullets", () => {
@@ -128,41 +128,5 @@ describe("founding stage", () => {
     // Chronological: after the AI specialisation, before Qaleon (still the current stage).
     expect(education[index - 1].year).toBe("2024-2025");
     expect(education.at(-1)?.year).toBe("2025-2026");
-  });
-});
-
-describe("recordedFraction", () => {
-  const bar = { startPct: 20, widthPct: 40 };
-
-  it("is empty before the bar, partial across it, full after it", () => {
-    expect(recordedFraction(0, bar)).toBe(0);
-    expect(recordedFraction(20, bar)).toBe(0);
-    expect(recordedFraction(40, bar)).toBeCloseTo(0.5, 10);
-    expect(recordedFraction(60, bar)).toBe(1);
-    expect(recordedFraction(100, bar)).toBe(1);
-  });
-
-  it("treats a milestone as recorded once the playhead reaches it", () => {
-    const milestone = { startPct: 70, widthPct: 0 };
-    expect(recordedFraction(69.9, milestone)).toBe(0);
-    expect(recordedFraction(70, milestone)).toBe(1);
-  });
-});
-
-describe("playheadYear", () => {
-  it("reads the year under the playhead on a 2020→2026 axis", () => {
-    expect(playheadYear(0, 2020, 2026)).toBe(2020);
-    expect(playheadYear(50, 2020, 2026)).toBe(2023);
-    expect(playheadYear(99, 2020, 2026)).toBe(2025);
-    expect(playheadYear(100, 2020, 2026)).toBe(2026);
-  });
-
-  it("stays on the axis when the playhead overshoots either end", () => {
-    expect(playheadYear(-10, 2020, 2026)).toBe(2020);
-    expect(playheadYear(140, 2020, 2026)).toBe(2026);
-  });
-
-  it("copes with an empty axis", () => {
-    expect(playheadYear(50, 2024, 2024)).toBe(2024);
   });
 });

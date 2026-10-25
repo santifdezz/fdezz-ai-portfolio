@@ -90,21 +90,3 @@ export function ganttLayout(entries: ReadonlyArray<{ year: string }>): {
     }),
   };
 }
-
-const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
-
-/**
- * How much of a Gantt bar the playhead has recorded, 0..1, with the playhead
- * and the bar both in percent of the year axis. A milestone (no width) is
- * all-or-nothing: recorded once the playhead reaches it.
- */
-export function recordedFraction(playheadPct: number, bar: Pick<GanttBar, "startPct" | "widthPct">): number {
-  if (bar.widthPct <= 0) return playheadPct >= bar.startPct ? 1 : 0;
-  return clamp01((playheadPct - bar.startPct) / bar.widthPct);
-}
-
-/** The year the playhead is over, for its readout; the axis end reads as `to`. */
-export function playheadYear(playheadPct: number, from: number, to: number): number {
-  const span = Math.max(0, to - from);
-  return from + Math.min(span, Math.floor((clamp01(playheadPct / 100) * span) + 1e-9));
-}
