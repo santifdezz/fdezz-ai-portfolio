@@ -26,8 +26,8 @@ describe("hero thesis", () => {
   });
 
   it.each([
-    ["en", "Multi-project solutions for clients across several sectors, including a multinational: 30,000+ documents and 20M+ data records processed. Founder of Makineo, a full-stack platform for the Spanish electronic music scene, with 1,000+ experiences listed."],
-    ["es", "Soluciones multiproyecto para clientes de distintos sectores, incluida una multinacional: 30.000+ documentos y 20M+ de datos procesados. Fundador de Makineo, plataforma full-stack para la escena de música electrónica española, con 1.000+ experiencias publicadas."],
+    ["en", "Multi-project solutions for clients across several sectors, including a multinational: 30,000+ documents and 20M+ data records processed. Founder of Makineo, a full-stack platform for the Spanish electronic music scene, with 900+ upcoming experiences."],
+    ["es", "Soluciones multiproyecto para clientes de distintos sectores, incluida una multinacional: 30.000+ documentos y 20M+ de datos procesados. Fundador de Makineo, plataforma full-stack para la escena de música electrónica española, con 900+ experiencias próximas."],
   ] as const)("%s: reads employer first, then the venture, built from content", (locale, expected) => {
     expect(thesisText(locale)).toBe(expected);
   });

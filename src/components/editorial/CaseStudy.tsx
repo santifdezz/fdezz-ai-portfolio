@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import type { Locale } from "@/lib/portfolio-content";
@@ -73,7 +74,11 @@ export function CaseStudy() {
         </h1>
         <p className="mt-8 max-w-[62ch] font-ui text-lg leading-relaxed text-[hsl(var(--foreground)/0.82)]">{copy.intro}</p>
 
-        <figure className="mt-14" role="img" aria-label={copy.diagramLabel}>
+        <div className="mt-12 overflow-hidden rounded-xl border border-[hsl(var(--border))]">
+          <Image src="/work/makineo.jpg" alt={copy.imageAlt} width={1500} height={938} sizes="(min-width: 1024px) 60rem, 94vw" unoptimized priority className="block h-auto w-full" />
+        </div>
+
+        <figure className="mt-10" role="img" aria-label={copy.diagramLabel}>
           <ol className="grid gap-px overflow-hidden rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--border))]">
             {copy.tiers.map((tier) => (
               <li key={tier.label} className="grid gap-3 bg-[hsl(var(--card))] p-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:items-center sm:p-5">

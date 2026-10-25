@@ -6,6 +6,7 @@ export interface CaseStudyCopy {
   lead: string;
   rest: string;
   intro: string;
+  imageAlt: string;
   diagramLabel: string;
   tiers: Array<{ label: string; items: string[] }>;
   sections: Array<{ title: string; body: string[] }>;
@@ -24,7 +25,8 @@ export const MAKINEO_CASE: Record<Locale, CaseStudyCopy> = {
     lead: "Cómo está hecho",
     rest: "Makineo.",
     intro:
-      "Makineo es una plataforma para la escena de música electrónica en España: más de 1.000 experiencias publicadas, con web, panel de administración y app Android. El repositorio es privado y no es de código abierto, así que esta página cuenta cómo está construida sin enseñar código.",
+      "Makineo es una plataforma para la escena de música electrónica en España: más de 900 experiencias próximas en 18 ciudades, con web, panel de administración y app Android. El repositorio es privado y no es de código abierto, así que esta página cuenta cómo está construida sin enseñar código.",
+    imageAlt: "Portada de makineo.es: el lema, contadores en vivo y un muro de carteles de eventos",
     diagramLabel: "Esquema de la arquitectura en tres capas: web y app Android, aplicación (Nuxt y FastAPI) y datos (PostgreSQL), con tareas en segundo plano",
     tiers: [
       { label: "Cliente", items: ["Web", "App Android"] },
@@ -71,7 +73,8 @@ export const MAKINEO_CASE: Record<Locale, CaseStudyCopy> = {
     lead: "How",
     rest: "Makineo is built.",
     intro:
-      "Makineo is a platform for Spain's electronic music scene: over 1,000 published experiences, with a website, an admin panel and an Android app. The repository is private and not open source, so this page explains how it is built without showing code.",
+      "Makineo is a platform for Spain's electronic music scene: over 900 upcoming experiences in 18 cities, with a website, an admin panel and an Android app. The repository is private and not open source, so this page explains how it is built without showing code.",
+    imageAlt: "The makineo.es home page: the tagline, live counters and a wall of event posters",
     diagramLabel: "Architecture sketch in three layers: web and Android app, application (Nuxt and FastAPI) and data (PostgreSQL), with background jobs",
     tiers: [
       { label: "Client", items: ["Web", "Android app"] },

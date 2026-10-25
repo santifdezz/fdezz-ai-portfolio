@@ -26,7 +26,7 @@ ES = dict(
  lang="es", file="santiago-fernandez-cv-es", role="Data Scientist",
  contact=["Madrid, España", "santifdezseo@gmail.com", "sfseoane.es", "linkedin.com/in/santifdezseo"],
  profile_h="Perfil",
- profile="Data Scientist con experiencia en producción: sistemas RAG, pipelines ETL orquestados con Airflow y modelos de visión, en proyectos con clientes de distintos sectores, incluido un cliente multinacional. Fundador de Makineo, plataforma real con más de 1.000 experiencias publicadas. Trabajo con Python, SQL y TypeScript, y me ocupo de la solución completa: investigación previa, infraestructura y cumplimiento.",
+ profile="Data Scientist con experiencia en producción: sistemas RAG, pipelines ETL orquestados con Airflow y modelos de visión, en proyectos con clientes de distintos sectores, incluido un cliente multinacional. Fundador de Makineo, plataforma real con más de 900 experiencias próximas. Trabajo con Python, SQL y TypeScript, y me ocupo de la solución completa: investigación previa, infraestructura y cumplimiento.",
  exp_h="Experiencia profesional",
  exp=[
   ("Data Scientist", "Qaleon Solutions · Consultoría de IA, Madrid", "2025 – Actualidad", [
@@ -35,7 +35,7 @@ ES = dict(
     "Responsable de la investigación previa y de la búsqueda de los recursos que necesita cada solución; apoyo y mantenimiento de la infraestructura (Docker, entornos de producción) y cumplimiento de ISO 27001.",
     "Optimización de consultas a bases de datos y colaboración directa con clientes."]),
   ("Fundador", "Makineo · Plataforma de música electrónica en España", "Junio 2025 – Actualidad", [
-    "Plataforma full-stack para la escena de música electrónica española con más de 1.000 experiencias publicadas, panel de administración propio y app móvil nativa.",
+    "Plataforma full-stack para la escena de música electrónica española con más de 900 experiencias próximas, panel de administración propio y app móvil nativa.",
     "Nuxt, Vue, TypeScript, FastAPI, PostgreSQL, Capacitor y pruebas E2E con Playwright."]),
   ("Quality Assurance (prácticas, grado superior)", "Merlin Software", "Abril – Junio 2024", [
     "Pruebas automatizadas con Cypress, Karate, JMeter y Appium; optimización de los flujos de testing e informe detallado de incidencias en tiempo real."]),
@@ -68,7 +68,7 @@ EN = dict(
  lang="en", file="santiago-fernandez-cv-en", role="Data Scientist",
  contact=["Madrid, Spain", "santifdezseo@gmail.com", "sfseoane.es", "linkedin.com/in/santifdezseo"],
  profile_h="Profile",
- profile="Data Scientist with production experience: RAG systems, ETL pipelines orchestrated with Airflow and vision models, on projects for clients across several sectors, including a multinational client. Founder of Makineo, a live platform with over 1,000 published experiences. I work in Python, SQL and TypeScript and own the whole solution: prior research, infrastructure and compliance.",
+ profile="Data Scientist with production experience: RAG systems, ETL pipelines orchestrated with Airflow and vision models, on projects for clients across several sectors, including a multinational client. Founder of Makineo, a live platform with over 900 upcoming experiences. I work in Python, SQL and TypeScript and own the whole solution: prior research, infrastructure and compliance.",
  exp_h="Professional experience",
  exp=[
   ("Data Scientist", "Qaleon Solutions · AI Consulting, Madrid", "2025 – Present", [
@@ -77,7 +77,7 @@ EN = dict(
     "Owned the prior research and the sourcing of the resources each solution needs; supported and maintained the infrastructure (Docker, production environments) and ISO 27001 compliance.",
     "Database query optimisation and direct collaboration with clients."]),
   ("Founder", "Makineo · Electronic music platform in Spain", "June 2025 – Present", [
-    "Full-stack platform for the Spanish electronic music scene with 1,000+ published experiences, a custom admin panel and a native mobile app.",
+    "Full-stack platform for the Spanish electronic music scene with 900+ upcoming experiences, a custom admin panel and a native mobile app.",
     "Nuxt, Vue, TypeScript, FastAPI, PostgreSQL, Capacitor and end-to-end tests with Playwright."]),
   ("Quality Assurance (internship)", "Merlin Software", "April – June 2024", [
     "Automated tests with Cypress, Karate, JMeter and Appium; streamlined testing flows and real-time incident reporting."]),

@@ -75,7 +75,7 @@ describe("projectPitch", () => {
 describe("thesisFacts", () => {
   it("reads the venture's figure and the latest employer from content", () => {
     expect(thesisFacts(getPortfolioContent("en"))).toEqual({
-      venture: { name: "Makineo", figure: "1,000+ experiences listed", pitch: "full-stack platform for the Spanish electronic music scene" },
+      venture: { name: "Makineo", figure: "900+ upcoming experiences", pitch: "full-stack platform for the Spanish electronic music scene" },
       employer: "Qaleon Solutions",
       impact: "Multi-project solutions for clients across several sectors, including a multinational: 30,000+ documents and 20M+ data records processed",
     });
