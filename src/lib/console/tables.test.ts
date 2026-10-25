@@ -36,7 +36,7 @@ describe("buildDatabase", () => {
   it("reads projects with their headline figure and links", () => {
     const makineo = rowsOf("projects").find((p) => p.id === "makineo");
     expect(makineo).toMatchObject({ founder: true, figure: "1,000+ experiences listed", site: "https://makineo.es" });
-    expect(rowsOf("projects").find((p) => p.id === "agiency")).toMatchObject({ founder: false, site: null });
+    expect(rowsOf("projects").find((p) => p.id === "punch")).toMatchObject({ founder: false, site: "https://punch.sfseoane.es" });
   });
 
   it("has one skills row per skill and one stage row per stage", () => {
