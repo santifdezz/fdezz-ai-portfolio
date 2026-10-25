@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, BookOpen, Github, Globe } from "lucide-react";
 import type { MotionValue } from "framer-motion";
@@ -73,7 +74,13 @@ export function ProjectSlide({ project, index, total, copy, cursorLabel, live, r
         {figure ? (
           <figure>
             {figure.pre && <p className="mb-2 font-mono text-[10.5px] uppercase tracking-[0.2em] opacity-80">({figure.pre})</p>}
-            <p className="pl-[0.06em] font-display text-[clamp(4.25rem,22vw,8.5rem)] font-light italic leading-[0.82] tracking-[-0.045em] [font-variant-numeric:lining-nums_proportional-nums] pinned:text-[clamp(4.5rem,10.5vw,10rem)]">
+            <p
+              className={`pl-[0.06em] font-display font-light italic leading-[0.82] tracking-[-0.045em] [font-variant-numeric:lining-nums_proportional-nums] ${
+                project.media
+                  ? "text-[clamp(3rem,13vw,5.5rem)] pinned:text-[clamp(3.25rem,5.6vw,6rem)]"
+                  : "text-[clamp(4.25rem,22vw,8.5rem)] pinned:text-[clamp(4.5rem,10.5vw,10rem)]"
+              }`}
+            >
               <Odometer value={figure.value} live={live} />
             </p>
             <figcaption className="mt-3 max-w-[18ch] font-display text-[clamp(1.15rem,1.7vw,1.6rem)] italic leading-tight">
@@ -91,6 +98,12 @@ export function ProjectSlide({ project, index, total, copy, cursorLabel, live, r
           </figure>
         ) : (
           <p className="font-display text-[clamp(4.5rem,10vw,9rem)] font-light italic leading-none">{pad2(index + 1)}</p>
+        )}
+
+        {project.media && (
+          <div className="overflow-hidden rounded-md border border-current/25 shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)]">
+            <Image src={project.media.src} alt={project.media.alt} width={1500} height={938} sizes="(min-width: 768px) 30rem, 90vw" unoptimized className="block h-auto w-full" />
+          </div>
         )}
       </div>
 

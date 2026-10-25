@@ -22,14 +22,16 @@ const figureOf = (locale: "en" | "es", id: string) => {
 
 describe("getProjectFigure — real content", () => {
   it.each([
-    ["ufc-data", { pre: "", value: "3,600+", label: "events" }],
+    ["makineobeats", { pre: "", value: "16", label: "genres, each one a pack" }],
+    ["cabezones-fc", { pre: "", value: "10", label: "parody franchises in one big-headed league" }],
     ["makineo", { pre: "", value: "1,000+", label: "experiences listed" }],
   ])("en · %s", (id, expected) => {
     expect(figureOf("en", id)).toEqual(expected);
   });
 
   it.each([
-    ["ufc-data", { pre: "", value: "3.600+", label: "eventos" }],
+    ["makineobeats", { pre: "", value: "16", label: "géneros, cada uno es un pack" }],
+    ["cabezones-fc", { pre: "", value: "10", label: "franquicias de parodia en una liga cabezona" }],
     ["makineo", { pre: "", value: "1.000+", label: "experiencias publicadas" }],
   ])("es · %s", (id, expected) => {
     expect(figureOf("es", id)).toEqual(expected);
@@ -121,13 +123,17 @@ describe("getProjectFigure — edge cases", () => {
 });
 
 describe("getProjectFigures", () => {
-  it("lists every figure the UFC pipeline quotes, largest first, each value once", () => {
-    const ufc = getPortfolioContent("en").projects.find((p) => p.id === "ufc-data")!;
+  const ufc = project({
+    description:
+      "ETL pipeline extracting 20+ years of UFC data: 3,600+ events, 1,500+ fighters. Cleans, normalises, and feeds an ML classification model targeting 65%+ accuracy for fight outcome prediction using 50+ fighter features.",
+    features: ["Full ETL pipeline (extract → transform → load)", "ML classification model (in progress)", "50+ engineered features per fighter", "Automated data refresh"],
+  });
+
+  it("lists every figure a data-pipeline project quotes, largest first, each value once", () => {
     expect(getProjectFigures(ufc).map((f) => f.value)).toEqual(["3,600+", "1,500+", "65%+", "50+", "20+"]);
   });
 
   it("keeps the feature's phrasing when the description repeats a value", () => {
-    const ufc = getPortfolioContent("en").projects.find((p) => p.id === "ufc-data")!;
     expect(getProjectFigures(ufc).find((f) => f.value === "50+")).toEqual({
       pre: "",
       value: "50+",

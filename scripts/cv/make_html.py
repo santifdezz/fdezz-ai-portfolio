@@ -46,7 +46,7 @@ ES = dict(
  proj=[
   ("Punch", "punch.sfseoane.es", "Revisor de UI/UX: mide SEO, accesibilidad y Web Vitals en un navegador real y un modelo de visión anota la captura. FastAPI, Nuxt, PostgreSQL, Playwright."),
   ("CuadroScan", "cuadroscan.sfseoane.es", "De la foto del cuadro eléctrico a la revisión contra el REBT: la IA solo lee y un motor de reglas determinista decide, citando el artículo. FastAPI."),
-  ("UFC Data Pipeline", "", "ETL con más de 3.600 eventos y 1.500 luchadores y 50+ características por luchador para un modelo de clasificación. Python, Scikit-learn, PostgreSQL."),
+  ("MakineoBeats", "beats.makineo.es", "Motor procedural de música electrónica: patrones, síntesis propia y mezcla; la misma escena y la misma seed dan siempre el mismo audio. 16 géneros. Python, FastAPI."),
  ],
  edu_h="Formación",
  edu=[
@@ -88,7 +88,7 @@ EN = dict(
  proj=[
   ("Punch", "punch.sfseoane.es", "UI/UX reviewer: measures SEO, accessibility and Web Vitals in a real browser, and a vision model annotates the screenshot. FastAPI, Nuxt, PostgreSQL, Playwright."),
   ("CuadroScan", "cuadroscan.sfseoane.es", "From a photo of an electrical panel to a Spanish REBT compliance review: the AI only reads, a deterministic rules engine decides and cites the article. FastAPI."),
-  ("UFC Data Pipeline", "", "ETL over 3,600+ events and 1,500+ fighters with 50+ features per fighter for a classification model. Python, Scikit-learn, PostgreSQL."),
+  ("MakineoBeats", "beats.makineo.es", "Procedural electronic-music engine: patterns, own synthesis and mixing; the same scene and seed always render the same audio. 16 genres. Python, FastAPI."),
  ],
  edu_h="Education",
  edu=[

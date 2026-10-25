@@ -29,6 +29,8 @@ export interface ProjectData {
     /** Internal page that explains how it is built (for work whose code is private). */
     caseStudy?: string;
   };
+  /** A screenshot shown on the project's plate (in /public/work). */
+  media?: { src: string; alt: string };
   /** Set when Santiago founded the project, not only built it. */
   role?: 'founder';
 }
@@ -164,19 +166,6 @@ const contentEN: PortfolioContent = {
 
   projects: [
     {
-      id: 'ufc-data',
-      title: 'UFC Data Pipeline',
-      description:
-        'ETL pipeline extracting 20+ years of UFC data: 3,600+ events, 1,500+ fighters. Cleans, normalises, and feeds an ML classification model targeting 65%+ accuracy for fight outcome prediction using 50+ fighter features.',
-      status: 'in-progress',
-      statusColor: 'yellow',
-      technologies: ['Python', 'BeautifulSoup', 'Scikit-learn', 'Pandas', 'PostgreSQL'],
-      features: ['Full ETL pipeline (extract → transform → load)', 'ML classification model (in progress)', '50+ engineered features per fighter', 'Automated data refresh'],
-      links: {
-        github: 'https://github.com/santifdezz/ufc-etl',
-      },
-    },
-    {
       id: 'makineo',
       title: 'Makineo',
       description:
@@ -203,6 +192,7 @@ const contentEN: PortfolioContent = {
       links: {
         demo: 'https://punch.sfseoane.es',
       },
+      media: { src: '/work/punch.jpg', alt: 'Punch showcase: a gallery of finished audits with their scores' },
     },
     {
       id: 'cuadroscan',
@@ -216,6 +206,31 @@ const contentEN: PortfolioContent = {
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },
+    },
+    {
+      id: 'makineobeats',
+      title: 'MakineoBeats',
+      description:
+        "Procedural electronic-music engine: patterns, own synthesis and mixing, with an optional ML layer. The same scene and seed always render the same audio. Each genre is a plug-in pack, so a new one needs no change to the core.",
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Python', 'FastAPI', 'Audio synthesis', 'MIDI', 'Docker'],
+      features: ['16 genres, each one a pack', 'Same scene and seed give the same audio, always', 'Own synthesis, no samples', 'CLI, API and web interface'],
+      links: {
+        demo: 'https://beats.makineo.es',
+      },
+      media: { src: '/work/makineobeats.jpg', alt: 'MakineoBeats web app: hero, a featured track and the genre picker' },
+    },
+    {
+      id: 'cabezones-fc',
+      title: 'Cabezones FC',
+      description:
+        "Satirical 5v5 football in 3D, in the browser: big-headed cartoon players, a parody Hyperbolic Superleague and a press that invents everything. Own deterministic engine and utility AI; a full match is playable from kick-off to the final whistle.",
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['TypeScript', 'Three.js', 'React Three Fiber', 'Vitest', 'Playwright'],
+      features: ['10 parody franchises in one big-headed league', 'Own deterministic physics engine, fixed timestep', 'Utility-based AI, from Amateur to Legend', 'Keyboard and gamepad, remappable'],
+      links: {},
     },
     {
       id: 'agiency',
@@ -402,19 +417,6 @@ const contentES: PortfolioContent = {
 
   projects: [
     {
-      id: 'ufc-data',
-      title: 'UFC Data Pipeline',
-      description:
-        'Pipeline ETL que extrae más de 20 años de datos de UFC: 3.600+ eventos, 1.500+ luchadores. Limpia, normaliza y alimenta un modelo ML de clasificación con objetivo de >65% de precisión en predicción de resultados usando 50+ características por luchador.',
-      status: 'in-progress',
-      statusColor: 'yellow',
-      technologies: ['Python', 'BeautifulSoup', 'Scikit-learn', 'Pandas', 'PostgreSQL'],
-      features: ['Pipeline ETL completo (extracción → transformación → carga)', 'Modelo ML de clasificación (en progreso)', '50+ características por luchador', 'Actualización automática de datos'],
-      links: {
-        github: 'https://github.com/santifdezz/ufc-etl',
-      },
-    },
-    {
       id: 'makineo',
       title: 'Makineo',
       description:
@@ -441,6 +443,7 @@ const contentES: PortfolioContent = {
       links: {
         demo: 'https://punch.sfseoane.es',
       },
+      media: { src: '/work/punch.jpg', alt: 'Galería de Punch: auditorías ya hechas con su puntuación' },
     },
     {
       id: 'cuadroscan',
@@ -454,6 +457,31 @@ const contentES: PortfolioContent = {
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },
+    },
+    {
+      id: 'makineobeats',
+      title: 'MakineoBeats',
+      description:
+        "Motor procedural de música electrónica: patrones, síntesis propia y mezcla, con una capa de ML opcional. La misma escena y la misma seed dan siempre el mismo audio. Cada género es un pack, así que añadir uno no toca el núcleo.",
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['Python', 'FastAPI', 'Síntesis de audio', 'MIDI', 'Docker'],
+      features: ['16 géneros, cada uno es un pack', 'Misma escena y seed, mismo audio, siempre', 'Síntesis propia, sin samples', 'CLI, API e interfaz web'],
+      links: {
+        demo: 'https://beats.makineo.es',
+      },
+      media: { src: '/work/makineobeats.jpg', alt: 'Aplicación web de MakineoBeats: portada, un tema destacado y el selector de géneros' },
+    },
+    {
+      id: 'cabezones-fc',
+      title: 'Cabezones FC',
+      description:
+        "Fútbol satírico 5v5 en 3D, en el navegador: futbolistas cartoon cabezones, una Superliga Hiperbólica de parodia y una prensa que se lo inventa todo. Motor propio determinista e IA por utilidad; un partido completo se juega de principio a fin.",
+      status: 'in-progress',
+      statusColor: 'yellow',
+      technologies: ['TypeScript', 'Three.js', 'React Three Fiber', 'Vitest', 'Playwright'],
+      features: ['10 franquicias de parodia en una liga cabezona', 'Motor de física propio y determinista, paso fijo', 'IA por utilidad, de Amateur a Leyenda', 'Teclado y mando, con teclas remapeables'],
+      links: {},
     },
     {
       id: 'agiency',
