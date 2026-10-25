@@ -206,6 +206,7 @@ const contentEN: PortfolioContent = {
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },
+      media: { src: '/work/cuadroscan.jpg', alt: 'CuadroScan: result of a panel review with the single-line diagram and a non-compliance stamp' },
     },
     {
       id: 'makineobeats',
@@ -231,6 +232,7 @@ const contentEN: PortfolioContent = {
       technologies: ['TypeScript', 'Three.js', 'React Three Fiber', 'Vitest', 'Playwright'],
       features: ['10 parody franchises in one big-headed league', 'Own deterministic physics engine, fixed timestep', 'Utility-based AI, from Amateur to Legend', 'Keyboard and gamepad, remappable'],
       links: {},
+      media: { src: '/work/cabezones.jpg', alt: 'Cabezones FC main menu: the logo, the match modes and a news ticker' },
     },
     {
       id: 'agiency',
@@ -457,6 +459,7 @@ const contentES: PortfolioContent = {
       links: {
         demo: 'https://cuadroscan.sfseoane.es',
       },
+      media: { src: '/work/cuadroscan.jpg', alt: 'CuadroScan: resultado de la revisión de un cuadro con el esquema unifilar y un sello de no conforme' },
     },
     {
       id: 'makineobeats',
@@ -482,6 +485,7 @@ const contentES: PortfolioContent = {
       technologies: ['TypeScript', 'Three.js', 'React Three Fiber', 'Vitest', 'Playwright'],
       features: ['10 franquicias de parodia en una liga cabezona', 'Motor de física propio y determinista, paso fijo', 'IA por utilidad, de Amateur a Leyenda', 'Teclado y mando, con teclas remapeables'],
       links: {},
+      media: { src: '/work/cabezones.jpg', alt: 'Menú principal de Cabezones FC: el logo, los modos de partido y un teletipo de noticias' },
     },
     {
       id: 'agiency',
